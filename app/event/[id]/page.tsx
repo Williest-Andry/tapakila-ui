@@ -1,30 +1,26 @@
-import getEventById from "./fetchEvent";
+import { AbsoluteCenter, Box, Button, Center, Container, Flex, Heading, Image, Stack, Table, Wrap } from "@chakra-ui/react";
+import HeroEvent from "./heroEvent";
+import TicketsTable from "./ticketsTable";
+import SimilarEvents from "./similarEvents";
 
 export default async function Event({ params }) {
-    const { id } = await params;
-    const events = getEventById();
+    const tickets: string[] = ["silver", "gold", "vip"];
+    const similarEvents: string[] = ["silver", "gold", "vip"];
 
     return (
-        <div>
-            <section>
-                <img alt="Event image"></img>
-                <div>
-                    <div>
-                        <h1>Title</h1>
-                        <p>Categories</p>
-                        <h3>Place</h3>
-                        <h3>Date</h3>
-                        <h3>Organizer</h3>
-                    </div>
-                    <div>
-                        COMPTEUR
-                    </div>
-                </div>
-            </section>
+        <Container>
+            <HeroEvent />
 
-            <section></section>
-            
-            <section></section>
-        </div>
+            <TicketsTable tickets={tickets}/>
+
+            <Center>
+                <Button colorPalette="blue" variant="outline" size="lg" w="10vw">
+                    <a href="#">Réserver</a>
+                </Button>
+            </Center>
+
+            <SimilarEvents similarEvent={similarEvents}/>
+
+        </Container>
     )
 }
