@@ -6,7 +6,7 @@ type Ticket = {
 
 export default function TicketsTable({tickets}: Ticket) {
     return (
-        <Center>
+        <Center mb="8vh">
             <Table.Root size="lg" interactive variant="outline" w="45vw" >
                 <Table.Header>
                     <Table.Row>

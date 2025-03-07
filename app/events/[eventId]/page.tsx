@@ -2,6 +2,7 @@ import { Button, Center, Container} from "@chakra-ui/react";
 import HeroEvent from "./heroEvent";
 import TicketsTable from "./ticketsTable";
 import SimilarEvents from "./similarEvents";
+import EventDescription from "./eventDescriptions";
 
 export default async function EventPage({ params }: { params: Promise<{ eventId: string }>; }) {
     const eventId = (await params).eventId;
@@ -9,26 +10,21 @@ export default async function EventPage({ params }: { params: Promise<{ eventId:
     const tickets: string[] = ["silver", "gold", "vip"];
     const similarEvents: string[] = ["silver", "gold", "vip"];
     const categories: string[] = ["Live"];
+    const events: string[] = ["test"];
 
     return (
         <Container>
             <HeroEvent />
 
-            <br></br>
-            <br></br>
+            <EventDescription events={events}/>
 
             <TicketsTable tickets={tickets}/>
 
-            <br></br>
-            <br></br>
-
-            <Center>
+            <Center mb="10vh">
                 <Button colorPalette="blue" variant="outline" size="lg" w="10vw">
                     <a href="#">Réserver</a>
                 </Button>
             </Center>
-
-            <br></br>
 
             <SimilarEvents similarEvent={similarEvents}/>
 
