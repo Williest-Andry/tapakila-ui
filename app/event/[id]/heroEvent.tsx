@@ -2,7 +2,7 @@ import { Flex, Stack, Heading, Wrap, Image } from "@chakra-ui/react";
 
 export default function HeroEvent() {
     return (
-        <Flex justify="space-around">
+        <Flex justify="space-around" mb="10vh">
             <Image rounded="md" src="https://bit.ly/dan-abramov" alt="Event image" htmlWidth="500px" htmlHeight="500px"></Image>
 
             <Flex gap="25vh" direction="column" width="50%">
