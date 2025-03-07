@@ -1,7 +1,11 @@
 import { Center, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot, } from "@/components/ui/accordion";
 
-export default function EventDescription() {
+type Event ={
+    events: string[]
+}
+
+export default function EventDescription({events}: Event) {
     return (
         <Flex mb="10vh" ml="5vw" direction="column">
             <Heading size="3xl" mb="3vh">TITLE</Heading>
