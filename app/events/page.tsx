@@ -1,5 +1,5 @@
 "use-client"
-import getAllEvents from './getAllEvents';
+import getAllEvents from '../../lib/getAllEvents';
 import Link from 'next/link';
 import React from 'react'
 
