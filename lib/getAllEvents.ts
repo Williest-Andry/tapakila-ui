@@ -5,5 +5,5 @@ export default async function getAllEvents() {
       throw new Error(res.statusText)
     }
   
-    return res.json()
+    return await res.json()
   }

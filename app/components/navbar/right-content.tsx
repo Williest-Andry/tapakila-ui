@@ -25,12 +25,11 @@ export default function RightNavbarContent(){
                     colorScheme="purple"
                     rounded="full"
                     size={"md"}
-                    
                 >
                     <FaSearch color="purple"/>
                 </IconButton>}
             >
-                <Input variant={"subtle"} placeholder="Search..." css={{ "--focus-color": "purple" }}/>
+                <Input variant={"subtle"} placeholder="Search..." css={{ "--focus-color": "purple" }} _hover={{background: "rgb(0, 0, 0, 0.1)"}} transition={"all 0.15s ease-in-out"}/>
             </InputGroup>
             <IconButton 
                 aria-label="search"
@@ -42,8 +41,8 @@ export default function RightNavbarContent(){
                 <FaBell color="purple"/>
             </IconButton>
             <Avatar.Root>
-                <Avatar.Fallback name="Segun Adebayo" />
-                <Avatar.Image src="https://bit.ly/sage-adebayo" />
+                <Avatar.Fallback name="Tsy Haiko" />
+                {/*<Avatar.Image src="" />*/}
             </Avatar.Root>
             <ColorModeToggle />
         </Flex>

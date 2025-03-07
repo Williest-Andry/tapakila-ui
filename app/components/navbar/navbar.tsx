@@ -12,6 +12,7 @@ export default function Navbar() {
         justifyContent="space-between" 
         px={4} 
         py={4}
+        borderBottom={"1px solid rgba(128, 128, 128, 0.2)"}
         >
         <LeftNavbarContent />
         <RightNavbarContent />
