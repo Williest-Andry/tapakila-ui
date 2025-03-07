@@ -25,9 +25,7 @@ interface Event {
 export default async function Page() {
   return (
     <>
-      <HStack w={"full"}>
-        
-      </HStack>
+      
     </>
   )
 }
