@@ -3,7 +3,9 @@ import HeroEvent from "./heroEvent";
 import TicketsTable from "./ticketsTable";
 import SimilarEvents from "./similarEvents";
 
-export default async function Event({ params }) {
+export default async function EventPage({ params }: { params: Promise<{ eventId: string }>; }) {
+    const eventId = (await params).eventId;
+
     const tickets: string[] = ["silver", "gold", "vip"];
     const similarEvents: string[] = ["silver", "gold", "vip"];
     const categories: string[] = ["Live"];
