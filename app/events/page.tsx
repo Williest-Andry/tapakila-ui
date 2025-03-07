@@ -1,3 +1,4 @@
+"use-client"
 import getAllEvents from './getAllEvents';
 import Link from 'next/link';
 import React from 'react'
