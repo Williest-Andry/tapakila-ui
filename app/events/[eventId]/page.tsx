@@ -2,9 +2,11 @@ import { Button, Center, Container} from "@chakra-ui/react";
 import HeroEvent from "./heroEvent";
 import TicketsTable from "./ticketsTable";
 import SimilarEvents from "./similarEvents";
-import EventDescription from "./eventDescription";
+import EventDescription from "./eventDescriptions";
 
-export default async function Event({ params }) {
+export default async function EventPage({ params }: { params: Promise<{ eventId: string }>; }) {
+    const eventId = (await params).eventId;
+
     const tickets: string[] = ["silver", "gold", "vip"];
     const similarEvents: string[] = ["silver", "gold", "vip"];
     const categories: string[] = ["Live"];
