@@ -17,6 +17,7 @@ export default function RightNavbarContent(){
                 <FaSearch color="purple"/>
             </IconButton>
             <InputGroup 
+                width={"400px"}
                 flex="1"
                 display={{base: "none", md:"flex"}}
                 endElement={<IconButton 
