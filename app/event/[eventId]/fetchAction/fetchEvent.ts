@@ -1,3 +1,5 @@
-export default function getEventById():string[] {
-    return ["mandeha", "haha"];
+import { Event } from "./dateType";
+
+export default function getEventById(eventId: string):Event {
+    return {};
 }

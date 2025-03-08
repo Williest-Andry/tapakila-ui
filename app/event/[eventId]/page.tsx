@@ -3,22 +3,22 @@ import HeroEvent from "./components/heroEvent";
 import TicketsTable from "./components/ticketsTable";
 import SimilarEvents from "./components/similarEvents";
 import EventDescription from "./components/eventDescriptions";
-import { Event2 } from "./fetchAction/dateType";
+import { Event, Ticket } from "./fetchAction/dateType";
+import getEventById from "./fetchAction/fetchEvent";
+import getTickets from "./fetchAction/fetchTickets";
+import getSimilarEvents from "./fetchAction/fetchSimilarEvent";
 
 export default async function EventPage({ params }: { params: Promise<{ eventId: string }> }) {
     const eventId = (await params).eventId;
-    const tickets: string[] = ["silver", "gold", "vip"];
-    const similarEvents: string[] = ["silver", "gold", "vip"];
-    const events: string[] = ["test"];
-    const event:Event2 = {
-        id: ""
-    }
+    const event: Event = getEventById(eventId);
+    const tickets: Ticket[] = getTickets(eventId);
+    const similarEvents: Event[] = getSimilarEvents(eventId);
 
     return (
         <Container>
-            <HeroEvent events={events}/>
+            <HeroEvent event={event}/>
 
-            <EventDescription events={events}/>
+            <EventDescription event={event}/>
 
             <TicketsTable tickets={tickets}/>
 

@@ -1,12 +1,10 @@
 import { Container, Heading, Flex, Box, Image, Icon, Link } from "@chakra-ui/react";
 import { FaClock, FaRegCalendarAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import { Event } from "../fetchAction/dateType";
 
-type SimilarEvent = {
-    similarEvent: string[]
-}
 
-export default function SimilarEvents({ similarEvent }: SimilarEvent) {
+export default function SimilarEvents({ similarEvent }: {similarEvent:Event[]}) {
     return (
         <Container w="99vw" ml="-2vw" p="0">
             <Heading ml="0vw" mb="2vw">ÉVÉNEMENTS DE MÊME CATÉGORIE </Heading>

@@ -2,12 +2,10 @@ import { Flex, Stack, Heading, Wrap, Image, Icon } from "@chakra-ui/react";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa";
 import { FaUserCog } from "react-icons/fa";
+import { Event } from "../fetchAction/dateType";
 
-type Event ={
-    events: string[]
-}
 
-export default function HeroEvent({events}: Event) {
+export default function HeroEvent({event}: {event: Event}) {
     return (
         <Flex justify="space-around" mb="10vh">
             <Image rounded="md" src="https://imagedelivery.net/9bJyCbB5zXavioY-Ay5L6w/ticketplace/image/event/3113jo25e5784M08656pp7WE38974C/w=450,h=600" alt="Event image" htmlWidth="500px" htmlHeight="500px"></Image>

@@ -3,12 +3,10 @@
 import { Center, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot, } from "@/components/ui/accordion";
 import { useState } from "react";
+import { Event } from "../fetchAction/dateType";
 
-type Event ={
-    events: string[]
-}
 
-export default function EventDescription({events}: Event) {
+export default function EventDescription({event}: {event: Event}) {
     const [toggleWord, setToggleWord] = useState("Voir plus");
     const handleToggleWord = () =>  toggleWord == "Voir plus"? setToggleWord("Voir moins") : setToggleWord("Voir plus");
     const description = "If anyone thinks he is something when he is nothing, he deceives himself. Each one should test his own actions. Then he can take pride in himself, without comparing himself to anyone else.";
