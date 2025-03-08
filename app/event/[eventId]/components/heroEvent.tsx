@@ -3,7 +3,11 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa";
 import { FaUserCog } from "react-icons/fa";
 
-export default function HeroEvent() {
+type Event ={
+    events: string[]
+}
+
+export default function HeroEvent({events}: Event) {
     return (
         <Flex justify="space-around" mb="10vh">
             <Image rounded="md" src="https://imagedelivery.net/9bJyCbB5zXavioY-Ay5L6w/ticketplace/image/event/3113jo25e5784M08656pp7WE38974C/w=450,h=600" alt="Event image" htmlWidth="500px" htmlHeight="500px"></Image>

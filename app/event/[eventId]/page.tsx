@@ -1,20 +1,22 @@
 import { Button, Center, Container} from "@chakra-ui/react";
-import HeroEvent from "./heroEvent";
-import TicketsTable from "./ticketsTable";
-import SimilarEvents from "./similarEvents";
-import EventDescription from "./eventDescriptions";
+import HeroEvent from "./components/heroEvent";
+import TicketsTable from "./components/ticketsTable";
+import SimilarEvents from "./components/similarEvents";
+import EventDescription from "./components/eventDescriptions";
+import { Event2 } from "./fetchAction/dateType";
 
-export default async function EventPage({ params }: { params: Promise<{ eventId: string }>; }) {
+export default async function EventPage({ params }: { params: Promise<{ eventId: string }> }) {
     const eventId = (await params).eventId;
-
     const tickets: string[] = ["silver", "gold", "vip"];
     const similarEvents: string[] = ["silver", "gold", "vip"];
-    const categories: string[] = ["Live"];
     const events: string[] = ["test"];
+    const event:Event2 = {
+        id: ""
+    }
 
     return (
         <Container>
-            <HeroEvent />
+            <HeroEvent events={events}/>
 
             <EventDescription events={events}/>
 
