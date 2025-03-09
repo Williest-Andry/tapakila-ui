@@ -4,7 +4,9 @@ import {
   Box,
   createListCollection,
   Flex,
+  Grid,
   Heading,
+  HStack,
 } from "@chakra-ui/react"
 
 import {
@@ -55,8 +57,8 @@ export default function Page() {
 
     return (
     <>
-      <Flex alignItems="center" gap={5} mt={2} mb={2}>
-        <Heading size={"2xl"} marginLeft={"20"} marginRight={"20"}>Upcoming events</Heading>
+      <Grid templateColumns="repeat(auto-fit, minmax(200px, 1fr))" gap={3} padding="1" mt={"3"} alignItems={"center"} justifyContent={"center"}>
+        <Heading size={"2xl"} marginLeft={"5"} marginRight={"1"}>Upcoming events</Heading>
         <Box display="flex" gap="4" alignItems={"center"}>
           <SelectRoot
             collection={dates}
@@ -120,7 +122,7 @@ export default function Page() {
             </SelectContent>
           </SelectRoot>
         </Box>
-      </Flex>
+      </Grid>
       
       {/* List of events */}
 
