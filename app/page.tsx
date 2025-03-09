@@ -20,6 +20,7 @@ import {
 
 import { useEffect, useState } from "react";
 import EventsList from "./components/events-list";
+import { log } from "console";
 
 export interface Event {
   id: string;
@@ -37,23 +38,10 @@ interface EventsListProps {
 
 export default function Page() {
     const [eventsData, setEventsData] = useState<Event[]>([])
-    const [selectedPlace, setSelectedPlace] = useState<string[]>()
-    const [selectedDate, setSelectedDate] = useState<string[]>()
-    const [selectedCategory, setSelectedCategory] = useState<string[]>()
 
-    useEffect(() => {
-      const fetchEvents = async () => {
-        try {
-          const response = await fetch('https://jsonplaceholder.typicode.com/users', { next: {revalidate: 60} })
-        const events = await response.json()
-          setEventsData(events)
-        } catch (error) {
-          console.error('Failed to fetch events', error)
-        }
-      }
-  
-      fetchEvents()
-    }, [])
+    const [selectedDate, setSelectedDate] = useState<string[]>(["Upcoming"])
+    const [selectedPlace, setSelectedPlace] = useState<string[]>(["All"])
+    const [selectedCategory, setSelectedCategory] = useState<string[]>(["All"])
 
     return (
     <>
@@ -64,8 +52,7 @@ export default function Page() {
             collection={dates}
             width="320px"
             value={selectedDate}
-            onValueChange={(e) => setSelectedDate(e.value)}
-            defaultValue={["Upcoming"]}
+            onValueChange={(e) => {setSelectedDate(e.value)}}
           >
             <SelectLabel>Date</SelectLabel>
             <SelectTrigger>
@@ -86,7 +73,6 @@ export default function Page() {
             width="320px"
             value={selectedPlace}
             onValueChange={(e) => setSelectedPlace(e.value)}
-            defaultValue={["All"]}
           >
             <SelectLabel>Place</SelectLabel>
             <SelectTrigger>
@@ -107,7 +93,6 @@ export default function Page() {
             width="320px"
             value={selectedCategory}
             onValueChange={(e) => setSelectedCategory(e.value)}
-            defaultValue={["All"]}
           >
             <SelectLabel>Category</SelectLabel>
             <SelectTrigger>
@@ -126,7 +111,7 @@ export default function Page() {
       
       {/* List of events */}
 
-      <EventsList events={events} />
+      <EventsList events={eventsData} />
     </>
     )
 }
@@ -164,54 +149,65 @@ const events: Event[] = [
     id: '1',
     image: '/assets/events_image/pexels-apasaric-2341830.jpg',
     title: 'Jazz concert',
-    dateTime: '15-04-2025 18:00:00',
-    location: 'Paris,Le Zenith',
+    dateTime: '2025-04-15 18:00:00',
+    location: 'place4',
     available: true,
-    category: "Category1"
+    category: "category1"
   },
   {
     id: '2',
     image: '/assets/events_image/pexels-apasaric-4201659.jpg',
     title: 'Art exposition',
-    dateTime: '20-04-2025 10:00:00',
-    location: 'Lyon,Musée des Beaux-Arts',
+    dateTime: '2025-04-20 10:00:00',
+    location: 'place3',
     available: false,
-    category: "Category1"
+    category: "category1"
   },
   {
     id: '3',
     image: '/assets/events_image/pexels-harun-tan-2311991-3980364.jpg',
     title: 'Lollapalooza 2025',
-    dateTime: '03-04-2025 12:00:00',
-    location: 'Paris,Parc des Princes',
+    dateTime: '2025-04-03 12:00:00',
+    location: 'place4',
     available: false,
-    category: "Category2"
+    category: "category2"
   },
   {
     id: '4',
     image: '/assets/events_image/pexels-nishantaneja-2362699.jpg',
     title: 'Taylor Swift',
-    dateTime: '10-06-2025 20:00:00',
-    location: 'New York,Madison Square Garden',
+    dateTime: '2025-06-15 20:00:00',
+    location: 'place2',
     available: true,
-    category: "Category3"
+    category: "category3"
   },
   {
     id: '5',
     image: '/assets/events_image/pexels-prateekkatyal-2694434.jpg',
     title: 'Paris Games Week',
-    dateTime: '15-06-2025 10:00:00',
-    location: 'Paris,Porte de Versailles',
+    dateTime: '2025-06-15 10:00:00',
+    location: 'place3',
     available: true,
-    category: "Category4"
+    category: "category4"
   },
   {
     id: '6',
     image: '/assets/events_image/pexels-maxfrancis-2246476.jpg',
     title: 'Conference',
-    dateTime: '30-04-2025 09:00:00',
-    location: 'London,ExCel London',
+    dateTime: '2025-04-30 09:00:00',
+    location: 'place4',
     available: true,
-    category: "Category4"
+    category: "category4"
   },
 ];
+
+function filterAndSortEvents(events: Event[], dateOrder: string[], locationFilter: string[], categoryFilter: string[]): Event[] {
+  let organizedData: Event[] = events;
+
+  if (dateOrder[0] === 'Latest') {
+    return organizedData.sort((a, b) => new Date(b.dateTime.replace(" ", "T")).getTime() - new Date(a.dateTime.replace(" ", "T")).getTime());
+  } else {
+    return organizedData.sort((a, b) => new Date(a.dateTime.replace(" ", "T")).getTime() - new Date(b.dateTime.replace(" ", "T")).getTime());
+  }
+  
+}
