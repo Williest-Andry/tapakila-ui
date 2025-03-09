@@ -111,7 +111,7 @@ export default function Page() {
       
       {/* List of events */}
 
-      <EventsList events={eventsData} />
+      <EventsList events={events} />
     </>
     )
 }
