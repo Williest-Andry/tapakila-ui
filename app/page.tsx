@@ -2,12 +2,9 @@
 
 import {
   Box,
-  Button,
-  Center,
   createListCollection,
   Flex,
   Heading,
-  Link,
 } from "@chakra-ui/react"
 
 import {
@@ -19,13 +16,21 @@ import {
   SelectValueText,
 } from "@/components/ui/select"
 
-import getAllEvents from '../lib/getAllEvents'
-import { GoTriangleDown } from "react-icons/go";
 import { useEffect, useState } from "react";
+import EventsList from "./components/events-list";
 
-interface Event {
-  id: number;
-  name: string;
+export interface Event {
+  id: string;
+  image: string;
+  title: string;
+  dateTime: string;
+  location: string;
+  available: boolean;
+  category: string;
+}
+
+interface EventsListProps {
+  events: Event[];
 }
 
 export default function Page() {
@@ -117,11 +122,9 @@ export default function Page() {
         </Box>
       </Flex>
       
-      <ul>
-        {eventsData.map((event: Event) => (
-          <li key={event.id}><Link href={`/event/${event.id}`}>{event.name}</Link></li>
-        ))}
-      </ul>
+      {/* List of events */}
+
+      <EventsList events={events} />
     </>
     )
 }
@@ -152,3 +155,61 @@ const categories = createListCollection({
     { label: "category4", value: "category4" },
   ],
 })
+
+
+const events: Event[] = [
+  {
+    id: '1',
+    image: '/assets/events_image/pexels-apasaric-2341830.jpg',
+    title: 'Jazz concert',
+    dateTime: '15-04-2025 18:00:00',
+    location: 'Paris,Le Zenith',
+    available: true,
+    category: "Category1"
+  },
+  {
+    id: '2',
+    image: '/assets/events_image/pexels-apasaric-4201659.jpg',
+    title: 'Art exposition',
+    dateTime: '20-04-2025 10:00:00',
+    location: 'Lyon,Musée des Beaux-Arts',
+    available: false,
+    category: "Category1"
+  },
+  {
+    id: '3',
+    image: '/assets/events_image/pexels-harun-tan-2311991-3980364.jpg',
+    title: 'Lollapalooza 2025',
+    dateTime: '03-04-2025 12:00:00',
+    location: 'Paris,Parc des Princes',
+    available: false,
+    category: "Category2"
+  },
+  {
+    id: '4',
+    image: '/assets/events_image/pexels-nishantaneja-2362699.jpg',
+    title: 'Taylor Swift',
+    dateTime: '10-06-2025 20:00:00',
+    location: 'New York,Madison Square Garden',
+    available: true,
+    category: "Category3"
+  },
+  {
+    id: '5',
+    image: '/assets/events_image/pexels-prateekkatyal-2694434.jpg',
+    title: 'Paris Games Week',
+    dateTime: '15-06-2025 10:00:00',
+    location: 'Paris,Porte de Versailles',
+    available: true,
+    category: "Category4"
+  },
+  {
+    id: '6',
+    image: '/assets/events_image/pexels-maxfrancis-2246476.jpg',
+    title: 'Conference',
+    dateTime: '30-04-2025 09:00:00',
+    location: 'London,ExCel London',
+    available: true,
+    category: "Category4"
+  },
+];
