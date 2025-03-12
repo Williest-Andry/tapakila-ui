@@ -210,4 +210,5 @@ function filterAndSortEvents(events: Event[], dateOrder: string[], locationFilte
     return organizedData.sort((a, b) => new Date(a.dateTime.replace(" ", "T")).getTime() - new Date(b.dateTime.replace(" ", "T")).getTime());
   }
   
+   
 }
