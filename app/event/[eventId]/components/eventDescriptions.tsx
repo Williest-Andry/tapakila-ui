@@ -20,7 +20,7 @@ export default function EventDescription({event}: {event: Event}) {
                         <AccordionItemTrigger >
                             <Stack>
                                 <Text truncate w="30vw">{description}</Text>
-                                <Text fontSize="sm" color="fg.muted" ml="82vw" w="5vw">
+                                <Text fontSize="sm" color="fg.muted" ml="80vw">
                                     {toggleWord}
                                 </Text>
                             </Stack>

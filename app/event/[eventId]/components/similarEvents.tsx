@@ -34,7 +34,7 @@ export default function SimilarEvents({ similarEvent }: {similarEvent:Event[]}) 
                                 <Heading fontWeight="normal" size="lg" ml="0.5vw" mb="2vh">Place</Heading>
                             </Flex>
 
-                            <Heading fontWeight="normal" size="lg" border="2px solid" borderRadius="md" borderColor="yellow.400" w="7vw" mb="2vh" color="yellow.400">Categories</Heading>
+                            <Heading fontWeight="normal" size="lg" mb="2vh" color="yellow.400">Categories</Heading>
                             <Heading fontWeight="bold" size="xl">PRIX</Heading>
                         </Box>
                     </Flex>
