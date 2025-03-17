@@ -1,4 +1,4 @@
-import Provider from "@/app/provider";
+import Provider from "@/app/components/provider";
 import { HStack } from "@chakra-ui/react";
 import RightNavbarContent from "./right-content";
 import LeftNavbarContent from "./left-content";

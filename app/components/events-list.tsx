@@ -1,15 +1,7 @@
 import { Box, Badge, Flex, Button, Grid, Image, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
-export interface Event {
-    id: string;
-    image: string;
-    title: string;
-    dateTime: string;
-    location: string;
-    available: boolean;
-    category: string;
-  }
+import Event from "../../../../Back-end/api/entity/Event.js";
   
 export interface EventsListProps {
     events: Event[];
@@ -24,8 +16,8 @@ const EventCard = ({ event }: { event: Event }) => (
         <Text fontWeight="semibold" fontSize="xl">
           {event.title}
         </Text>
-        <Badge borderRadius="full" px="2" colorScheme={event.available ? "green" : "red"}>
-          {event.available ? "Available" : "Full"}
+        <Badge borderRadius="full" px="2" colorScheme={event.isAvailable ? "green" : "red"}>
+          {event.isAvailable ? "Available" : "Full"}
         </Badge>
       </Box>
       <Text mt="2" color="gray.500">
@@ -36,7 +28,7 @@ const EventCard = ({ event }: { event: Event }) => (
       </Text>
       <Flex mt="2" alignItems="center" gap={2}>
       <Link href={`/event/${event.id}`}><Button mt="4" colorScheme="purple" size="sm">View event</Button></Link>
-      <Button mt="4" colorScheme="purple" size="sm" disabled={!event.available} onClick={() => alert("Ticket bought")}>Buy ticket</Button>
+      <Button mt="4" colorScheme="purple" size="sm" disabled={!event.isAvailable} onClick={() => alert("Ticket bought")}>Buy ticket</Button>
       </Flex>
     </Box>
   </Box>

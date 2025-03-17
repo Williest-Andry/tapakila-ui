@@ -22,28 +22,42 @@ import { useEffect, useState } from "react";
 import EventsList from "./components/events-list";
 import { log } from "console";
 
-export interface Event {
-  id: string;
-  image: string;
-  title: string;
-  dateTime: string;
-  location: string;
-  available: boolean;
-  category: string;
-}
+import Event from "../../../Back-end/api/entity/Event.js"
+import getAllEvents from "@/lib/getAllEvents";
 
 interface EventsListProps {
   events: Event[];
 }
 
 export default function Page() {
-    const [eventsData, setEventsData] = useState<Event[]>([])
+  const [data, setData] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    const [selectedDate, setSelectedDate] = useState<string[]>(["Upcoming"])
-    const [selectedPlace, setSelectedPlace] = useState<string[]>(["All"])
-    const [selectedCategory, setSelectedCategory] = useState<string[]>(["All"])
 
-    return (
+  const [selectedDate, setSelectedDate] = useState<string[]>(["Upcoming"])
+  const [selectedPlace, setSelectedPlace] = useState<string[]>(["All"])
+  const [selectedCategory, setSelectedCategory] = useState<string[]>(["All"])
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const result = await getAllEvents();
+        setData(result);
+      } catch (error) {
+        console.error("Erreur de chargement", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const filteredAndSortedEvents = filterAndSortEvents(data, selectedDate, selectedPlace, selectedCategory);
+
+  if (loading) return <p>Chargement...</p>;
+
+  return (
     <>
       <Grid templateColumns="repeat(auto-fit, minmax(200px, 1fr))" gap={3} padding="1" mt={"3"} alignItems={"center"} justifyContent={"center"}>
         <Heading size={"2xl"} marginLeft={"5"} marginRight={"1"}>Upcoming events</Heading>
@@ -111,9 +125,9 @@ export default function Page() {
       
       {/* List of events */}
 
-      <EventsList events={events} />
+      <EventsList events={filteredAndSortedEvents} />
     </>
-    )
+  )
 }
 
 const dates = createListCollection({
@@ -143,72 +157,26 @@ const categories = createListCollection({
   ],
 })
 
-
-const events: Event[] = [
-  {
-    id: '1',
-    image: '/assets/events_image/pexels-apasaric-2341830.jpg',
-    title: 'Jazz concert',
-    dateTime: '2025-04-15 18:00:00',
-    location: 'place4',
-    available: true,
-    category: "category1"
-  },
-  {
-    id: '2',
-    image: '/assets/events_image/pexels-apasaric-4201659.jpg',
-    title: 'Art exposition',
-    dateTime: '2025-04-20 10:00:00',
-    location: 'place3',
-    available: false,
-    category: "category1"
-  },
-  {
-    id: '3',
-    image: '/assets/events_image/pexels-harun-tan-2311991-3980364.jpg',
-    title: 'Lollapalooza 2025',
-    dateTime: '2025-04-03 12:00:00',
-    location: 'place4',
-    available: false,
-    category: "category2"
-  },
-  {
-    id: '4',
-    image: '/assets/events_image/pexels-nishantaneja-2362699.jpg',
-    title: 'Taylor Swift',
-    dateTime: '2025-06-15 20:00:00',
-    location: 'place2',
-    available: true,
-    category: "category3"
-  },
-  {
-    id: '5',
-    image: '/assets/events_image/pexels-prateekkatyal-2694434.jpg',
-    title: 'Paris Games Week',
-    dateTime: '2025-06-15 10:00:00',
-    location: 'place3',
-    available: true,
-    category: "category4"
-  },
-  {
-    id: '6',
-    image: '/assets/events_image/pexels-maxfrancis-2246476.jpg',
-    title: 'Conference',
-    dateTime: '2025-04-30 09:00:00',
-    location: 'place4',
-    available: true,
-    category: "category4"
-  },
-];
-
 function filterAndSortEvents(events: Event[], dateOrder: string[], locationFilter: string[], categoryFilter: string[]): Event[] {
   let organizedData: Event[] = events;
 
-  if (dateOrder[0] === 'Latest') {
-    return organizedData.sort((a, b) => new Date(b.dateTime.replace(" ", "T")).getTime() - new Date(a.dateTime.replace(" ", "T")).getTime());
-  } else {
-    return organizedData.sort((a, b) => new Date(a.dateTime.replace(" ", "T")).getTime() - new Date(b.dateTime.replace(" ", "T")).getTime());
+  if (locationFilter[0] !== "All") {
+    organizedData = organizedData.filter(event => event.location === locationFilter[0]);
   }
-  
-   
+
+  if (categoryFilter[0] !== "All") {
+    organizedData = organizedData.filter(event => event.category === categoryFilter[0]);
+  }
+
+  if (dateOrder[0] === "Latest") {
+    organizedData = organizedData.sort((a, b) =>
+      new Date(b.dateTime.replace(" ", "T")).getTime() - new Date(a.dateTime.replace(" ", "T")).getTime()
+    );
+  } else {
+    organizedData = organizedData.sort((a, b) =>
+      new Date(a.dateTime.replace(" ", "T")).getTime() - new Date(b.dateTime.replace(" ", "T")).getTime()
+    );
+  }
+
+  return organizedData;
 }
