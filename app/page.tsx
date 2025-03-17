@@ -32,6 +32,7 @@ interface EventsListProps {
 export default function Page() {
   const [data, setData] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
 
   const [selectedDate, setSelectedDate] = useState<string[]>(["Upcoming"])
