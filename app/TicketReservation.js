@@ -95,9 +95,10 @@ const TicketReservation = () => {
         </div>
         <div className="content-element">
           <select value={reservationType} onChange={(e) => setReservationType(e.target.value)}>
-            <option value="simple">Simple</option>
-            <option value="VIP">VIP</option>
-            <option value="fan zone">Fan Zone</option>
+            <option value="place1">place1</option>
+            <option value="place2">place2</option>
+            <option value="place3">place3</option>
+            <option value="place4">place4</option>
           </select>
         </div>
         <div className="content-element">
