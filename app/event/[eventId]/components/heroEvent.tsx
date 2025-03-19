@@ -45,7 +45,7 @@ export default function HeroEvent({ event }: { event: Event }) {
                 </Stack>
                 <Wrap>
                     <Heading>LIMITE D'ACHAT DE BILLET :</Heading>
-                    <Countdown targetDate="2025-03-15T08:00:00" />
+                    <Countdown targetDate="2025-03-18T08:00:00" />
                 </Wrap>
             </Flex>
         </Flex>
