@@ -13,6 +13,11 @@ export default function Navbar() {
         px={4} 
         py={4}
         borderBottom={"1px solid rgba(128, 128, 128, 0.2)"}
+        position={"sticky"}
+        top={"0"}
+        bg="white" 
+        _dark={{ bg: 'black' }}
+        zIndex={"sticky"}
         >
         <LeftNavbarContent />
         <RightNavbarContent />
