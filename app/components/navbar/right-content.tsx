@@ -4,12 +4,14 @@ import { InputGroup } from "@/components/ui/input-group";
 import { Avatar, Flex, IconButton, Input, InputElement, Skeleton } from "@chakra-ui/react";
 import { FaBell, FaSearch } from "react-icons/fa";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function RightNavbarContent(){
     const [searchQuery, setSearchQuery] = useState("");
+    const router = useRouter();
 
     const handleSubmit = () => {
-        alert(searchQuery)
+        router.replace(searchQuery ? `/?title=${searchQuery}` : "/");
     };
 
     return (

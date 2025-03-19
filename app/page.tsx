@@ -24,6 +24,8 @@ import { log } from "console";
 
 import Event from "../../../Back-end/api/entity/Event.js"
 import getAllEvents from "@/lib/getAllEvents";
+import getSearchedEvent from "@/lib/getSearchedEvents";
+import { useSearchParams } from 'next/navigation';
 
 interface EventsListProps {
   events: Event[];
@@ -33,6 +35,8 @@ export default function Page() {
   const [data, setData] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const searchParams = useSearchParams();
+  const parametre = searchParams.get('title');
 
 
   const [selectedDate, setSelectedDate] = useState<string[]>(["Upcoming"])
@@ -42,7 +46,7 @@ export default function Page() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await getAllEvents();
+        const result = await getSearchedEvent(parametre || "");
         setData(result);
       } catch (error) {
         console.error("Erreur de chargement", error);
@@ -52,7 +56,7 @@ export default function Page() {
     }
 
     fetchData();
-  }, []);
+  }, [parametre]);
 
   const filteredAndSortedEvents = filterAndSortEvents(data, selectedDate, selectedPlace, selectedCategory);
 
