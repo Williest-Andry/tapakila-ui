@@ -23,8 +23,8 @@ import EventsList from "./components/events-list";
 import { log } from "console";
 
 import Event from "../../../Back-end/api/entity/Event.js"
-import getAllEvents from "@/lib/getAllEvents";
-import getSearchedEvent from "@/lib/getSearchedEvents";
+import getAllEvents from "@/lib/events/getAllEvents";
+import getSearchedEvent from "@/lib/events/getSearchedEvents";
 import { useSearchParams } from 'next/navigation';
 
 interface EventsListProps {

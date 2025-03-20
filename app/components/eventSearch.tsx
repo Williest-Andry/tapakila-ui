@@ -1,4 +1,4 @@
-import getSearchedEvent from "@/lib/getSearchedEvents";
+import getSearchedEvent from "@/lib/events/getSearchedEvents";
 import React, { useState } from "react";
 
 const EventSearch = () => {

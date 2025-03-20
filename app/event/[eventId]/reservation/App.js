@@ -1,5 +1,5 @@
 import React from 'react';
-import TicketReservation from './TicketReservation';
+import TicketReservation from '../../../TicketReservation';
 
 const App = () => {
     return (
