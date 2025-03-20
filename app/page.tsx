@@ -26,6 +26,8 @@ import Event from "../../../Back-end/api/entity/Event.js"
 import getAllEvents from "@/lib/events/getAllEvents";
 import getSearchedEvent from "@/lib/events/getSearchedEvents";
 import { useSearchParams } from 'next/navigation';
+import getAllCategories from "@/lib/events/getAllCategories";
+import getAllLocations from "@/lib/events/getAllLocations";
 
 interface EventsListProps {
   events: Event[];
@@ -34,7 +36,6 @@ interface EventsListProps {
 export default function Page() {
   const [data, setData] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const searchParams = useSearchParams();
   const parametre = searchParams.get('title');
 
@@ -42,12 +43,20 @@ export default function Page() {
   const [selectedDate, setSelectedDate] = useState<string[]>(["Upcoming"])
   const [selectedPlace, setSelectedPlace] = useState<string[]>(["All"])
   const [selectedCategory, setSelectedCategory] = useState<string[]>(["All"])
+  const [categories, setCategories] = useState(createListCollection<{label: string; value: string;}>({ items: [] }))
+  const [locations, setLocations] = useState(createListCollection<{label: string; value: string;}>({ items: [] }))
 
   useEffect(() => {
     async function fetchData() {
       try {
         const result = await getSearchedEvent(parametre || "");
         setData(result);
+
+        const categoriesFetch = await getAllCategories();
+        setCategories(createListCollection({ items: categoriesFetch }));
+
+        const locationsFetch = await getAllLocations();
+        setLocations(createListCollection({ items: locationsFetch }));
       } catch (error) {
         console.error("Erreur de chargement", error);
       } finally {
@@ -88,7 +97,7 @@ export default function Page() {
         </Box>
         <Box display="flex" gap="4" alignItems={"center"}>
           <SelectRoot
-            collection={places}
+            collection={locations}
             width="320px"
             value={selectedPlace}
             onValueChange={(e) => setSelectedPlace(e.value)}
@@ -98,9 +107,9 @@ export default function Page() {
               <SelectValueText placeholder="Select place" />
             </SelectTrigger>
             <SelectContent>
-              {places.items.map((place) => (
-                <SelectItem item={place} key={place.value}>
-                  {place.label}
+              {locations.items.map((location) => (
+                <SelectItem item={location} key={location.value}>
+                  {location.label}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -142,7 +151,7 @@ const dates = createListCollection({
   ],
 })
 
-const places = createListCollection({
+const places2 = createListCollection({
   items: [
     { label: "All", value: "All" },
     { label: "place1", value: "place1" },
@@ -152,7 +161,7 @@ const places = createListCollection({
   ],
 })
 
-const categories = createListCollection({
+const categories2 = createListCollection({
   items: [
     { label: "All", value: "All" },
     { label: "category1", value: "category1" },
