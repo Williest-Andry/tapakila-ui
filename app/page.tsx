@@ -20,10 +20,8 @@ import {
 
 import { useEffect, useState } from "react";
 import EventsList from "./components/events-list";
-import { log } from "console";
 
 import Event from "../../../Back-end/api/entity/Event.js"
-import getAllEvents from "@/lib/events/getAllEvents";
 import getSearchedEvent from "@/lib/events/getSearchedEvents";
 import { useSearchParams } from 'next/navigation';
 import getAllCategories from "@/lib/events/getAllCategories";
