@@ -149,26 +149,6 @@ const dates = createListCollection({
   ],
 })
 
-const places2 = createListCollection({
-  items: [
-    { label: "All", value: "All" },
-    { label: "place1", value: "place1" },
-    { label: "place2", value: "place2" },
-    { label: "place3", value: "place3" },
-    { label: "place4", value: "place4" },
-  ],
-})
-
-const categories2 = createListCollection({
-  items: [
-    { label: "All", value: "All" },
-    { label: "category1", value: "category1" },
-    { label: "category2", value: "category2" },
-    { label: "category3", value: "category3" },
-    { label: "category4", value: "category4" },
-  ],
-})
-
 function filterAndSortEvents(events: Event[], dateOrder: string[], locationFilter: string[], categoryFilter: string[]): Event[] {
   let organizedData: Event[] = events;
 

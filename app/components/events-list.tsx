@@ -16,8 +16,8 @@ const EventCard = ({ event }: { event: Event }) => (
         <Text fontWeight="semibold" fontSize="xl">
           {event.title}
         </Text>
-        <Badge borderRadius="full" px="2" colorScheme={event.isAvailable ? "green" : "red"}>
-          {event.isAvailable ? "Available" : "Full"}
+        <Badge borderRadius="full" px="2" colorScheme={event.availablePlace > 0 ? "green" : "red"}>
+          {event.availablePlace > 0 ? "Available" : "Full"}
         </Badge>
       </Box>
       <Text mt="2" color="gray.500">
@@ -28,7 +28,7 @@ const EventCard = ({ event }: { event: Event }) => (
       </Text>
       <Flex mt="2" alignItems="center" gap={2}>
       <Link href={`/event/${event.id}`}><Button mt="4" colorScheme="purple" size="sm">View event</Button></Link>
-      <Button mt="4" colorScheme="purple" size="sm" disabled={!event.isAvailable} onClick={() => alert("Ticket bought")}>Buy ticket</Button>
+      <Button mt="4" colorScheme="purple" size="sm" disabled={!(event.availablePlace > 0)} onClick={() => alert("Ticket bought")}>Buy ticket</Button>
       </Flex>
     </Box>
   </Box>
