@@ -5,9 +5,9 @@ import { LuUser } from "react-icons/lu";
 export default function Inputs() {
     return (
         <>
-            <Heading>Vos informations personnelles</Heading>
-            <Wrap direction="row" border="2px solid" w="40%" justify="space-between">
-                <Field.Root required border="2px solid" w="48%">
+            <Heading size="3xl">Vos informations personnelles</Heading>
+            <Wrap direction="row" w="40%" justify="space-between" mt="1vh">
+                <Field.Root required w="48%">
                     <Field.Label>
                         Firstname <Field.RequiredIndicator />
                     </Field.Label>
@@ -15,7 +15,7 @@ export default function Inputs() {
                         <Input placeholder="Firstname" />
                     </InputGroup>
                 </Field.Root>
-                <Field.Root required border="2px solid" w="48%">
+                <Field.Root required w="48%">
                     <Field.Label>
                         Name <Field.RequiredIndicator />
                     </Field.Label>
@@ -72,8 +72,8 @@ export default function Inputs() {
                     </InputGroup>
                 </Field.Root>
             </Wrap>
-
-            <Button>
+            <br></br>
+            <Button colorPalette="purple">
                 Sauvegarder
             </Button>
         </>

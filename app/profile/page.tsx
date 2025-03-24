@@ -10,8 +10,6 @@ export default function Profile() {
         <br></br>
         <ResetPassword />
         <br></br>
-        <br></br>
-        <br></br>
         </Wrap>
     )
 }

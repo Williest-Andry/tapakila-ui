@@ -6,19 +6,19 @@ export default function ResetPassword() {
     return (
         <>
             <Flex direction="column">
-                <Heading>Réinitialiser votre mot de passe</Heading>
-                <Dialog.Root>
+                <Heading mb="1.7vh">Réinitialiser votre mot de passe</Heading>
+                <Dialog.Root placement="center">
                     <Dialog.Trigger asChild>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" colorPalette="red">
                             Modifier mon mot de passe
                         </Button>
                     </Dialog.Trigger>
                     <Portal>
-                        <Dialog.Backdrop />
+                        
                         <Dialog.Positioner>
                             <Dialog.Content>
                                 <Dialog.Header>
-                                    <Dialog.Title>Dialog Title</Dialog.Title>
+                                    <Dialog.Title>Réinitialiser votre mot de passe</Dialog.Title>
                                 </Dialog.Header>
                                 <Dialog.Body>
                                     <Field.Root required>
@@ -40,13 +40,10 @@ export default function ResetPassword() {
                                 </Dialog.Body>
                                 <Dialog.Footer>
                                     <Dialog.ActionTrigger asChild>
-                                        <Button variant="outline">Cancel</Button>
+                                        <Button variant="outline">Quitter</Button>
                                     </Dialog.ActionTrigger>
-                                    <Button>Save</Button>
+                                    <Button variant="outline" colorPalette="red">Sauvegarder</Button>
                                 </Dialog.Footer>
-                                <Dialog.CloseTrigger asChild>
-                                    <CloseButton size="sm" />
-                                </Dialog.CloseTrigger>
                             </Dialog.Content>
                         </Dialog.Positioner>
                     </Portal>
