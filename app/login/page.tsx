@@ -2,21 +2,39 @@
 
 import { useState } from "react";
 import { Box, Button, Input, Heading, VStack } from "@chakra-ui/react";
+import { useUserStore } from "@/store/userStore";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { setUser } = useUserStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
+    // Check if email and password are not empty
     if (!email || !password) {
       setError("Tous les champs sont obligatoires.");
       return;
     }
-    alert(email + " " + password);
+    /*
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      if (!response.ok) {
+        throw new Error("E-mail ou mot de passe incorrect.");
+      }
+      const user = await response.json();
+      setUser(user);
+    } catch (error) {
+      setError(error.message);
+    }
+    */
   };
 
   return (
