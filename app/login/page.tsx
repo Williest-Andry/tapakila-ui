@@ -1,75 +1,51 @@
 "use client";
 
-import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
-import "./page.css";
+import { useState } from "react";
+import { Box, Button, Input, Heading, VStack } from "@chakra-ui/react";
 
-const LoginPage = () => {
-  const router = useRouter();
-  const [username, setUsername] = useState("");
+export default function LoginPage() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
 
-    if (username === "user" && password === "password123") {
-      router.push("/events");
-    } else {
-      setError("Nom d'utilisateur ou mot de passe incorrect");
+    if (!email || !password) {
+      setError("Tous les champs sont obligatoires.");
+      return;
     }
+    alert(email + " " + password);
   };
 
   return (
-    <div className="container">
-      {/* Header personnalisé */}
-      <header className="header">
-        <nav>
-          <div className="logo">EventBooking</div>
-          <ul className="nav-links">
-            <li><a href="#">Accueil</a></li>
-            <li><a href="#">Événements</a></li>
-            <li><a href="#">À propos</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="/register">S'inscrire</a></li>
-          </ul>
-        </nav>
-      </header>
-
-      <h2>Connexion</h2>
-
-      <form onSubmit={handleSubmit}>
-        <div className="input-group">
-          <input
-            type="text"
-            placeholder="Nom d'utilisateur"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
+    <Box minH={"xl"} display="flex" alignItems="center" justifyContent="center">
+      <VStack gap={4} p={8} boxShadow="lg" borderRadius="md" bg="white" _dark={{ bg: "gray.900" }}>
+        <Heading>Sign in</Heading>
+        {error && <Box color="red.500">{error}</Box>}
+        <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+          <Input
+          variant={"flushed"}
+          m={2}
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-        </div>
-
-        <div className="input-group">
-          <input
+          <Input
+          variant={"flushed"}
+          m={2}
+            placeholder="Password"
             type="password"
-            placeholder="Mot de passe"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
-        </div>
-
-        <button type="submit">Se connecter</button>
-      </form>
-
-      {error && <p className="error-message">{error}</p>}
-
-      <div className="links">
-        <a href="#">Mot de passe oublié ?</a>
-        <a href="/register">Créer un compte</a>
-      </div>
-    </div>
+          <Box textAlign="right">
+            <Button colorScheme="blue" variant="ghost" size="sm" m={2}>Sign up</Button>
+          </Box>
+          <Button mt={4} colorScheme="purple" type="submit" width="full">Login</Button>
+        </form>
+      </VStack>
+    </Box>
   );
-};
-
-export default LoginPage;
+}
