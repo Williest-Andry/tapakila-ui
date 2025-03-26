@@ -32,7 +32,9 @@ export default async function EventPage({ params }: { params: Promise<{ eventId:
                 </Button>
             </Center>
 
-            <SimilarEvents similarEvents={similarEvents}/>
+            {
+                similarEvents? "" : <SimilarEvents similarEvents={similarEvents}/>
+            }
 
         </Container>
     )
