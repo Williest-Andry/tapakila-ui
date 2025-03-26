@@ -1,8 +1,9 @@
 import { Center, Flex, Heading, Icon, Table } from "@chakra-ui/react";
 import { ImTicket } from "react-icons/im";
-import { Ticket } from "../fetchAction/dateType";
+import Ticket from "../../../../../../Back-end/api/entity/Ticket";
+import Event from "../../../../../../Back-end/api/entity/Event";
 
-export default function TicketsTable({ tickets }: {tickets: Ticket[]}) {
+export default function TicketsTable({ tickets}: {tickets: Ticket[]}) {
     return (
         <Center mb="8vh">
             <Table.Root size="lg" interactive variant="outline" w="45vw" >
@@ -14,16 +15,16 @@ export default function TicketsTable({ tickets }: {tickets: Ticket[]}) {
                 </Table.Header>
                 <Table.Body>
                     {tickets.map((ticket) => (
-                        <Table.Row h="15vh" key="test">
+                        <Table.Row h="15vh" key={ticket.id}>
                             <Table.Cell pl="4vw">
                                 <Flex >
                                     <Icon fontSize="2xl">
                                         <ImTicket />
                                     </Icon>
-                                    <Heading fontWeight="normal" size="lg" ml="0.8vw">Gold</Heading>
+                                    <Heading fontWeight="normal" size="lg" ml="0.8vw">{ticket.type}</Heading>
                                 </Flex>
                             </Table.Cell>
-                            <Table.Cell textAlign="end" pr="5vw">MGA {2000000}</Table.Cell>
+                            <Table.Cell textAlign="end" pr="6vw">$ {ticket.price}</Table.Cell>
                         </Table.Row>
                     ))}
                 </Table.Body>

@@ -3,16 +3,22 @@ import HeroEvent from "./components/heroEvent";
 import TicketsTable from "./components/ticketsTable";
 import SimilarEvents from "./components/similarEvents";
 import EventDescription from "./components/eventDescriptions";
-import { Event, Ticket } from "./fetchAction/dateType";
-import getEventById from "./fetchAction/fetchEvent";
-import getTickets from "./fetchAction/fetchTickets";
-import getSimilarEvents from "./fetchAction/fetchSimilarEvent";
+import Ticket from "../../../../../Back-end/api/entity/Ticket";
+import Event from "../../../../../Back-end/api/entity/Event";
+import getEventById from "@/lib/events/getEventById";
+import getAllTickets from "@/lib/tickets/getAllTickets";
+import getAllEvents from "@/lib/events/getAllEvents";
 
 export default async function EventPage({ params }: { params: Promise<{ eventId: string }> }) {
     const eventId = (await params).eventId;
-    const event: Event = getEventById(eventId);
-    const tickets: Ticket[] = getTickets(eventId);
-    const similarEvents: Event[] = getSimilarEvents(eventId);
+    const event: Event = await getEventById(eventId);
+    const tickets: Ticket[] = await getAllTickets();
+    const eventTicket = tickets.filter(ticket => ticket.idEvent == eventId);
+    const eventCategory = event.category;
+    const events: Event[] = await getAllEvents();
+    const similarEvents = events.filter(similar => similar.category == eventCategory && JSON.stringify(similar) != JSON.stringify(event));
+    console.log(similarEvents);
+    
 
     return (
         <Container>
@@ -20,7 +26,7 @@ export default async function EventPage({ params }: { params: Promise<{ eventId:
 
             <EventDescription event={event}/>
 
-            <TicketsTable tickets={tickets}/>
+            <TicketsTable tickets={eventTicket}/>
 
             <Center mb="10vh">
                 <Button colorPalette="blue" variant="outline" size="lg" w="10vw">
@@ -28,7 +34,7 @@ export default async function EventPage({ params }: { params: Promise<{ eventId:
                 </Button>
             </Center>
 
-            <SimilarEvents similarEvent={similarEvents}/>
+            <SimilarEvents similarEvents={similarEvents}/>
 
         </Container>
     )

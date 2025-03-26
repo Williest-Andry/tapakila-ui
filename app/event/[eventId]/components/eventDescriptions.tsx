@@ -3,7 +3,7 @@
 import { Center, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot, } from "@/components/ui/accordion";
 import { useState } from "react";
-import { Event } from "../fetchAction/dateType";
+import Event from "../../../../../../Back-end/api/entity/Event";
 
 
 export default function EventDescription({event}: {event: Event}) {
@@ -13,7 +13,7 @@ export default function EventDescription({event}: {event: Event}) {
 
     return (
         <Flex mb="10vh" ml="4vw" direction="column">
-            <Heading size="3xl" mb="3vh">TITLE</Heading>
+            <Heading size="3xl" mb="3vh">{event.title}</Heading>
             <Center>
                 <AccordionRoot collapsible onClick={handleToggleWord}>
                     <AccordionItem key="1" value="test" onClick={handleToggleWord}>
