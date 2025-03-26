@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import User from "../../../Back-end/api/entity/User.js";
 
-interface UserStore {
+export interface UserStore {
   user: User | null;
   setUser: (user: User | null) => void;
 }
