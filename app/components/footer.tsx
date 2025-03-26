@@ -5,7 +5,7 @@ import Provider from "@/app/components/provider";
 export default function Footer() {
     return (
         <Provider>
-      <Box bg="gray.900" color="white" py={4}>
+      <Box bg="gray.900" color="white" py={4} position={"sticky"} top={"90dvh"}>
         <Container maxW="container.lg">
           <Stack
             direction={{ base: 'column', md: 'row' }}
