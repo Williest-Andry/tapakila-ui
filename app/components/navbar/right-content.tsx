@@ -64,9 +64,17 @@ export default function RightNavbarContent(){
       >
         <FaBell color="purple" />
       </IconButton>
-      <Avatar.Root>
-        <Avatar.Fallback name="Tsy Haiko" />
+      <IconButton
+        variant={"ghost"}
+        colorScheme={"purple"}
+        rounded={"full"}
+        onClick={() => router.replace('/profile')}
+      >
+      <Avatar.Root variant={"outline"}>
+        <Avatar.Fallback name={""} />
+        <Avatar.Image />
       </Avatar.Root>
+      </IconButton>
       <ColorModeToggle />
     </Flex>
         );

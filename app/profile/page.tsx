@@ -1,3 +1,5 @@
+"use client";
+
 import { Wrap } from "@chakra-ui/react";
 import Inputs from "./components/inputs";
 import ResetPassword from "./components/resetPassword";
