@@ -11,11 +11,10 @@ import Countdown from "./countDown";
 
 export default function HeroEvent({ event }: { event: Event }) {
     const [count, setCount] = useState(0);
-    const eventImage = "/assets/events_image/"+event.image;
 
     return (
         <Flex justify="space-around" mb="10vh">
-            <Image rounded="md" src={"/assets/events_image/"+event.image} alt="Event image" htmlWidth="500px" htmlHeight="500px"></Image>
+            <Image rounded="md" src={"/"+event.image} alt="Event image" htmlWidth="500px" htmlHeight="500px"></Image>
 
             <Flex gap="15vh" direction="column" width="50%">
                 <Stack gap="6">
