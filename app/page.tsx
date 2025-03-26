@@ -26,6 +26,7 @@ import getSearchedEvent from "@/lib/events/getSearchedEvents";
 import { useSearchParams } from 'next/navigation';
 import getAllCategories from "@/lib/events/getAllCategories";
 import getAllLocations from "@/lib/events/getAllLocations";
+import UpdatePastEvents from "@/lib/events/updatePastEvents";
 
 interface EventsListProps {
   events: Event[];
@@ -47,7 +48,9 @@ export default function Page() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await getSearchedEvent(parametre || "");
+        await UpdatePastEvents();
+        try {
+          const result = await getSearchedEvent(parametre || "");
         setData(result);
 
         const categoriesFetch = await getAllCategories();
@@ -55,6 +58,9 @@ export default function Page() {
 
         const locationsFetch = await getAllLocations();
         setLocations(createListCollection({ items: locationsFetch }));
+        } catch (error) {
+          console.error(error)
+        }
       } catch (error) {
         console.error("Erreur de chargement", error);
       } finally {
@@ -67,7 +73,7 @@ export default function Page() {
 
   const filteredAndSortedEvents = filterAndSortEvents(data, selectedDate, selectedPlace, selectedCategory);
 
-  if (loading) return <p>Chargement...</p>;
+  if (loading) return (<Box display={"flex"} flexDirection={"column"} alignItems={"center"} alignContent={"center"} justifyContent={"center"} w={"100%"} h={"78.65dvh"}><Heading size={"3xl"}>Chargement . . .</Heading></Box>);
 
   return (
     <>
