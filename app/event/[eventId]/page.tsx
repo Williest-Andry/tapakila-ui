@@ -8,17 +8,15 @@ import Event from "../../../../../Back-end/api/entity/Event";
 import getEventById from "@/lib/events/getEventById";
 import getAllTickets from "@/lib/tickets/getAllTickets";
 import getAllEvents from "@/lib/events/getAllEvents";
+import getTicketByEventId from "@/lib/tickets/getTicketByEventId";
 
 export default async function EventPage({ params }: { params: Promise<{ eventId: string }> }) {
     const eventId = (await params).eventId;
     const event: Event = await getEventById(eventId);
-    const tickets: Ticket[] = await getAllTickets();
-    const eventTicket = tickets.filter(ticket => ticket.idEvent == eventId);
+    const tickets: Ticket[] = await getTicketByEventId(eventId);
     const eventCategory = event.category;
     const events: Event[] = await getAllEvents();
     const similarEvents = events.filter(similar => similar.category == eventCategory && JSON.stringify(similar) != JSON.stringify(event));
-    console.log(similarEvents);
-    
 
     return (
         <Container>
@@ -26,7 +24,7 @@ export default async function EventPage({ params }: { params: Promise<{ eventId:
 
             <EventDescription event={event}/>
 
-            <TicketsTable tickets={eventTicket}/>
+            <TicketsTable tickets={tickets}/>
 
             <Center mb="10vh">
                 <Button colorPalette="blue" variant="outline" size="lg" w="10vw">
