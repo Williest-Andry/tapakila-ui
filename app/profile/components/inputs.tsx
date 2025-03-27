@@ -1,12 +1,39 @@
 import { InputGroup } from "@/components/ui/input-group";
-import { Heading, Wrap, Field, Input, Button} from "@chakra-ui/react";
+import { Heading, Wrap, Field, Input, Button } from "@chakra-ui/react";
 import { BsFillPostageFill } from "react-icons/bs";
 import { CiCalendarDate } from "react-icons/ci";
 import { FaPhoneAlt } from "react-icons/fa";
 import { LuUser } from "react-icons/lu";
 import { MdEmail, MdPlace } from "react-icons/md";
+import User from "../../../../../Back-end/api/entity/User";
+import { useEffect, useState } from "react";
 
 export default function Inputs() {
+    const [formData, setFormData] = useState({} as User);
+
+    const fetchUser = async () => {
+        await fetch("http://localhost:3001/users/myprofile",{
+            headers:{"Authorization": localStorage.getItem("authToken") || ""}
+        })
+        .then(response => response.json())
+        .then(userData => {
+            setFormData(userData)
+        })
+        .catch(error => console.log(error))
+    }
+
+    useEffect(() => {
+        fetchUser();
+    },[]);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prevForm) => ({
+            ...prevForm,
+            [name]: value
+        } as User));
+    }
+
     return (
         <>
             <Heading size="3xl">Vos informations personnelles</Heading>
@@ -16,7 +43,7 @@ export default function Inputs() {
                         Username <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<LuUser />}>
-                        <Input placeholder="Username" />
+                        <Input placeholder="Username" name="username" value={formData.username? formData.username : ""} onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -24,7 +51,7 @@ export default function Inputs() {
                         Email <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<MdEmail />}>
-                        <Input placeholder="Email" />
+                        <Input placeholder="Email" name="email" value={formData.email || ""} onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -32,7 +59,7 @@ export default function Inputs() {
                         Date de naissance <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<CiCalendarDate />}>
-                        <Input type="date" w="15.5vw"/>
+                        <Input type="date" w="15.5vw" name="birthdate" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -40,7 +67,7 @@ export default function Inputs() {
                         Numéro de téléphone<Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<FaPhoneAlt />}>
-                        <Input placeholder="Numéro de téléphone" />
+                        <Input placeholder="Numéro de téléphone" name="phone" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -48,7 +75,7 @@ export default function Inputs() {
                         Ville <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<MdPlace />}>
-                        <Input placeholder="Ville" />
+                        <Input placeholder="Ville" name="city" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -56,7 +83,7 @@ export default function Inputs() {
                         Code Postal <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<BsFillPostageFill />}>
-                        <Input placeholder="Code Postal" />
+                        <Input placeholder="Code Postal" name="postalCode" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
             </Wrap>

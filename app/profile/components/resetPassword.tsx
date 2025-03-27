@@ -2,6 +2,7 @@ import { InputGroup } from "@/components/ui/input-group";
 import { Flex, Heading, Dialog, Button, Portal, CloseButton, Field, Input } from "@chakra-ui/react";
 import { LuUser } from "react-icons/lu";
 import { RiLockPasswordFill } from "react-icons/ri";
+import User from "../../../../../Back-end/api/entity/User";
 
 export default function ResetPassword() {
     return (
