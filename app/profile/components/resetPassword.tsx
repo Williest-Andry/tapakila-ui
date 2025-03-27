@@ -1,6 +1,7 @@
 import { InputGroup } from "@/components/ui/input-group";
 import { Flex, Heading, Dialog, Button, Portal, CloseButton, Field, Input } from "@chakra-ui/react";
 import { LuUser } from "react-icons/lu";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 export default function ResetPassword() {
     return (
@@ -14,18 +15,17 @@ export default function ResetPassword() {
                         </Button>
                     </Dialog.Trigger>
                     <Portal>
-                        
                         <Dialog.Positioner>
                             <Dialog.Content>
                                 <Dialog.Header>
                                     <Dialog.Title>Réinitialiser votre mot de passe</Dialog.Title>
                                 </Dialog.Header>
-                                <Dialog.Body>
-                                    <Field.Root required>
+                                <Dialog.Body >
+                                    <Field.Root required w="100%" mb="2vh">
                                         <Field.Label>
                                             Nouveau mot de passe <Field.RequiredIndicator />
                                         </Field.Label>
-                                        <InputGroup startElement={<LuUser />}>
+                                        <InputGroup startElement={<RiLockPasswordFill />} w="100%">
                                             <Input placeholder="Password" />
                                         </InputGroup>
                                     </Field.Root>
@@ -33,7 +33,7 @@ export default function ResetPassword() {
                                         <Field.Label>
                                             Confirmer le nouveau mot de passe <Field.RequiredIndicator />
                                         </Field.Label>
-                                        <InputGroup startElement={<LuUser />}>
+                                        <InputGroup startElement={<RiLockPasswordFill />} w="100%">
                                             <Input placeholder="Password" />
                                         </InputGroup>
                                     </Field.Root>

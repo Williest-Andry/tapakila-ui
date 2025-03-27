@@ -1,28 +1,16 @@
 import { InputGroup } from "@/components/ui/input-group";
 import { Heading, Wrap, Field, Input, Button} from "@chakra-ui/react";
+import { BsFillPostageFill } from "react-icons/bs";
+import { CiCalendarDate } from "react-icons/ci";
+import { FaPhoneAlt } from "react-icons/fa";
 import { LuUser } from "react-icons/lu";
+import { MdEmail, MdPlace } from "react-icons/md";
 
 export default function Inputs() {
     return (
         <>
             <Heading size="3xl">Vos informations personnelles</Heading>
             <Wrap direction="row" w="40%" justify="space-between" mt="1vh">
-                <Field.Root required w="48%">
-                    <Field.Label>
-                        Firstname <Field.RequiredIndicator />
-                    </Field.Label>
-                    <InputGroup startElement={<LuUser />}>
-                        <Input placeholder="Firstname" />
-                    </InputGroup>
-                </Field.Root>
-                <Field.Root required w="48%">
-                    <Field.Label>
-                        Name <Field.RequiredIndicator />
-                    </Field.Label>
-                    <InputGroup startElement={<LuUser />}>
-                        <Input placeholder="Name" />
-                    </InputGroup>
-                </Field.Root>
                 <Field.Root required w="48%">
                     <Field.Label>
                         Username <Field.RequiredIndicator />
@@ -35,7 +23,7 @@ export default function Inputs() {
                     <Field.Label>
                         Email <Field.RequiredIndicator />
                     </Field.Label>
-                    <InputGroup startElement={<LuUser />}>
+                    <InputGroup startElement={<MdEmail />}>
                         <Input placeholder="Email" />
                     </InputGroup>
                 </Field.Root>
@@ -43,32 +31,32 @@ export default function Inputs() {
                     <Field.Label>
                         Date de naissance <Field.RequiredIndicator />
                     </Field.Label>
-                    <InputGroup startElement={<LuUser />}>
-                        <Input placeholder="Email" />
+                    <InputGroup startElement={<CiCalendarDate />}>
+                        <Input type="date" w="15.5vw"/>
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
                     <Field.Label>
-                        Numéro <Field.RequiredIndicator />
+                        Numéro de téléphone<Field.RequiredIndicator />
                     </Field.Label>
-                    <InputGroup startElement={<LuUser />}>
-                        <Input placeholder="Email" />
+                    <InputGroup startElement={<FaPhoneAlt />}>
+                        <Input placeholder="Numéro de téléphone" />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
                     <Field.Label>
                         Ville <Field.RequiredIndicator />
                     </Field.Label>
-                    <InputGroup startElement={<LuUser />}>
-                        <Input placeholder="Password" />
+                    <InputGroup startElement={<MdPlace />}>
+                        <Input placeholder="Ville" />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
                     <Field.Label>
                         Code Postal <Field.RequiredIndicator />
                     </Field.Label>
-                    <InputGroup startElement={<LuUser />}>
-                        <Input placeholder="Password" />
+                    <InputGroup startElement={<BsFillPostageFill />}>
+                        <Input placeholder="Code Postal" />
                     </InputGroup>
                 </Field.Root>
             </Wrap>
