@@ -14,17 +14,29 @@ export default function Profile() {
     const { user } = useUserStore();
     // const router = useRouter();
     const [authenticated, setAuthenticated] = useState(false);
-    
+
     useEffect(() => {
         const authToken = localStorage.getItem("authToken");
         if (!authToken) {
             // router.push("/login");
             console.log("tsis lty a, tsis");
-            
+
         } else {
             setAuthenticated(true);
         }
     }, []);
+
+    const disconnection = async () => {
+        await fetch("http://localhost:3001/users/logout", {
+            method: "POST",
+            headers: { "Authorization": localStorage.getItem("authToken") || "" }
+        })
+            .then(response => {
+                console.log(response);
+                if(response.ok) localStorage.removeItem("authToken");
+            })
+            .catch(error => console.log(error)) 
+    }
 
     return (
         <>
@@ -35,11 +47,13 @@ export default function Profile() {
                         <Button ><Icon><FaArrowLeft /></Icon></Button>
                     </Link>
                     <Wrap justify="center" align="center" direction="column" marginTop={3} marginBottom={3}>
-                        <Inputs/>
+                        <Inputs />
                         <br></br>
                         <br></br>
-                        <ResetPassword/>
+                        <ResetPassword />
                         <br></br>
+                        <br></br>
+                        <Button onClick={disconnection}>Déconnection</Button>
                     </Wrap>
                 </>
             }
