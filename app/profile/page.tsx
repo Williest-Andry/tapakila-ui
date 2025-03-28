@@ -7,6 +7,7 @@ import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Loading from "../loading";
 
 export default function Profile() {
     const router = useRouter();
@@ -39,12 +40,7 @@ export default function Profile() {
         <>
             {
                 authenticated == false &&
-                <>
-                    <Flex direction="column" justify="center" alignItems="center" mt="15vh">
-                        <Heading>LOADING ....</Heading>
-                        <SkeletonText noOfLines={3} gap="4" />
-                    </Flex>
-                </>
+                <Loading/>
             }
             {
                 authenticated &&

@@ -6,7 +6,7 @@ import Link from "next/link";
 import Event from "../../../../Back-end/api/entity/Event.js";
 import { useRouter } from "next/navigation.js";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime.js";
-import { UserStore, useUserStore } from "@/store/userStore.ts";
+import { UserStore, useUserStore } from "@/store/userStore";
   
 export interface EventsListProps {
     events: Event[];
