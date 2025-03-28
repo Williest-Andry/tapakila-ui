@@ -1,17 +1,13 @@
 "use client";
-
 import { useState } from "react";
 import { Box, Button, Input, Heading, VStack } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-// import { useUserStore } from "@/store/userStore";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  // const router = useRouter();
-  // const { user, setUser } = useUserStore();
-
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -29,10 +25,13 @@ export default function LoginPage() {
     })
     .then(response => response.json())
     .then(user => {
-      console.log(user.finalUser.authToken);
       localStorage.setItem("authToken", user.finalUser.authToken);
+      router.replace("/");
     })
-    .catch(error => setError("E-mail ou mot de passe incorrect."))
+    .catch(error => {
+      setError("E-mail ou mot de passe incorrect.")
+      console.error(error);
+    })
   };
 
   return (

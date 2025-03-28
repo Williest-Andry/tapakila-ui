@@ -1,26 +1,21 @@
 "use client";
 
-import { Button, Icon, Wrap } from "@chakra-ui/react";
+import { Button, Flex, Heading, Icon, SkeletonText, Wrap } from "@chakra-ui/react";
 import Inputs from "./components/inputs";
 import ResetPassword from "./components/resetPassword";
-import { useUserStore } from "@/store/userStore";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
-import User from "../../../../Back-end/api/entity/User";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
-    const { user } = useUserStore();
-    // const router = useRouter();
+    const router = useRouter();
     const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
         const authToken = localStorage.getItem("authToken");
         if (!authToken) {
-            // router.push("/login");
-            console.log("tsis lty a, tsis");
-
+            router.push("/login");
         } else {
             setAuthenticated(true);
         }
@@ -32,14 +27,25 @@ export default function Profile() {
             headers: { "Authorization": localStorage.getItem("authToken") || "" }
         })
             .then(response => {
-                console.log(response);
-                if(response.ok) localStorage.removeItem("authToken");
+                if (response.ok) {
+                    localStorage.removeItem("authToken");
+                    router.replace("/");
+                }
             })
-            .catch(error => console.log(error)) 
+            .catch(error => console.log(error))
     }
 
     return (
         <>
+            {
+                authenticated == false &&
+                <>
+                    <Flex direction="column" justify="center" alignItems="center" mt="15vh">
+                        <Heading>LOADING ....</Heading>
+                        <SkeletonText noOfLines={3} gap="4" />
+                    </Flex>
+                </>
+            }
             {
                 authenticated &&
                 <>

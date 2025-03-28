@@ -68,7 +68,14 @@ export default function RightNavbarContent(){
         variant={"ghost"}
         colorScheme={"purple"}
         rounded={"full"}
-        onClick={() => router.replace('/profile')}
+        onClick={() =>{
+          if(localStorage.getItem("authToken")) {
+            router.replace('/profile'); 
+          }
+          else{
+            router.push("/login");
+          }
+        }}
       >
       <Avatar.Root variant={"outline"}>
         <Avatar.Fallback name={""} />
