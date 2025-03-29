@@ -99,10 +99,10 @@ export default function Inputs() {
                 </Field.Root>
                 <Field.Root required w="48%">
                     <Field.Label>
-                        Ville <Field.RequiredIndicator />
+                        Pays <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<MdPlace />}>
-                        <Input placeholder="Ville" name="city" onChange={handleChange} />
+                        <Input placeholder="Pays" name="country" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">

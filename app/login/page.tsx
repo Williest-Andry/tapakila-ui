@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Box, Button, Input, Heading, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -71,7 +72,9 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <Box textAlign="right">
-                <Button colorScheme="blue" variant="ghost" size="sm" m={2}>Sign up</Button>
+                <Link href="/signup">
+                  <Button colorScheme="blue" variant="ghost" size="sm" m={2}>Sign up</Button>
+                </Link>
               </Box>
               <Button mt={4} colorScheme="purple" type="submit" width="full">Login</Button>
             </form>
