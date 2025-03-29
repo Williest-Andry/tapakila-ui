@@ -77,7 +77,7 @@ export default function ResetPassword() {
                                             Nouveau mot de passe <Field.RequiredIndicator />
                                         </Field.Label>
                                         <InputGroup startElement={<RiLockPasswordFill />} w="100%">
-                                            <Input placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                            <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                                         </InputGroup>
                                     </Field.Root>
                                     <Field.Root required>
@@ -85,7 +85,7 @@ export default function ResetPassword() {
                                             Confirmer le nouveau mot de passe <Field.RequiredIndicator />
                                         </Field.Label>
                                         <InputGroup startElement={<RiLockPasswordFill />} w="100%">
-                                            <Input placeholder="Password" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} />
+                                            <Input type="password" placeholder="Password" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} />
                                         </InputGroup>
                                     </Field.Root>
                                 </Dialog.Body>
