@@ -1,5 +1,5 @@
 import { InputGroup } from "@/components/ui/input-group";
-import { Heading, Wrap, Field, Input, Button } from "@chakra-ui/react";
+import { Heading, Wrap, Field, Input, Button, Box } from "@chakra-ui/react";
 import { BsFillPostageFill } from "react-icons/bs";
 import { CiCalendarDate } from "react-icons/ci";
 import { FaPhoneAlt } from "react-icons/fa";
@@ -10,21 +10,43 @@ import { useEffect, useState } from "react";
 
 export default function Inputs() {
     const [formData, setFormData] = useState({} as User);
+    const [saved, setSaved] = useState(false);
+    const [error, setError] = useState(false);
 
     const fetchUser = async () => {
-        await fetch("http://localhost:3001/users/myprofile",{
-            headers:{"Authorization": localStorage.getItem("authToken") || ""}
+        await fetch("http://localhost:3001/users/myprofile", {
+            headers: { "Authorization": localStorage.getItem("authToken") || "" }
         })
-        .then(response => response.json())
-        .then(userData => {
-            setFormData(userData)
+            .then(response => response.json())
+            .then(userData => {
+                setFormData(userData)
+            })
+            .catch(error => console.log(error))
+    };
+
+    const saveModification = async () => {
+        const updatedData = formData;
+        await fetch("http://localhost:3001/users/myprofile", {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": localStorage.getItem("authToken") || ""
+            },
+            body: JSON.stringify(updatedData),
         })
-        .catch(error => console.log(error))
+            .then(response => {
+                response.json();
+                setSaved(true);
+            })
+            .catch(error => {
+                setError(true);
+                console.log(error);
+            })
     }
 
     useEffect(() => {
         fetchUser();
-    },[]);
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -33,6 +55,11 @@ export default function Inputs() {
             [name]: value
         } as User));
     }
+
+    setTimeout(() => {
+        if(saved) setSaved(false);
+        if(error) setError(false);
+    }, 2000)
 
     return (
         <>
@@ -43,7 +70,7 @@ export default function Inputs() {
                         Username <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<LuUser />}>
-                        <Input placeholder="Username" name="username" value={formData.username? formData.username : ""} onChange={handleChange} />
+                        <Input placeholder="Username" name="username" value={formData.username ? formData.username : ""} onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -88,9 +115,15 @@ export default function Inputs() {
                 </Field.Root>
             </Wrap>
             <br></br>
-            <Button colorPalette="purple">
+            <Button colorPalette="purple" onClick={saveModification}>
                 Sauvegarder
             </Button>
+            {
+                saved && <Box background="green">Sauvegarde réussie</Box>
+            }
+            {
+                error && <Box background="red">Sauvegarde échouée</Box>
+            }
         </>
     )
 }

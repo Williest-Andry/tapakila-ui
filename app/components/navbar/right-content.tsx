@@ -5,10 +5,12 @@ import { Avatar, Flex, IconButton, Input, InputElement, Skeleton } from "@chakra
 import { FaBell, FaSearch } from "react-icons/fa";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
+import { useUserStore } from "@/store/userStore";
 
 export default function RightNavbarContent(){
     const [searchQuery, setSearchQuery] = useState("");
     const router = useRouter();
+    const {user} = useUserStore();
 
     const handleSubmit = () => {
         router.replace(searchQuery ? `/?title=${searchQuery}` : "/");
@@ -77,6 +79,7 @@ export default function RightNavbarContent(){
           }
         }}
       >
+        {user?.username || "Se connecter"}
       <Avatar.Root variant={"outline"}>
         <Avatar.Fallback name={""} />
         <Avatar.Image />
