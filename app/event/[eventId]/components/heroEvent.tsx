@@ -38,7 +38,7 @@ export default function HeroEvent({ event }: { event: Event }) {
                         <Icon fontSize="2xl">
                             <FaUserCog />
                         </Icon>
-                        <Heading fontWeight="medium" size="xl" ml="0.8vw">Organizer</Heading>
+                        <Heading fontWeight="medium" size="xl" ml="0.8vw">{event.organizer}</Heading>
                     </Flex>
                 </Stack>
                 <Wrap>

@@ -13,7 +13,7 @@ export default function Footer() {
             align="center"
           >
             <Text>
-              &copy; {new Date().getFullYear()} Mon Projet. Tous droits réservés.
+              &copy; {new Date().getFullYear()} TAPAKILA. Tous droits réservés.
             </Text>
             <Stack direction="row" gap={4}>
               <Link href="/about">

@@ -9,7 +9,7 @@ import Event from "../../../../../../Back-end/api/entity/Event";
 export default function EventDescription({event}: {event: Event}) {
     const [toggleWord, setToggleWord] = useState("Voir plus");
     const handleToggleWord = () =>  toggleWord == "Voir plus"? setToggleWord("Voir moins") : setToggleWord("Voir plus");
-    const description = "If anyone thinks he is something when he is nothing, he deceives himself. Each one should test his own actions. Then he can take pride in himself, without comparing himself to anyone else.";
+    const description: string = event.description;
 
     return (
         <Flex mb="10vh" ml="4vw" direction="column">
@@ -26,7 +26,7 @@ export default function EventDescription({event}: {event: Event}) {
                             </Stack>
                         </AccordionItemTrigger>
                         <AccordionItemContent >
-                            {description.slice(57)}
+                            {description}
                         </AccordionItemContent>
                     </AccordionItem>
                 </AccordionRoot>
