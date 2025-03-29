@@ -1,23 +1,41 @@
 "use client"
 import { ColorModeToggle } from "@/components/color-mode-toggle";
 import { InputGroup } from "@/components/ui/input-group";
-import { Avatar, Flex, IconButton, Input, InputElement, Skeleton } from "@chakra-ui/react";
+import { Avatar, Flex, IconButton, Input} from "@chakra-ui/react";
 import { FaBell, FaSearch } from "react-icons/fa";
-import { useState } from "react";
-import { useRouter } from 'next/navigation';
-import { useUserStore } from "@/store/userStore";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter } from 'next/navigation';
 
-export default function RightNavbarContent(){
-    const [searchQuery, setSearchQuery] = useState("");
-    const router = useRouter();
-    const {user} = useUserStore();
+export default function RightNavbarContent() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+  const [username, setUsername] = useState("Se connecter");
+  const pathname = usePathname();
 
-    const handleSubmit = () => {
-        router.replace(searchQuery ? `/?title=${searchQuery}` : "/");
+  const updateUsername = () => {
+    setUsername(localStorage.getItem("username") || "Se connecter");
+  };
+
+  useEffect(() => {
+    updateUsername();
+
+    window.addEventListener("storage", updateUsername);
+
+    return () => {
+      window.removeEventListener("storage", updateUsername);
     };
+  }, []);
 
-    return (
-        <Flex alignItems="center" gap={2}>
+  useEffect(() => {
+    updateUsername();
+  }, [pathname]);
+
+  const handleSubmit = () => {
+    router.replace(searchQuery ? `/?title=${searchQuery}` : "/");
+  };
+
+  return (
+    <Flex alignItems="center" gap={2}>
       <IconButton
         aria-label="search"
         variant={"ghost"}
@@ -70,22 +88,22 @@ export default function RightNavbarContent(){
         variant={"ghost"}
         colorScheme={"purple"}
         rounded={"full"}
-        onClick={() =>{
-          if(localStorage.getItem("authToken")) {
-            router.replace('/profile'); 
+        onClick={() => {
+          if (localStorage.getItem("authToken")) {
+            router.replace('/profile');
           }
-          else{
+          else {
             router.push("/login");
           }
         }}
       >
-        {user?.username || "Se connecter"}
-      <Avatar.Root variant={"outline"}>
-        <Avatar.Fallback name={""} />
-        <Avatar.Image />
-      </Avatar.Root>
+        {username}
+        <Avatar.Root variant={"outline"}>
+          <Avatar.Fallback name={""} />
+          <Avatar.Image />
+        </Avatar.Root>
       </IconButton>
       <ColorModeToggle />
     </Flex>
-        );
+  );
 }

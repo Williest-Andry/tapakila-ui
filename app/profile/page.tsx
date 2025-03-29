@@ -30,6 +30,7 @@ export default function Profile() {
             .then(response => {
                 if (response.ok) {
                     localStorage.removeItem("authToken");
+                    localStorage.removeItem("username");
                     router.replace("/");
                 }
             })

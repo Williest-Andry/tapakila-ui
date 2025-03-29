@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { Box, Button, Input, Heading, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { useUserStore } from "@/store/userStore";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -10,7 +9,6 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const router = useRouter();
   const [invited, setInvited] = useState(false);
-  const {user, setUser} = useUserStore();
 
   useEffect(() => {
     if (localStorage.getItem("authToken")) {
@@ -39,7 +37,7 @@ export default function LoginPage() {
       .then(response => response.json())
       .then(user => {
         localStorage.setItem("authToken", user.finalUser.authToken);
-        setUser(user.finalUser);
+        localStorage.setItem("username", user.finalUser.username);
         router.replace("/");
       })
       .catch(error => {
