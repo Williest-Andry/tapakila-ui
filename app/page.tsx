@@ -73,7 +73,7 @@ export default function Page() {
 
   const filteredAndSortedEvents = filterAndSortEvents(data, selectedDate, selectedPlace, selectedCategory);
 
-  if (loading) return (<Box display={"flex"} flexDirection={"column"} alignItems={"center"} alignContent={"center"} justifyContent={"center"} w={"100%"} h={"78.65dvh"}><Heading size={"3xl"}>Chargement . . .</Heading></Box>);
+  if (loading) return (<Box display={"flex"} flexDirection={"column"} alignItems={"center"} alignContent={"center"} justifyContent={"center"} w={"100%"} h={"78.65dvh"}><Heading size={"3xl"}>Loading . . .</Heading></Box>);
 
   return (
     <>
