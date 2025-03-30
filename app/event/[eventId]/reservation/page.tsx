@@ -17,6 +17,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { LuMinus, LuPlus } from "react-icons/lu"
+import { Toaster, toaster } from "@/components/ui/toaster"
 import HeroEvent from "../components/heroEvent.tsx"
 
 export default function ReservationPage({params}: { params: Promise<{ eventId: string }> }) {
@@ -36,7 +37,14 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
 
   // TODO
   const handleReservation = () => {
-    
+    return toaster.success({
+      title: "Update successful",
+      description: "File saved successfully to the server",
+      action: {
+        label: "Undo",
+        onClick: () => console.log("Undo"),
+      },
+    })
   }
 
   useEffect(() => {
@@ -112,7 +120,13 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
           Total: <strong>{vipQuantity+standardQuantity+earlyQuantity} €</strong>
         </Text>
 
-        <Button colorScheme="blue" onClick={handleReservation} size={"xl"} w={"300px"}>
+        <Button
+          variant="outline"
+          size="xl"
+          w={"300px"}
+          onClick={handleReservation}
+          disabled={vipQuantity+standardQuantity+earlyQuantity === 0 || event.availablePlace === 0}
+        >
           Book
         </Button>
       </VStack>
