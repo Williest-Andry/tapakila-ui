@@ -107,10 +107,10 @@ export default function Inputs() {
                 </Field.Root>
                 <Field.Root required w="48%">
                     <Field.Label>
-                        Code Postal <Field.RequiredIndicator />
+                        Ville <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<BsFillPostageFill />}>
-                        <Input placeholder="Code Postal" name="postalCode" onChange={handleChange} />
+                        <Input placeholder="Ville" name="city" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
             </Wrap>
@@ -119,10 +119,10 @@ export default function Inputs() {
                 Sauvegarder
             </Button>
             {
-                saved && <Box background="green">Sauvegarde réussie</Box>
+                saved && <Heading size="md" color="green.400" m="auto" textAlign="center">Sauvegarde réussie</Heading>
             }
             {
-                error && <Box background="red">Sauvegarde échouée</Box>
+                error && <Heading size="md" color="red.500" m="auto" textAlign="center">Sauvegarde échouée</Heading>
             }
         </>
     )

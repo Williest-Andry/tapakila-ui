@@ -10,7 +10,7 @@ type User = {
     birthday: string,
     country: string,
     phone: string,
-    postalCode: string
+    city: string
 }
 
 export default function SignUp() {
@@ -22,7 +22,7 @@ export default function SignUp() {
         birthday: "",
         country: "",
         phone: "",
-        postalCode: ""
+        city: ""
     } as User);
     const [error, setError] = useState("");
     const [confirmedPassword, setConfirmedPassword] = useState("");
@@ -93,6 +93,14 @@ export default function SignUp() {
                                 <Input name="email" value={formData.email} onChange={handleChange} />
                             </Field.Root>
                             <Field.Root required>
+                                <Field.Label>Numéro de téléphone <Field.RequiredIndicator /></Field.Label>
+                                <Input name="phone" value={formData.phone} onChange={handleChange} />
+                            </Field.Root>
+                            <Field.Root required>
+                                <Field.Label>Date de naissance <Field.RequiredIndicator /></Field.Label>
+                                <Input type="date" name="birthday" value={formData.birthday} onChange={handleChange} />
+                            </Field.Root>
+                            <Field.Root required>
                                 <Field.Label>Mot de passe <Field.RequiredIndicator /></Field.Label>
                                 <Input type="password" name="password" value={formData.password} onChange={handleChange} />
                             </Field.Root>
@@ -101,23 +109,15 @@ export default function SignUp() {
                                 <Input type="password" name="confirmedPassword" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)}/>
                             </Field.Root>
                             <Field.Root required>
-                                <Field.Label>Date de naissance <Field.RequiredIndicator /></Field.Label>
-                                <Input type="date" name="birthday" value={formData.birthday} onChange={handleChange} />
-                            </Field.Root>
-                            <Field.Root required>
                                 <Field.Label>Pays <Field.RequiredIndicator /></Field.Label>
                                 <Input name="country" value={formData.country} onChange={handleChange} />
                             </Field.Root>
                             <Field.Root required>
-                                <Field.Label>Numéro de téléphone <Field.RequiredIndicator /></Field.Label>
-                                <Input name="phone" value={formData.phone} onChange={handleChange} />
-                            </Field.Root>
-                            <Field.Root required>
-                                <Field.Label>Code postal <Field.RequiredIndicator /></Field.Label>
-                                <Input name="postalCode" value={formData.postalCode} onChange={handleChange} />
+                                <Field.Label>Ville <Field.RequiredIndicator /></Field.Label>
+                                <Input name="city" value={formData.city} onChange={handleChange} />
                             </Field.Root>
                         </Fieldset.Content>
-                        <Heading size="md" color="red.500" m="auto">{error as string}</Heading>
+                        <Heading size="md" color="red.500" m="auto" textAlign="center">{error as string}</Heading>
                         <Button type="submit" alignSelf="flex-start" m="auto" mt="2vh" mb="2vh" onClick={signup}>
                             S'inscrire
                         </Button>

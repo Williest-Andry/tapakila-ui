@@ -68,7 +68,7 @@ export default function ResetPassword() {
                                     <Dialog.Title>Réinitialiser votre mot de passe</Dialog.Title>
                                     <Heading size="md" color="red.500">{error as string}</Heading>
                                     {
-                                        saved && <Heading size="md" color="green.200">Modification réussie</Heading>
+                                        saved && <Heading size="md" color="green.400">Modification réussie</Heading>
                                     }
                                 </Dialog.Header>
                                 <Dialog.Body >
