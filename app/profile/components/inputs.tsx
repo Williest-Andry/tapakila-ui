@@ -86,7 +86,7 @@ export default function Inputs() {
                         Date de naissance <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<CiCalendarDate />}>
-                        <Input type="date" w="15.5vw" name="birthdate" onChange={handleChange} />
+                        <Input type="date" w="15.5vw" value={new Date(formData.birthday).toISOString().split("T")[0] || ""} name="birthdate" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -94,7 +94,7 @@ export default function Inputs() {
                         Numéro de téléphone<Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<FaPhoneAlt />}>
-                        <Input placeholder="Numéro de téléphone" name="phone" onChange={handleChange} />
+                        <Input placeholder="Numéro de téléphone" value={formData.phone || ""} name="phone" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -102,7 +102,7 @@ export default function Inputs() {
                         Pays <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<MdPlace />}>
-                        <Input placeholder="Pays" name="country" onChange={handleChange} />
+                        <Input placeholder="Pays" value={formData.country || ""} name="country" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -110,7 +110,7 @@ export default function Inputs() {
                         Ville <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<BsFillPostageFill />}>
-                        <Input placeholder="Ville" name="city" onChange={handleChange} />
+                        <Input placeholder="Ville"  value={formData.city || ""} name="city" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
             </Wrap>
