@@ -1,4 +1,4 @@
-import { Button, Center, Container} from "@chakra-ui/react";
+import {Center, Container} from "@chakra-ui/react";
 import HeroEvent from "./components/heroEvent";
 import TicketsTable from "./components/ticketsTable";
 import SimilarEvents from "./components/similarEvents";
@@ -8,6 +8,7 @@ import Event from "../../../../../Back-end/api/entity/Event";
 import getEventById from "@/lib/events/getEventById";
 import getAllEvents from "@/lib/events/getAllEvents";
 import getTicketByEventId from "@/lib/tickets/getTicketByEventId";
+import ReservationButton from "./components/reservationButton";
 
 export default async function EventPage({ params }: { params: Promise<{ eventId: string }> }) {
     const eventId = (await params).eventId;
@@ -19,20 +20,18 @@ export default async function EventPage({ params }: { params: Promise<{ eventId:
 
     return (
         <Container>
-            <HeroEvent event={event}/>
+            <HeroEvent event={event} />
 
-            <EventDescription event={event}/>
+            <EventDescription event={event} />
 
-            <TicketsTable tickets={tickets}/>
+            <TicketsTable tickets={tickets} />
 
             <Center mb="10vh">
-                <Button colorPalette="blue" variant="outline" size="lg" w="10vw">
-                    <a href={`/event/${eventId}/reservation`}>Réserver</a>
-                </Button>
+                <ReservationButton eventId={eventId} />
             </Center>
 
             {
-                similarEvents? "" : <SimilarEvents similarEvents={similarEvents}/>
+                similarEvents ? "" : <SimilarEvents similarEvents={similarEvents} />
             }
 
         </Container>

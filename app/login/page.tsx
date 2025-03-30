@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Box, Button, Input, Heading, VStack } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -10,8 +10,11 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const router = useRouter();
   const [invited, setInvited] = useState(false);
+  const actualURL = usePathname();
+  const [previousUrl, setPreviousUrl] = useState("");
 
   useEffect(() => {
+    setPreviousUrl(document.referrer);
     if (localStorage.getItem("authToken")) {
       router.replace("/profile");
     }
@@ -39,7 +42,12 @@ export default function LoginPage() {
       .then(user => {
         localStorage.setItem("authToken", user.finalUser.authToken);
         localStorage.setItem("username", user.finalUser.username);
-        router.replace("/");
+        if (previousUrl != "") {
+          router.replace(previousUrl);
+        }
+        else {
+          router.replace("/");
+        }
       })
       .catch(error => {
         setError("E-mail ou mot de passe incorrect.")
