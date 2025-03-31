@@ -31,6 +31,7 @@ export default function Profile() {
                 if (response.ok) {
                     localStorage.removeItem("authToken");
                     localStorage.removeItem("username");
+                    localStorage.removeItem("userId");
                     router.replace("/");
                 }
             })

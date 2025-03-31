@@ -86,7 +86,7 @@ export default function Inputs() {
                         Date de naissance <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<CiCalendarDate />}>
-                        <Input type="date" w="15.5vw" value={new Date(formData.birthday).toISOString().split("T")[0] || ""} name="birthdate" onChange={handleChange} />
+                        <Input type="date" w="15.5vw" value={formData.birthday? new Date(formData.birthday).toISOString().split("T")[0] : ""} name="birthdate" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">

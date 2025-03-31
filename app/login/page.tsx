@@ -42,6 +42,7 @@ export default function LoginPage() {
       .then(user => {
         localStorage.setItem("authToken", user.finalUser.authToken);
         localStorage.setItem("username", user.finalUser.username);
+        localStorage.setItem("userId", user.finalUser.id);
         if (previousUrl != "") {
           router.replace(previousUrl);
         }
