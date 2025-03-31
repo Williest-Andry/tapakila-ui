@@ -11,17 +11,26 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { Toaster, toaster } from "@/components/ui/toaster"
+import { toaster } from "@/components/ui/toaster"
 import Reservation from "../../../../../Back-end/api/entity/Reservation";
 import getUserReservations from "@/lib/reservations/getUserReservations";
+import deleteReservation from "@/lib/reservations/deleteReservation";
+import { useRouter } from "next/navigation";
 
 export default function ReservationsPage() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchData() {
         try {
-            const fetchReservations: Reservation[] = await getUserReservations('3');
+            const fetchReservations: Reservation[] = await getUserReservations(localStorage.getItem("userId") || "");
+            if (!fetchReservations) {
+                throw new Error("No reservations found.");
+            }
+            if (fetchReservations.length > 0) {
+                fetchReservations.sort((a, b) => new Date(b.eventDateTime).getTime() - new Date(a.eventDateTime).getTime());
+            }
             setReservations(fetchReservations);
         } catch (error) {
             console.error("Error fetching reservations:", error);
@@ -32,18 +41,37 @@ export default function ReservationsPage() {
   }, []);
 
   const cancelReservation = (id: number) => {
-    setReservations((prev) =>
-      prev.map((res) =>
-        res.id === id ? { ...res, status: "Annulée" } : res
-      )
-    );
+    try {
+      const timeOutId = setTimeout(() => {
+        deleteReservation(id);
+      }, 3000);
+      setReservations((prev) => prev.filter((reservation) => reservation.id !== id));
 
-    toaster.create({
-      title: "Réservation annulée",
-      description: `La réservation #${id} a été annulée.`,
-      type: "warning",
-      duration: 2000,
-    });
+      toaster.success({
+        title: "Reservation cancelled",
+        description: "Your reservation has been successfully cancelled.",
+        action: {
+          label: "Undo",
+          onClick: () => { clearTimeout(timeOutId);
+                            setReservations((prev) => {
+                              const foundReservation = reservations.find(res => res.id === id);
+                              return foundReservation ? [...prev, foundReservation] : prev;
+                            });
+                          },
+        },
+        duration: 3000,
+      });
+    } catch (error) {
+      console.error("Error cancelling reservation:", error);
+      toaster.error({
+        title: "Error",
+        description: "An error occurred while cancelling the reservation.",
+        action: {
+          label: "Undo",
+          onClick: () => console.log("Undo"),
+        },
+      });
+    }
   };
 
   return (
@@ -88,7 +116,7 @@ export default function ReservationsPage() {
                   <Text fontSize="sm">Quantity : <strong>{reservation.quantity}</strong></Text>
                 </VStack>
                 <VStack>
-                <Button size="lg" colorScheme="red" onClick={() => cancelReservation(reservation.id)} _hover={{ bg: "red" }}>
+                <Button size="lg" colorScheme="red" onClick={() => cancelReservation(reservation.id)} _hover={{ bg: "red" }} disabled={new Date(`${reservation.eventDateTime.split(" ")[0]}T${reservation.eventDateTime.split(" ")[1]}Z`).toISOString() < new Date().toISOString()}>
                     Annuler
                 </Button>
                 </VStack>

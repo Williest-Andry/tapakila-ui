@@ -54,27 +54,27 @@ export default function ResetPassword() {
     return (
         <>
             <Flex direction="column">
-                <Heading mb="1.7vh">Réinitialiser votre mot de passe</Heading>
+                <Heading mb="1.7vh">Reset your password</Heading>
                 <Dialog.Root placement="center">
                     <Dialog.Trigger asChild>
                         <Button variant="outline" size="sm" colorPalette="red">
-                            Modifier mon mot de passe
+                            Change password
                         </Button>
                     </Dialog.Trigger>
                     <Portal>
                         <Dialog.Positioner>
                             <Dialog.Content>
                                 <Dialog.Header>
-                                    <Dialog.Title>Réinitialiser votre mot de passe</Dialog.Title>
+                                    <Dialog.Title>Reset your password</Dialog.Title>
                                     <Heading size="md" color="red.500">{error as string}</Heading>
                                     {
-                                        saved && <Heading size="md" color="green.400">Modification réussie</Heading>
+                                        saved && <Heading size="md" color="green.400">Modification successful</Heading>
                                     }
                                 </Dialog.Header>
                                 <Dialog.Body >
                                     <Field.Root required w="100%" mb="2vh">
                                         <Field.Label>
-                                            Nouveau mot de passe <Field.RequiredIndicator />
+                                            New password <Field.RequiredIndicator />
                                         </Field.Label>
                                         <InputGroup startElement={<RiLockPasswordFill />} w="100%">
                                             <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -82,7 +82,7 @@ export default function ResetPassword() {
                                     </Field.Root>
                                     <Field.Root required>
                                         <Field.Label>
-                                            Confirmer le nouveau mot de passe <Field.RequiredIndicator />
+                                            Confirm new password <Field.RequiredIndicator />
                                         </Field.Label>
                                         <InputGroup startElement={<RiLockPasswordFill />} w="100%">
                                             <Input type="password" placeholder="Password" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} />
@@ -91,9 +91,9 @@ export default function ResetPassword() {
                                 </Dialog.Body>
                                 <Dialog.Footer>
                                     <Dialog.ActionTrigger asChild>
-                                        <Button variant="outline">Quitter</Button>
+                                        <Button variant="outline">Quit</Button>
                                     </Dialog.ActionTrigger>
-                                    <Button variant="outline" colorPalette="red" onClick={savePassword}>Sauvegarder</Button>
+                                    <Button variant="outline" colorPalette="red" onClick={savePassword}>Save</Button>
                                 </Dialog.Footer>
                             </Dialog.Content>
                         </Dialog.Positioner>

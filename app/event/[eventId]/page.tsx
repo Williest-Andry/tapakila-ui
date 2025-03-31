@@ -1,4 +1,4 @@
-import {Center, Container} from "@chakra-ui/react";
+import {Button, Center, Container, Icon, Link} from "@chakra-ui/react";
 import HeroEvent from "./components/heroEvent";
 import TicketsTable from "./components/ticketsTable";
 import SimilarEvents from "./components/similarEvents";
@@ -9,6 +9,7 @@ import getEventById from "@/lib/events/getEventById";
 import getAllEvents from "@/lib/events/getAllEvents";
 import getTicketByEventId from "@/lib/tickets/getTicketByEventId";
 import ReservationButton from "./components/reservationButton";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default async function EventPage({ params }: { params: Promise<{ eventId: string }> }) {
     const eventId = (await params).eventId;
@@ -20,6 +21,9 @@ export default async function EventPage({ params }: { params: Promise<{ eventId:
 
     return (
         <Container>
+            <Link href="/" mt={5} mb={5}>
+                        <Button ><Icon><FaArrowLeft /></Icon></Button>
+                    </Link>
             <HeroEvent event={event} />
 
             <EventDescription event={event} />

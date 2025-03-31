@@ -63,7 +63,7 @@ export default function Inputs() {
 
     return (
         <>
-            <Heading size="3xl">Vos informations personnelles</Heading>
+            <Heading size="3xl">Personal informations</Heading>
             <Wrap direction="row" w="40%" justify="space-between" mt="1vh">
                 <Field.Root required w="48%">
                     <Field.Label>
@@ -91,10 +91,10 @@ export default function Inputs() {
                 </Field.Root>
                 <Field.Root required w="48%">
                     <Field.Label>
-                        Numéro de téléphone<Field.RequiredIndicator />
+                        Phone number<Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<FaPhoneAlt />}>
-                        <Input placeholder="Numéro de téléphone" value={formData.phone || ""} name="phone" onChange={handleChange} />
+                        <Input placeholder="Phone number" value={formData.phone || ""} name="phone" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -116,13 +116,13 @@ export default function Inputs() {
             </Wrap>
             <br></br>
             <Button colorPalette="purple" onClick={saveModification}>
-                Sauvegarder
+                Save
             </Button>
             {
-                saved && <Heading size="md" color="green.400" m="auto" textAlign="center">Sauvegarde réussie</Heading>
+                saved && <Heading size="md" color="green.400" m="auto" textAlign="center">Successfully saved</Heading>
             }
             {
-                error && <Heading size="md" color="red.500" m="auto" textAlign="center">Sauvegarde échouée</Heading>
+                error && <Heading size="md" color="red.500" m="auto" textAlign="center">Couldn't save</Heading>
             }
         </>
     )

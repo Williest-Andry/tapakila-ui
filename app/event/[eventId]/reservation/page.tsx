@@ -15,10 +15,13 @@ import {
   VStack,
   HStack,
   IconButton,
+  Icon,
+  Link,
 } from "@chakra-ui/react";
 import { LuMinus, LuPlus } from "react-icons/lu"
 import { Toaster, toaster } from "@/components/ui/toaster"
 import HeroEvent from "../components/heroEvent.tsx"
+import { FaArrowLeft } from "react-icons/fa"
 
 export default function ReservationPage({params}: { params: Promise<{ eventId: string }> }) {
   const [event, setEvent] = useState<Event>({} as Event)
@@ -74,7 +77,10 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
 
   if (loading) return (<Box display={"flex"} flexDirection={"column"} alignItems={"center"} alignContent={"center"} justifyContent={"center"} w={"100%"} h={"78.65dvh"}><Heading size={"3xl"}>Loading . . .</Heading></Box>);
 
-  return (
+  return (<>
+      <Link href={`/event/${eventId}`} mt={5} mb={5}>
+        <Button ><Icon><FaArrowLeft /></Icon></Button>
+      </Link>
     <Box maxW="90dvw" mx="auto" mt={5} p={5} borderWidth="1px" borderRadius="md" mb={5}>
       <HeroEvent event={event}/>
 
@@ -131,5 +137,6 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
         </Button>
       </VStack>
     </Box>
+  </>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Flex, Heading, Icon, SkeletonText, Wrap } from "@chakra-ui/react";
+import { Button, Flex, Heading, HStack, Icon, SkeletonText, Wrap } from "@chakra-ui/react";
 import Inputs from "./components/inputs";
 import ResetPassword from "./components/resetPassword";
 import Link from "next/link";
@@ -47,9 +47,12 @@ export default function Profile() {
             {
                 authenticated &&
                 <>
+                    <HStack justify="space-between" align="center" marginTop={5} marginBottom={5}>
                     <Link href="/">
                         <Button ><Icon><FaArrowLeft /></Icon></Button>
                     </Link>
+                        <Button onClick={() => router.replace('/profile/reservations')}>My reservations</Button>
+                    </HStack>
                     <Wrap justify="center" align="center" direction="column" marginTop={3} marginBottom={3}>
                         <Inputs />
                         <br></br>
@@ -57,7 +60,7 @@ export default function Profile() {
                         <ResetPassword />
                         <br></br>
                         <br></br>
-                        <Button onClick={disconnection}>Déconnection</Button>
+                        <Button onClick={disconnection}>Log out</Button>
                     </Wrap>
                 </>
             }
