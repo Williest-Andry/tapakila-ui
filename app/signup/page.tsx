@@ -1,5 +1,6 @@
 "use client"
 import { emailSchema } from "@/schema/emailSchema";
+import { isValidPhone } from "@/schema/phoneNumberValidation";
 import { Button, Field, Fieldset, Heading, Input, Wrap } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -59,6 +60,10 @@ export default function SignUp() {
             if (!result.success) {
                 throw new Error(result.error.format()._errors[0]);
             }
+            const validPhoneNumber = isValidPhone(formData.phone);
+            if (validPhoneNumber == false) {
+                throw new Error("The phone number is not valid");
+            }
             await fetch("http://localhost:3001/users", {
                 method: "POST",
                 headers: {
@@ -95,11 +100,11 @@ export default function SignUp() {
                             </Field.Root>
                             <Field.Root required>
                                 <Field.Label>Email <Field.RequiredIndicator /></Field.Label>
-                                <Input name="email" value={formData.email} onChange={handleChange} />
+                                <Input name="email" value={formData.email} onChange={handleChange} placeholder="user@gmail.com"/>
                             </Field.Root>
                             <Field.Root required>
-                                <Field.Label>Numéro de téléphone <Field.RequiredIndicator /></Field.Label>
-                                <Input name="phone" value={formData.phone} onChange={handleChange} />
+                                <Field.Label>Phone number(whatever the country) <Field.RequiredIndicator /></Field.Label>
+                                <Input name="phone" value={formData.phone} onChange={handleChange} placeholder="+261, +317 ...."/>
                             </Field.Root>
                             <Field.Root required>
                                 <Field.Label>Date de naissance <Field.RequiredIndicator /></Field.Label>

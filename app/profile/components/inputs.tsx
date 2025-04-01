@@ -8,6 +8,7 @@ import { MdEmail, MdPlace } from "react-icons/md";
 import User from "../../../../../Back-end/api/entity/User";
 import { useEffect, useState } from "react";
 import { emailSchema } from "@/schema/emailSchema";
+import { isValidPhone } from "@/schema/phoneNumberValidation";
 
 export default function Inputs() {
     const [formData, setFormData] = useState({} as User);
@@ -27,6 +28,12 @@ export default function Inputs() {
     };
 
     const saveModification = async () => {
+        const validPhoneNumber = isValidPhone(formData.phone);
+        if(validPhoneNumber == false){
+            setError(true);
+            setErrorMessage("The phone number is not valid");
+            return;
+        }
         const result = emailSchema.safeParse(formData.email);
         if (!result.success) {
             setError(true);
@@ -86,7 +93,7 @@ export default function Inputs() {
                         Email <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<MdEmail />}>
-                        <Input placeholder="Email" name="email" value={formData.email || ""} onChange={handleChange} />
+                        <Input placeholder="user@gmail.com" name="email" value={formData.email || ""} onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -99,10 +106,10 @@ export default function Inputs() {
                 </Field.Root>
                 <Field.Root required w="48%">
                     <Field.Label>
-                        Phone number<Field.RequiredIndicator />
+                        Phone number(whatever the country)<Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<FaPhoneAlt />}>
-                        <Input placeholder="Phone number" value={formData.phone || ""} name="phone" onChange={handleChange} />
+                        <Input placeholder="+261, +317 ...." value={formData.phone || ""} name="phone" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">

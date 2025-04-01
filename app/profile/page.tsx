@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, HStack, Icon, SkeletonText, Wrap } from "@chakra-ui/react";
+import { Button, HStack, Icon, Wrap } from "@chakra-ui/react";
 import Inputs from "./components/inputs";
 import ResetPassword from "./components/resetPassword";
 import Link from "next/link";
