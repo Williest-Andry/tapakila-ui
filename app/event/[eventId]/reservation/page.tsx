@@ -22,32 +22,93 @@ import { LuMinus, LuPlus } from "react-icons/lu"
 import { toaster } from "@/components/ui/toaster"
 import HeroEvent from "../components/heroEvent.tsx"
 import { FaArrowLeft } from "react-icons/fa"
+import addReservation from "@/lib/reservations/addReservation.ts"
 
 export default function ReservationPage({params}: { params: Promise<{ eventId: string }> }) {
   const [event, setEvent] = useState<Event>({} as Event)
   const [tickets, setTickets] = useState<Ticket[]>([])
 
   const [vipQuantity, setVipQuantity] = useState<number>(0)
+  const [vipPrice, setVipPrice] = useState<number>(0)
   const [standardQuantity, setStandardQuantity] = useState<number>(0)
+  const [standardPrice, setStandardPrice] = useState<number>(0)
   const [earlyQuantity, setEarlyQuantity] = useState<number>(0)
+  const [earlyPrice, setEarlyPrice] = useState<number>(0)
+
   const [totalPrice, setTotalPrice] = useState<number>(0)
 
   const [eventId, setEventId] = useState<string>("")
-  const [name, setName] = useState<string>("")
-  const [email, setEmail] = useState<string>("")
 
   const [loading, setLoading] = useState<boolean>(true)
 
+  function submitReservation(typesQuantity: {vip: number, standard: number, early_bird: number}){
+    if (typesQuantity.vip > tickets.filter((ticket) => ticket.type === 'vip')[0].availableQuantity){
+      throw new Error(`${tickets.filter((ticket) => ticket.type === 'vip')[0].availableQuantity} Vip tickets left`)
+    }
+    if (typesQuantity.standard > tickets.filter((ticket) => ticket.type === 'standard')[0].availableQuantity){
+      throw new Error(`${tickets.filter((ticket) => ticket.type === 'standard')[0].availableQuantity} Standard tickets left`)
+    }
+    if (typesQuantity.early_bird > tickets.filter((ticket) => ticket.type === 'early_bird')[0].availableQuantity){
+      throw new Error(`${tickets.filter((ticket) => ticket.type === 'early_bird')[0].availableQuantity} Early Bird tickets left`)
+    }
+
+
+    if (typesQuantity.vip > 0){
+      const vipTicket = tickets.filter(ticket => ticket.type === 'vip')[0];
+      try {
+        addReservation(localStorage.getItem("userId") || "", vipTicket.id, vipQuantity);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (typesQuantity.standard > 0){
+      const standardTicket = tickets.filter(ticket => ticket.type === 'standard')[0];
+      try {
+        addReservation(localStorage.getItem("userId") || "", standardTicket.id, standardQuantity);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (typesQuantity.early_bird > 0){
+      const earlyTicket = tickets.filter(ticket => ticket.type === 'early_bird')[0];
+      try {
+        addReservation(localStorage.getItem("userId") || "", earlyTicket.id, earlyQuantity);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+
   // TODO
   const handleReservation = () => {
-    return toaster.success({
-      title: "Update successful",
-      description: "File saved successfully to the server",
-      action: {
-        label: "Undo",
-        onClick: () => console.log("Undo"),
-      },
-    })
+    const typesQuantity = {
+      vip: vipQuantity,
+      standard: standardQuantity,
+      early_bird: earlyQuantity,
+    };
+
+    try {
+          const timeOutId = setTimeout(() => {
+            submitReservation(typesQuantity);
+          }, 5000);
+    
+          toaster.success({
+            title: "Reservations done",
+            description: `Tickets  : ${vipQuantity} - Vip , ${standardQuantity} - Standard , ${earlyQuantity} - Early Bird have been successfully reserved with a total amount of ' ${vipPrice+standardPrice+earlyPrice} € '`,
+            action: {
+              label: "Undo",
+              onClick: () => { clearTimeout(timeOutId);},
+            }, duration: 5000,
+          });
+        } catch (error) {
+          console.error("Error doing reservations:", error);
+          toaster.error({
+            title: "Error",
+            description: "An error occurred while doing reservations.",
+          });
+        }
   }
 
   useEffect(() => {
@@ -100,9 +161,9 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
           <HStack w={"75%"} justifyContent="space-between" key={ticket.id}>
             <Text fontSize="lg">{ticket.type} - {ticket.price}€</Text>
             <NumberInput.Root defaultValue="0" unstyled spinOnPress={false} min={0} max={5} onValueChange={(value) => {
-                if (ticket.type === "vip") setVipQuantity(Number(value.value) * ticket.price)
-                else if (ticket.type === "standard") setStandardQuantity(Number(value.value) * ticket.price)
-                else if (ticket.type === "early_bird") setEarlyQuantity(Number(value.value) * ticket.price)
+                if (ticket.type === "vip") {setVipQuantity(Number(value.value)); setVipPrice(Number(value.value) * ticket.price)}
+                else if (ticket.type === "standard") {setStandardQuantity(Number(value.value)); setStandardPrice(Number(value.value) * ticket.price)}
+                else if (ticket.type === "early_bird") {setEarlyQuantity(Number(value.value)); setEarlyPrice(Number(value.value) * ticket.price)}
               }}>
               <HStack gap="2" w={"100%"} justifyContent="space-between">
                 <NumberInput.DecrementTrigger asChild>
@@ -126,7 +187,7 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
       <VStack gap={4}>
 
         <Text fontSize="lg">
-          Total: <strong>{vipQuantity+standardQuantity+earlyQuantity} €</strong>
+          Total: <strong>{vipPrice+standardPrice+earlyPrice} €</strong>
         </Text>
 
         <Button

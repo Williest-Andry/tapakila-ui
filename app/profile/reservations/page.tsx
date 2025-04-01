@@ -9,6 +9,8 @@ import {
   Badge,
   Button,
   HStack,
+  Icon,
+  Link,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { toaster } from "@/components/ui/toaster"
@@ -16,6 +18,7 @@ import Reservation from "../../../../../Back-end/api/entity/Reservation";
 import getUserReservations from "@/lib/reservations/getUserReservations";
 import deleteReservation from "@/lib/reservations/deleteReservation";
 import { useRouter } from "next/navigation";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function ReservationsPage() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
@@ -66,16 +69,16 @@ export default function ReservationsPage() {
       toaster.error({
         title: "Error",
         description: "An error occurred while cancelling the reservation.",
-        action: {
-          label: "Undo",
-          onClick: () => console.log("Undo"),
-        },
       });
     }
   };
 
   return (
-    <Box maxW="90dvw" mx="auto" mt={10} p={5} borderWidth="1px" borderRadius="md">
+    <>
+      <Link href="/profile" mt={5} mb={5}>
+        <Button ><Icon><FaArrowLeft /></Icon></Button>
+      </Link>
+      <Box maxW="90dvw" mx="auto" mt={5} p={5} borderWidth="1px" borderRadius="md">
       <Heading as="h2" size="2xl" textAlign="center" mb={4}>
         My reservations
       </Heading>
@@ -126,5 +129,7 @@ export default function ReservationsPage() {
         ))}
       </VStack>
     </Box>
+    </>
+    
   );
 }
