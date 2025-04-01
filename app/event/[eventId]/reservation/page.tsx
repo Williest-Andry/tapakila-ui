@@ -19,7 +19,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { LuMinus, LuPlus } from "react-icons/lu"
-import { Toaster, toaster } from "@/components/ui/toaster"
+import { toaster } from "@/components/ui/toaster"
 import HeroEvent from "../components/heroEvent.tsx"
 import { FaArrowLeft } from "react-icons/fa"
 
@@ -58,9 +58,12 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
         try {
           const fetchEvent: Event = await getEventById(eventId);
           setEvent(fetchEvent)
-
-          const fetchTickets: Ticket[] = await getTicketByEventId(eventId);
-          setTickets(fetchTickets)
+          try {
+            const fetchTickets: Ticket[] = await getTicketByEventId(eventId);
+            setTickets(fetchTickets)
+          } catch (error) {
+            console.error("Error fetching tickets:", error)
+          }
         } catch (error) {  
           console.error("Error fetching event ID:", error)
         }
@@ -94,8 +97,8 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
 
       <VStack gap={5}>
         {tickets.map((ticket) => 
-          <HStack w={"75%"} justifyContent="space-between">
-            <Text fontSize="lg" key={ticket.id}>{ticket.type} - {ticket.price}€</Text>
+          <HStack w={"75%"} justifyContent="space-between" key={ticket.id}>
+            <Text fontSize="lg">{ticket.type} - {ticket.price}€</Text>
             <NumberInput.Root defaultValue="0" unstyled spinOnPress={false} min={0} max={5} onValueChange={(value) => {
                 if (ticket.type === "vip") setVipQuantity(Number(value.value) * ticket.price)
                 else if (ticket.type === "standard") setStandardQuantity(Number(value.value) * ticket.price)
