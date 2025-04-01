@@ -1,5 +1,6 @@
 "use client"
-import { Button, Field, Fieldset, For, Heading, Input, NativeSelect, Stack, Wrap } from "@chakra-ui/react";
+import { emailSchema } from "@/schema/emailSchema";
+import { Button, Field, Fieldset, Heading, Input, Wrap } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -54,6 +55,10 @@ export default function SignUp() {
             if (formData.password != confirmedPassword) {
                 throw new Error("La confirmation de mot de passe ne correspond pas au mot de passe donné");
             }
+            const result = emailSchema.safeParse(formData.email);
+            if (!result.success) {
+                throw new Error(result.error.format()._errors[0]);
+            }
             await fetch("http://localhost:3001/users", {
                 method: "POST",
                 headers: {
@@ -106,7 +111,7 @@ export default function SignUp() {
                             </Field.Root>
                             <Field.Root required>
                                 <Field.Label>Confirmer le mot de passe <Field.RequiredIndicator /></Field.Label>
-                                <Input type="password" name="confirmedPassword" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)}/>
+                                <Input type="password" name="confirmedPassword" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} />
                             </Field.Root>
                             <Field.Root required>
                                 <Field.Label>Pays <Field.RequiredIndicator /></Field.Label>

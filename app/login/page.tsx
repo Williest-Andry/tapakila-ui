@@ -1,8 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Box, Button, Input, Heading, VStack } from "@chakra-ui/react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { emailSchema } from "@/schema/emailSchema";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -10,7 +11,6 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const router = useRouter();
   const [invited, setInvited] = useState(false);
-  const actualURL = usePathname();
   const [previousUrl, setPreviousUrl] = useState("");
 
   useEffect(() => {
@@ -30,6 +30,12 @@ export default function LoginPage() {
     // Check if email and password are not empty
     if (!email || !password) {
       setError("Tous les champs sont obligatoires.");
+      return;
+    }
+
+    const result = emailSchema.safeParse(email);
+    if (!result.success) {
+      setError(result.error.format()._errors[0]);
       return;
     }
 

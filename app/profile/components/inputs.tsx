@@ -7,11 +7,13 @@ import { LuUser } from "react-icons/lu";
 import { MdEmail, MdPlace } from "react-icons/md";
 import User from "../../../../../Back-end/api/entity/User";
 import { useEffect, useState } from "react";
+import { emailSchema } from "@/schema/emailSchema";
 
 export default function Inputs() {
     const [formData, setFormData] = useState({} as User);
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const fetchUser = async () => {
         await fetch("http://localhost:3001/users/myprofile", {
@@ -25,6 +27,12 @@ export default function Inputs() {
     };
 
     const saveModification = async () => {
+        const result = emailSchema.safeParse(formData.email);
+        if (!result.success) {
+            setError(true);
+            setErrorMessage(result.error.format()._errors[0]);
+            return;
+        }
         const updatedData = formData;
         await fetch("http://localhost:3001/users/myprofile", {
             method: "PUT",
@@ -57,8 +65,8 @@ export default function Inputs() {
     }
 
     setTimeout(() => {
-        if(saved) setSaved(false);
-        if(error) setError(false);
+        if (saved) setSaved(false);
+        if (error) setError(false);
     }, 2000)
 
     return (
@@ -86,7 +94,7 @@ export default function Inputs() {
                         Date de naissance <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<CiCalendarDate />}>
-                        <Input type="date" w="15.5vw" value={formData.birthday? new Date(formData.birthday).toISOString().split("T")[0] : ""} name="birthdate" onChange={handleChange} />
+                        <Input type="date" w="15.5vw" value={formData.birthday ? new Date(formData.birthday).toISOString().split("T")[0] : ""} name="birthdate" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -110,7 +118,7 @@ export default function Inputs() {
                         Ville <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<BsFillPostageFill />}>
-                        <Input placeholder="Ville"  value={formData.city || ""} name="city" onChange={handleChange} />
+                        <Input placeholder="Ville" value={formData.city || ""} name="city" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
             </Wrap>
@@ -122,7 +130,7 @@ export default function Inputs() {
                 saved && <Heading size="md" color="green.400" m="auto" textAlign="center">Successfully saved</Heading>
             }
             {
-                error && <Heading size="md" color="red.500" m="auto" textAlign="center">Couldn't save</Heading>
+                error && <Heading size="md" color="red.500" m="auto" textAlign="center">{errorMessage != "" ? errorMessage : "Couldn't save"}</Heading>
             }
         </>
     )
