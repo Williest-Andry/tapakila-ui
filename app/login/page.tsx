@@ -27,7 +27,6 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
 
-    // Check if email and password are not empty
     if (!email || !password) {
       setError("Tous les champs sont obligatoires.");
       return;

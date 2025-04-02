@@ -4,6 +4,7 @@ import { isValidPhone } from "@/schema/phoneNumberValidation";
 import { Button, Field, Fieldset, Heading, Input, Wrap } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import CountrySelect from "./components/countrySelect";
 
 type User = {
     username: string,
@@ -46,6 +47,13 @@ export default function SignUp() {
             [name]: value
         } as User));
     }
+
+    const handleCountryChange = (selectedCountry: any) => {
+        setFormData((prevForm) => ({
+            ...prevForm,
+            country: selectedCountry.label.items[0].label
+        }));
+    };
 
     const signup = async () => {
         const createdUser = formData;
@@ -100,11 +108,11 @@ export default function SignUp() {
                             </Field.Root>
                             <Field.Root required>
                                 <Field.Label>Email <Field.RequiredIndicator /></Field.Label>
-                                <Input name="email" value={formData.email} onChange={handleChange} placeholder="user@gmail.com"/>
+                                <Input name="email" value={formData.email} onChange={handleChange} placeholder="user@gmail.com" />
                             </Field.Root>
                             <Field.Root required>
-                                <Field.Label>Phone number(whatever the country) <Field.RequiredIndicator /></Field.Label>
-                                <Input name="phone" value={formData.phone} onChange={handleChange} placeholder="+261, +317 ...."/>
+                                <Field.Label>Phone number (whatever the country) <Field.RequiredIndicator /></Field.Label>
+                                <Input name="phone" value={formData.phone} onChange={handleChange} placeholder="+261, +317 ...." />
                             </Field.Root>
                             <Field.Root required>
                                 <Field.Label>Date de naissance <Field.RequiredIndicator /></Field.Label>
@@ -119,8 +127,9 @@ export default function SignUp() {
                                 <Input type="password" name="confirmedPassword" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} />
                             </Field.Root>
                             <Field.Root required>
-                                <Field.Label>Pays <Field.RequiredIndicator /></Field.Label>
-                                <Input name="country" value={formData.country} onChange={handleChange} />
+                                <Field.Label>Pays (Caution: you can't change it after)<Field.RequiredIndicator /></Field.Label>
+                                {/* <Input name="country" value={formData.country} onChange={handleChange} /> */}
+                                <CountrySelect onChange={handleCountryChange} />
                             </Field.Root>
                             <Field.Root required>
                                 <Field.Label>Ville <Field.RequiredIndicator /></Field.Label>

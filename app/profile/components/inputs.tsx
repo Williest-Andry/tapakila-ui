@@ -114,10 +114,10 @@ export default function Inputs() {
                 </Field.Root>
                 <Field.Root required w="48%">
                     <Field.Label>
-                        Pays <Field.RequiredIndicator />
+                        Pays 
                     </Field.Label>
                     <InputGroup startElement={<MdPlace />}>
-                        <Input placeholder="Pays" value={formData.country || ""} name="country" onChange={handleChange} />
+                        <Input placeholder="Pays" value={formData.country || ""} name="country" disabled/>
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
