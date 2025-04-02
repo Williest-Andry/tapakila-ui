@@ -7,7 +7,7 @@ import Event from "../../../../../../Back-end/api/entity/Event";
 export default function SimilarEvents({ similarEvents }: { similarEvents: Event[] }) {
     return (
         <Container w="99vw" ml="-2vw" p="0">
-            <Heading ml="0vw" mb="2vw">ÉVÉNEMENTS DE MÊME CATÉGORIE </Heading>
+            <Heading ml="0vw" mb="2vw">EVENTS IN THE SAME CATEGORY  </Heading>
 
 
             <Flex w="100%" wrap="wrap" gap="2vh" justify="space-between">
@@ -38,7 +38,6 @@ export default function SimilarEvents({ similarEvents }: { similarEvents: Event[
                                     </Flex>
 
                                     <Heading fontWeight="normal" size="lg" mb="2vh" color="yellow.400">{similar.category}</Heading>
-                                    <Heading fontWeight="bold" size="xl">PRIX</Heading>
                                 </Box>
                             </Flex>
                         </Link>

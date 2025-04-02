@@ -10,8 +10,6 @@ import Countdown from "./countDown";
 
 
 export default function HeroEvent({ event }: { event: Event }) {
-    const [count, setCount] = useState(0);
-
     return (
         <Flex justify="space-around" mb="10vh">
             <Image rounded="md" src={"/"+event.image} alt="Event image" htmlWidth="500px" htmlHeight="500px"></Image>
@@ -38,11 +36,11 @@ export default function HeroEvent({ event }: { event: Event }) {
                         <Icon fontSize="2xl">
                             <FaUserCog />
                         </Icon>
-                        <Heading fontWeight="medium" size="xl" ml="0.8vw">{event.organizer}</Heading>
+                        <Heading fontWeight="medium" size="xl" ml="0.8vw">{event.organizer || "Blake association"}</Heading>
                     </Flex>
                 </Stack>
                 <Wrap>
-                    <Heading>LIMITE D'ACHAT DE BILLET :</Heading>
+                    <Heading>TICKET PURCHASE LIMIT :</Heading>
                     <Countdown targetDate={event.dateTime} />
                 </Wrap>
             </Flex>

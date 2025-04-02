@@ -115,7 +115,7 @@ export default function Inputs() {
                 </Field.Root>
                 <Field.Root required w="48%">
                     <Field.Label>
-                        Date de naissance <Field.RequiredIndicator />
+                        Birthday <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<CiCalendarDate />}>
                         <Input type="date" w="15.5vw" value={formData.birthday ? new Date(formData.birthday).toISOString().split("T")[0] : ""} name="birthday" onChange={handleChange} />
@@ -131,7 +131,7 @@ export default function Inputs() {
                 </Field.Root>
                 <Field.Root required w="48%">
                     <Field.Label>
-                        Pays
+                        Country
                     </Field.Label>
                     <InputGroup startElement={<MdPlace />}>
                         <Input placeholder="Pays" value={formData.country || ""} name="country" disabled />
@@ -139,7 +139,7 @@ export default function Inputs() {
                 </Field.Root>
                 <Field.Root required w="48%">
                     <Field.Label>
-                        Ville <Field.RequiredIndicator />
+                        City <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<BsFillPostageFill />}>
                         <Input placeholder="Ville" value={formData.city || ""} name="city" onChange={handleChange} />

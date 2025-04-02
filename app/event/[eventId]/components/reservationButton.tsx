@@ -30,7 +30,7 @@ export default function ReservationButton({ eventId }: { eventId: string }) {
     return (
         <Flex direction="column">
             <Button colorPalette="blue" variant="outline" size="lg" w="10vw" onClick={redirection} disabled={isDisabled}>
-                Réserver
+                Book
             </Button>
             {
                 error &&

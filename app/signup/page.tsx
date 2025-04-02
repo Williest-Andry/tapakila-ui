@@ -69,7 +69,7 @@ export default function SignUp() {
                 throw new Error("All fields are required.");
             }
             if (formData.password != confirmedPassword) {
-                throw new Error("La confirmation de mot de passe ne correspond pas au mot de passe donné");
+                throw new Error("The password confirmation does not match the given password");
             }
             const result = emailSchema.safeParse(formData.email);
             if (!result.success) {
@@ -79,7 +79,7 @@ export default function SignUp() {
             if (validPhoneNumber == false) {
                 throw new Error("The phone number is not valid");
             }
-            if(!is18YearsOld(formData.birthday)){
+            if (!is18YearsOld(formData.birthday)) {
                 throw new Error("You must be 18 or older");
             }
             await fetch("http://localhost:3001/users", {
@@ -109,11 +109,11 @@ export default function SignUp() {
             {
                 invited &&
                 <Wrap direction="column" justify="center" alignItems="center">
-                    <Heading size="2xl">Créer un compte</Heading>
+                    <Heading size="2xl">Create an account</Heading>
                     <Fieldset.Root size="lg" maxW="md">
                         <Fieldset.Content>
                             <Field.Root required>
-                                <Field.Label>Nom d'utilisateur <Field.RequiredIndicator /></Field.Label>
+                                <Field.Label>Username<Field.RequiredIndicator /></Field.Label>
                                 <Input name="username" value={formData.username} onChange={handleChange} />
                             </Field.Root>
                             <Field.Root required>
@@ -125,30 +125,30 @@ export default function SignUp() {
                                 <Input name="phone" value={formData.phone} onChange={handleChange} placeholder="+261, +317 ...." />
                             </Field.Root>
                             <Field.Root required>
-                                <Field.Label>Date de naissance <Field.RequiredIndicator /></Field.Label>
+                                <Field.Label>Birthday <Field.RequiredIndicator /></Field.Label>
                                 <Input type="date" name="birthday" value={formData.birthday} onChange={handleChange} />
                             </Field.Root>
                             <Field.Root required>
-                                <Field.Label>Mot de passe <Field.RequiredIndicator /></Field.Label>
+                                <Field.Label>Password <Field.RequiredIndicator /></Field.Label>
                                 <Input type="password" name="password" value={formData.password} onChange={handleChange} />
                             </Field.Root>
                             <Field.Root required>
-                                <Field.Label>Confirmer le mot de passe <Field.RequiredIndicator /></Field.Label>
+                                <Field.Label>Password confirmation <Field.RequiredIndicator /></Field.Label>
                                 <Input type="password" name="confirmedPassword" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} />
                             </Field.Root>
                             <Field.Root required>
-                                <Field.Label>Pays (Caution: you can't change it after)<Field.RequiredIndicator /></Field.Label>
+                                <Field.Label>Country (Caution: you can't change it after)<Field.RequiredIndicator /></Field.Label>
                                 {/* <Input name="country" value={formData.country} onChange={handleChange} /> */}
                                 <CountrySelect onChange={handleCountryChange} />
                             </Field.Root>
                             <Field.Root required>
-                                <Field.Label>Ville <Field.RequiredIndicator /></Field.Label>
+                                <Field.Label>City <Field.RequiredIndicator /></Field.Label>
                                 <Input name="city" value={formData.city} onChange={handleChange} />
                             </Field.Root>
                         </Fieldset.Content>
                         <Heading size="md" color="red.500" m="auto" textAlign="center">{error as string}</Heading>
                         <Button type="submit" alignSelf="flex-start" m="auto" mt="2vh" mb="2vh" onClick={signup}>
-                            S'inscrire
+                            Sign up
                         </Button>
                     </Fieldset.Root>
                 </Wrap>
