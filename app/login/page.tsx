@@ -11,10 +11,8 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const router = useRouter();
   const [invited, setInvited] = useState(false);
-  const [previousUrl, setPreviousUrl] = useState("");
 
   useEffect(() => {
-    setPreviousUrl(document.referrer);
     if (localStorage.getItem("authToken")) {
       router.replace("/profile");
     }
@@ -48,12 +46,7 @@ export default function LoginPage() {
         localStorage.setItem("authToken", user.finalUser.authToken);
         localStorage.setItem("username", user.finalUser.username);
         localStorage.setItem("userId", user.finalUser.id);
-        if (previousUrl != "") {
-          router.replace(previousUrl);
-        }
-        else {
-          router.replace("/");
-        }
+        router.replace("/");
       })
       .catch(error => {
         setError("E-mail ou mot de passe incorrect.")
