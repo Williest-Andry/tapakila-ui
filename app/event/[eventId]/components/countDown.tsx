@@ -36,12 +36,12 @@ export default function Countdown({ targetDate }: CountdownProps) {
       <Box border="2px solid" borderRadius="md" w="25%" h="16vh">
         <Text textAlign="center" mb="1vh" textStyle="6xl">{timeLeft.days}</Text>
         <Box height="0" w="3vw" border="2px solid" m="auto"/>
-        <Text textAlign="center">JOURS</Text>
+        <Text textAlign="center">DAYS</Text>
       </Box>
       <Box border="2px solid" borderRadius="md" w="25%" h="16vh">
         <Text textAlign="center" mb="1vh" textStyle="6xl">{timeLeft.hours}</Text>
         <Box height="0" w="3vw" border="2px solid" m="auto"/>
-        <Text textAlign="center">HEURES</Text>
+        <Text textAlign="center">HOURS</Text>
       </Box>
       <Box border="2px solid" borderRadius="md" w="25%" h="16vh">
         <Text textAlign="center" mb="1vh" textStyle="6xl">{timeLeft.minutes}</Text>
