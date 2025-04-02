@@ -27,9 +27,16 @@ export default function Inputs() {
             .catch(error => console.log(error))
     };
 
+    const is18YearsOld = (birthday: string): boolean => {
+        const date18YearsLater = new Date(birthday);
+        const today = new Date();
+        date18YearsLater.setFullYear(date18YearsLater.getFullYear() + 18);
+        return date18YearsLater <= today;
+    };
+
     const saveModification = async () => {
         const validPhoneNumber = isValidPhone(formData.phone);
-        if(validPhoneNumber == false){
+        if (validPhoneNumber == false) {
             setError(true);
             setErrorMessage("The phone number is not valid");
             return;
@@ -38,6 +45,11 @@ export default function Inputs() {
         if (!result.success) {
             setError(true);
             setErrorMessage(result.error.format()._errors[0]);
+            return;
+        }
+        if(!is18YearsOld(formData.birthday)){
+            setError(true);
+            setErrorMessage("You must be 18 or older");
             return;
         }
         const updatedData = formData;
@@ -50,12 +62,17 @@ export default function Inputs() {
             body: JSON.stringify(updatedData),
         })
             .then(response => {
+                if (!response.ok) {
+                    setError(true);
+                    setErrorMessage("The e-mail or the phone number is already linked with an account");
+                    return;
+                }
                 response.json();
                 setSaved(true);
             })
             .catch(error => {
                 setError(true);
-                console.log(error);
+                setErrorMessage("The e-mail or the phone number is already linked with an account");
             })
     }
 
@@ -74,7 +91,7 @@ export default function Inputs() {
     setTimeout(() => {
         if (saved) setSaved(false);
         if (error) setError(false);
-    }, 2000)
+    }, 3000)
 
     return (
         <>
@@ -101,7 +118,7 @@ export default function Inputs() {
                         Date de naissance <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<CiCalendarDate />}>
-                        <Input type="date" w="15.5vw" value={formData.birthday ? new Date(formData.birthday).toISOString().split("T")[0] : ""} name="birthdate" onChange={handleChange} />
+                        <Input type="date" w="15.5vw" value={formData.birthday ? new Date(formData.birthday).toISOString().split("T")[0] : ""} name="birthday" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -114,10 +131,10 @@ export default function Inputs() {
                 </Field.Root>
                 <Field.Root required w="48%">
                     <Field.Label>
-                        Pays 
+                        Pays
                     </Field.Label>
                     <InputGroup startElement={<MdPlace />}>
-                        <Input placeholder="Pays" value={formData.country || ""} name="country" disabled/>
+                        <Input placeholder="Pays" value={formData.country || ""} name="country" disabled />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">

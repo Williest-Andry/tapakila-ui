@@ -26,7 +26,7 @@ export default function LoginPage() {
     setError("");
 
     if (!email || !password) {
-      setError("Tous les champs sont obligatoires.");
+      setError("All fields are required");
       return;
     }
 
@@ -49,8 +49,7 @@ export default function LoginPage() {
         router.replace("/");
       })
       .catch(error => {
-        setError("E-mail ou mot de passe incorrect.")
-        console.error(error);
+        setError("Invalid e-mail or password")
       })
   };
 

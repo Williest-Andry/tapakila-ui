@@ -56,20 +56,17 @@ export default function SignUp() {
     };
 
     const is18YearsOld = (birthday: string): boolean => {
-        const birthDate = new Date(birthday);
+        const date18YearsLater = new Date(birthday);
         const today = new Date();
-    
-        const eighteenYearsLater = new Date(birthDate);
-        eighteenYearsLater.setFullYear(birthDate.getFullYear() + 18);
-    
-        return today.toISOString().split("T")[0] === eighteenYearsLater.toISOString().split("T")[0];
+        date18YearsLater.setFullYear(date18YearsLater.getFullYear() + 18);
+        return date18YearsLater <= today;
     };
 
     const signup = async () => {
         const createdUser = formData;
         try {
             if (Object.values(formData).some(value => value.trim() === "")) {
-                throw new Error("Tous les champs sont obligatoires");
+                throw new Error("All fields are required.");
             }
             if (formData.password != confirmedPassword) {
                 throw new Error("La confirmation de mot de passe ne correspond pas au mot de passe donné");
@@ -99,7 +96,7 @@ export default function SignUp() {
                     router.replace("/");
                 })
                 .catch(error => {
-                    console.log(error);
+                    throw new Error("The e-mail or the phone number is already linked with an account");
                 })
         }
         catch (e: any) {
