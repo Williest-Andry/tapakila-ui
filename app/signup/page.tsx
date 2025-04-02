@@ -55,6 +55,16 @@ export default function SignUp() {
         }));
     };
 
+    const is18YearsOld = (birthday: string): boolean => {
+        const birthDate = new Date(birthday);
+        const today = new Date();
+    
+        const eighteenYearsLater = new Date(birthDate);
+        eighteenYearsLater.setFullYear(birthDate.getFullYear() + 18);
+    
+        return today.toISOString().split("T")[0] === eighteenYearsLater.toISOString().split("T")[0];
+    };
+
     const signup = async () => {
         const createdUser = formData;
         try {
@@ -71,6 +81,9 @@ export default function SignUp() {
             const validPhoneNumber = isValidPhone(formData.phone);
             if (validPhoneNumber == false) {
                 throw new Error("The phone number is not valid");
+            }
+            if(!is18YearsOld(formData.birthday)){
+                throw new Error("You must be 18 or older");
             }
             await fetch("http://localhost:3001/users", {
                 method: "POST",
