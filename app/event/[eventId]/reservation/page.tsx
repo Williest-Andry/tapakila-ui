@@ -23,6 +23,7 @@ import { toaster } from "@/components/ui/toaster"
 import HeroEvent from "../components/heroEvent.tsx"
 import { FaArrowLeft } from "react-icons/fa"
 import addReservation from "@/lib/reservations/addReservation.ts"
+import { ImTicket } from "react-icons/im"
 
 export default function ReservationPage({params}: { params: Promise<{ eventId: string }> }) {
   const [event, setEvent] = useState<Event>({} as Event)
@@ -159,7 +160,12 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
       <VStack gap={5}>
         {tickets.map((ticket) => 
           <HStack w={"75%"} justifyContent="space-between" key={ticket.id}>
+            <HStack gap={5}>
+            <Icon fontSize="2xl">
+              <ImTicket />
+            </Icon>
             <Text fontSize="lg">{ticket.type} - {ticket.price}€</Text>
+            </HStack>
             <NumberInput.Root defaultValue="0" unstyled spinOnPress={false} min={0} max={5} onValueChange={(value) => {
                 if (ticket.type === "vip") {setVipQuantity(Number(value.value)); setVipPrice(Number(value.value) * ticket.price)}
                 else if (ticket.type === "standard") {setStandardQuantity(Number(value.value)); setStandardPrice(Number(value.value) * ticket.price)}
