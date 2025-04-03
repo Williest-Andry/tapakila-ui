@@ -8,7 +8,6 @@ import getTicketByEventId from "@/lib/tickets/getTicketByEventId.ts"
 import {
   Box,
   Button,
-  Input,
   NumberInput,
   Heading,
   Text,
@@ -35,8 +34,6 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
   const [standardPrice, setStandardPrice] = useState<number>(0)
   const [earlyQuantity, setEarlyQuantity] = useState<number>(0)
   const [earlyPrice, setEarlyPrice] = useState<number>(0)
-
-  const [totalPrice, setTotalPrice] = useState<number>(0)
 
   const [eventId, setEventId] = useState<string>("")
 
@@ -152,7 +149,7 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
     finally {
       setLoading(false)
     }
-  }, [])
+  }, [params])
 
   if (loading) return (<Box display={"flex"} flexDirection={"column"} alignItems={"center"} alignContent={"center"} justifyContent={"center"} w={"100%"} h={"78.65dvh"}><Heading size={"3xl"}>Loading . . .</Heading></Box>);
 

@@ -1,9 +1,10 @@
 import getSearchedEvent from "@/lib/events/getSearchedEvents";
 import React, { useState } from "react";
+import Event from "../../../../Back-end/api/entity/Event";
 
 const EventSearch = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [events, setEvents] = useState<any[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchEvents = async (query: string = "") => {

@@ -20,7 +20,7 @@ export default function LoginPage() {
     else {
       setInvited(true);
     }
-  }, [])
+  }, [router])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +50,7 @@ export default function LoginPage() {
         router.replace("/");
       })
       .catch(error => {
-        setError("Invalid e-mail or password")
+        setError(error)
       })
   };
 

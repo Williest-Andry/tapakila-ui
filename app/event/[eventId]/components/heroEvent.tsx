@@ -5,7 +5,6 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa";
 import { FaUserCog } from "react-icons/fa";
 import Event from "../../../../../../Back-end/api/entity/Event";
-import { useState } from "react";
 import Countdown from "./countDown";
 
 

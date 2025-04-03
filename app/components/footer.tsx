@@ -1,5 +1,4 @@
 import { Box, Container, Stack, Text } from "@chakra-ui/react";
-import Link from "next/link";
 import Provider from "@/app/components/provider";
 
 export default function Footer() {

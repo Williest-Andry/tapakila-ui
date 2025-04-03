@@ -3,10 +3,8 @@
 import {
   Box,
   createListCollection,
-  Flex,
   Grid,
   Heading,
-  HStack,
 } from "@chakra-ui/react"
 
 import {
@@ -27,10 +25,6 @@ import { useSearchParams } from 'next/navigation';
 import getAllCategories from "@/lib/events/getAllCategories";
 import getAllLocations from "@/lib/events/getAllLocations";
 import UpdatePastEvents from "@/lib/events/updatePastEvents";
-
-interface EventsListProps {
-  events: Event[];
-}
 
 export default function Page() {
   const [data, setData] = useState<Event[]>([]);

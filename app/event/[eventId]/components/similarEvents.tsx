@@ -13,7 +13,7 @@ export default function SimilarEvents({ similarEvents }: { similarEvents: Event[
             <Flex w="100%" wrap="wrap" gap="2vh" justify="space-between">
                 {
                     similarEvents.map(similar => (
-                        <Link href={"/event/" + similar.id}>
+                        <Link href={"/event/" + similar.id} key={similar.id}>
                             <Flex border="2px solid" borderRadius="md" w="30vw" h="37vh" ml="0vw" wrap="wrap">
                                 <Image src="https://imagedelivery.net/9bJyCbB5zXavioY-Ay5L6w/ticketplace/image/event/A94598w30640Q27850017L191Y4A54/w=450,h=600" alt="Event image" htmlWidth="200px" mr="2vw"></Image>
                                 <Box>

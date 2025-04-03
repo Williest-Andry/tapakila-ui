@@ -1,5 +1,5 @@
 import { InputGroup } from "@/components/ui/input-group";
-import { Flex, Heading, Dialog, Button, Portal, CloseButton, Field, Input } from "@chakra-ui/react";
+import { Flex, Heading, Dialog, Button, Portal, Field, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { RiLockPasswordFill } from "react-icons/ri";
 
@@ -38,11 +38,11 @@ export default function ResetPassword() {
                     setConfirmedPassword("");
                 })
                 .catch(error => {
-                    throw new Error("Modification échouée (serveur)");
+                    throw new Error(error);
                 })
         }
-        catch (e: any) {
-            setError(e.message);
+        catch (error: unknown) {
+            setError("An error has occured");
         }
 
     }

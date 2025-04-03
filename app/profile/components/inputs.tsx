@@ -1,5 +1,5 @@
 import { InputGroup } from "@/components/ui/input-group";
-import { Heading, Wrap, Field, Input, Button, Box } from "@chakra-ui/react";
+import { Heading, Wrap, Field, Input, Button } from "@chakra-ui/react";
 import { BsFillPostageFill } from "react-icons/bs";
 import { CiCalendarDate } from "react-icons/ci";
 import { FaPhoneAlt } from "react-icons/fa";
@@ -72,7 +72,7 @@ export default function Inputs() {
             })
             .catch(error => {
                 setError(true);
-                setErrorMessage("The e-mail or the phone number is already linked with an account");
+                setErrorMessage(error);
             })
     }
 

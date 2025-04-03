@@ -20,7 +20,7 @@ export default function Profile() {
         } else {
             setAuthenticated(true);
         }
-    }, []);
+    }, [router]);
 
     const disconnection = async () => {
         await fetch("http://localhost:3001/users/logout", {

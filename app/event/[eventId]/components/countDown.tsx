@@ -29,7 +29,7 @@ export default function Countdown({ targetDate }: CountdownProps) {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [targetDate]);
+  }, [targetDate, calculateTimeLeft]);
 
   return (
     <Flex justify="center" align="center"  p={4} gap="5" w="40vw">

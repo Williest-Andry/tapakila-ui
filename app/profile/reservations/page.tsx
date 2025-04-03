@@ -41,7 +41,7 @@ export default function ReservationsPage() {
     }
 
     fetchData();
-  }, []);
+  }, [router]);
 
   const cancelReservation = (id: number) => {
     try {

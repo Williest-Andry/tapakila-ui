@@ -1,7 +1,6 @@
 import { Center, Flex, Heading, Icon, Table } from "@chakra-ui/react";
 import { ImTicket } from "react-icons/im";
 import Ticket from "../../../../../../Back-end/api/entity/Ticket";
-import Event from "../../../../../../Back-end/api/entity/Event";
 
 export default function TicketsTable({ tickets}: {tickets: Ticket[]}) {
     return (
