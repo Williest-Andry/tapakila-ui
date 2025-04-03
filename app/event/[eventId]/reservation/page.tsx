@@ -90,18 +90,32 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
       early_bird: earlyQuantity,
     };
 
-    try {
-          const timeOutId = setTimeout(() => {
-            submitReservation(typesQuantity);
-          }, 5000);
-    
-          toaster.success({
-            title: "Reservations done",
-            description: `Tickets  : ${vipQuantity} - Vip , ${standardQuantity} - Standard , ${earlyQuantity} - Early Bird have been successfully reserved with a total amount of ' ${vipPrice+standardPrice+earlyPrice} € '`,
+    try {   
+          toaster.create({
+            type: "info",
+            title: "Reservations info",
+            description: `Tickets : [${vipQuantity} - Vip] , [${standardQuantity} - Standard] , [${earlyQuantity} - Early Bird] with a total amount of [${vipPrice+standardPrice+earlyPrice} €]`,
             action: {
-              label: "Undo",
-              onClick: () => { clearTimeout(timeOutId);},
-            }, duration: 5000,
+              label: "Confirm",
+              onClick: () => { 
+                const promise = new Promise<void>((resolve) => {
+                  setTimeout(() => resolve(submitReservation(typesQuantity)), 2000)
+                })
+
+                toaster.promise(promise, {
+                  success: {
+                    title: "Reservations successfull !",
+                    description: `Total : ${vipPrice+standardPrice+earlyPrice}$`,
+                  },
+                  error: {
+                    title: "Reservations failed",
+                    description: "Something wrong with the reservations",
+                  },
+                  loading: { title: "Booking...", description: "Please wait" },
+                })
+              },
+            },
+            duration: 7000,
           });
         } catch (error) {
           console.error("Error doing reservations:", error);
@@ -164,7 +178,7 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
             <Icon fontSize="2xl">
               <ImTicket />
             </Icon>
-            <Text fontSize="lg">{ticket.type} - {ticket.price}€</Text>
+            <Text fontSize="lg">{ticket.type} - $ {ticket.price}</Text>
             </HStack>
             <NumberInput.Root defaultValue="0" unstyled spinOnPress={false} min={0} max={5} onValueChange={(value) => {
                 if (ticket.type === "vip") {setVipQuantity(Number(value.value)); setVipPrice(Number(value.value) * ticket.price)}
@@ -193,7 +207,7 @@ export default function ReservationPage({params}: { params: Promise<{ eventId: s
       <VStack gap={4}>
 
         <Text fontSize="lg">
-          Total: <strong>{vipPrice+standardPrice+earlyPrice} €</strong>
+          Total: <strong>$ {vipPrice+standardPrice+earlyPrice}</strong>
         </Text>
 
         <Button
