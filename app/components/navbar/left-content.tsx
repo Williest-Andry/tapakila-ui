@@ -4,7 +4,7 @@ export default function LeftNavbarContent(){
     return (
         <Flex alignItems="center" gap={2}>
             <Link href="/" _hover={{textDecoration: "none"}}>
-                <Image src="/TapakilaLogo.svg" alt="Tapakila"/>
+                <Image src="/Tapakila.png" alt="Tapakila" htmlWidth="300px" htmlHeight="100px"/>
             </Link>
         </Flex>
     );
