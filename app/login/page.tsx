@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Box, Button, Input, Heading, VStack } from "@chakra-ui/react";
+import { Box, Button, Input, Heading, VStack, Icon } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { emailSchema } from "@/schema/emailSchema";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -55,6 +56,9 @@ export default function LoginPage() {
 
   return (
     <>
+      <Link href="/" >
+        <Button ><Icon><FaArrowLeft /></Icon></Button>
+      </Link>
       {
         invited &&
         <Box minH={"xl"} display="flex" alignItems="center" justifyContent="center">
