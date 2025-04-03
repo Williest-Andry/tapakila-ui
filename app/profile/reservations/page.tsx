@@ -120,7 +120,7 @@ export default function ReservationsPage() {
                 </VStack>
                 <VStack>
                 <Button size="lg" colorScheme="red" onClick={() => cancelReservation(reservation.id)} _hover={{ bg: "red" }} disabled={new Date(`${reservation.eventDateTime.split(" ")[0]}T${reservation.eventDateTime.split(" ")[1]}Z`).toISOString() < new Date().toISOString()}>
-                    Annuler
+                    Cancel
                 </Button>
                 </VStack>
               </HStack>

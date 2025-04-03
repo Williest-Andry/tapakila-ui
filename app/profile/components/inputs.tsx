@@ -110,7 +110,7 @@ export default function Inputs() {
                         Email <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<MdEmail />}>
-                        <Input placeholder="user@gmail.com" name="email" value={formData.email || ""} onChange={handleChange} />
+                        <Input placeholder="user@example.com" name="email" value={formData.email || ""} onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -134,7 +134,7 @@ export default function Inputs() {
                         Country
                     </Field.Label>
                     <InputGroup startElement={<MdPlace />}>
-                        <Input placeholder="Pays" value={formData.country || ""} name="country" disabled />
+                        <Input placeholder="Country" value={formData.country || ""} name="country" disabled />
                     </InputGroup>
                 </Field.Root>
                 <Field.Root required w="48%">
@@ -142,7 +142,7 @@ export default function Inputs() {
                         City <Field.RequiredIndicator />
                     </Field.Label>
                     <InputGroup startElement={<BsFillPostageFill />}>
-                        <Input placeholder="Ville" value={formData.city || ""} name="city" onChange={handleChange} />
+                        <Input placeholder="City" value={formData.city || ""} name="city" onChange={handleChange} />
                     </InputGroup>
                 </Field.Root>
             </Wrap>
