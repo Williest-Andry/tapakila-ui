@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import User from "../../../Back-end/api/entity/User.js";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type User = any;
 
 export interface UserStore {
   user: User | null;

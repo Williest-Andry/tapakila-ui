@@ -38,7 +38,7 @@ export default function SignUp() {
         else {
             setInvited(true);
         }
-    }, [])
+    }, [router])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -48,10 +48,10 @@ export default function SignUp() {
         } as User));
     }
 
-    const handleCountryChange = (selectedCountry: any) => {
+    const handleCountryChange = (selectedCountry: { label: string; value: string }) => {
         setFormData((prevForm) => ({
             ...prevForm,
-            country: selectedCountry.label.items[0].label
+            country: selectedCountry.label
         }));
     };
 
@@ -95,12 +95,12 @@ export default function SignUp() {
                     localStorage.setItem("username", user.finalCreatedUser.username);
                     router.replace("/");
                 })
-                .catch(error => {
+                .catch(() => {
                     throw new Error("The e-mail or the phone number is already linked with an account");
                 })
         }
-        catch (e: any) {
-            setError(e.message);
+        catch (e: unknown) {
+            setError(e instanceof Error ? e.message : "Unexpected error");
         }
     }
 
@@ -137,7 +137,7 @@ export default function SignUp() {
                                 <Input type="password" name="confirmedPassword" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} />
                             </Field.Root>
                             <Field.Root required>
-                                <Field.Label>Country (Caution: you can't change it after)<Field.RequiredIndicator /></Field.Label>
+                                <Field.Label>Country (Caution: you can&apos;t change it after)<Field.RequiredIndicator /></Field.Label>
                                 {/* <Input name="country" value={formData.country} onChange={handleChange} /> */}
                                 <CountrySelect onChange={handleCountryChange} />
                             </Field.Root>

@@ -1,7 +1,9 @@
 "use client"
 import { useEffect, useState } from "react"
-import Ticket from "../../../../../../Back-end/api/entity/Ticket.js"
-import Event from "../../../../../../Back-end/api/entity/Event.js"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Ticket = any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Event = any
 import getEventById from "@/lib/events/getEventById.ts"
 import getTicketByEventId from "@/lib/tickets/getTicketByEventId.ts"
 

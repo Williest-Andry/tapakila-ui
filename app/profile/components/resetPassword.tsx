@@ -37,11 +37,11 @@ export default function ResetPassword() {
                     setPassword("");
                     setConfirmedPassword("");
                 })
-                .catch(error => {
-                    throw new Error(error);
+                .catch(() => {
+                    throw new Error("Password update failed");
                 })
         }
-        catch (error: unknown) {
+        catch {
             setError("An error has occured");
         }
 
