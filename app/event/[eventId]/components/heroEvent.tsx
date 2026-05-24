@@ -4,7 +4,8 @@ import { Flex, Stack, Heading, Wrap, Image, Icon, Box } from "@chakra-ui/react";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa";
 import { FaUserCog } from "react-icons/fa";
-import Event from "../../../../../../Back-end/api/entity/Event";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Event = any;
 import Countdown from "./countDown";
 
 

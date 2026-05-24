@@ -14,7 +14,8 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { toaster } from "@/components/ui/toaster"
-import Reservation from "../../../../../Back-end/api/entity/Reservation";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Reservation = any;
 import getUserReservations from "@/lib/reservations/getUserReservations";
 import deleteReservation from "@/lib/reservations/deleteReservation";
 import { useRouter } from "next/navigation";

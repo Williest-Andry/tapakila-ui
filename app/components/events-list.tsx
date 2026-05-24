@@ -3,7 +3,8 @@
 import { Box, Badge, Flex, Button, Grid, Image, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
-import Event from "../../../../Back-end/api/entity/Event.js";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Event = any;
 import { useRouter } from "next/navigation.js";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime.js";
   

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 
 type CountdownProps = {
@@ -6,7 +6,7 @@ type CountdownProps = {
 }
 
 export default function Countdown({ targetDate }: CountdownProps) {
-  const calculateTimeLeft = () => {
+  const calculateTimeLeft = useCallback(() => {
     const difference = new Date(targetDate).getTime() - new Date().getTime();
 
     if (difference <= 0) {
@@ -19,7 +19,7 @@ export default function Countdown({ targetDate }: CountdownProps) {
       minutes: Math.floor((difference / (1000 * 60)) % 60),
       seconds: Math.floor((difference / 1000) % 60),
     };
-  };
+  }, [targetDate]);
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
@@ -29,7 +29,7 @@ export default function Countdown({ targetDate }: CountdownProps) {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [targetDate, calculateTimeLeft]);
+  }, [calculateTimeLeft]);
 
   return (
     <Flex justify="center" align="center"  p={4} gap="5" w="40vw">

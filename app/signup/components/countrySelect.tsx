@@ -8,9 +8,18 @@ const countries = createListCollection({
     })
 })
 
-export default function CountrySelect({ onChange }: { onChange: (value: any) => void }) {
+type CountryOption = { label: string; value: string };
+
+export default function CountrySelect({ onChange }: { onChange: (value: CountryOption) => void }) {
     return (
-        <Select.Root collection={countries} onValueChange={(selectedCountry) => onChange({ label: selectedCountry , value: selectedCountry.value })}>
+        <Select.Root
+            collection={countries}
+            onValueChange={(selectedCountry) => {
+                const selectedValue = selectedCountry.value[0];
+                const country = countries.items.find((item) => item.value === selectedValue);
+                if (country) onChange(country);
+            }}
+        >
             <Select.HiddenSelect />
             <Select.Control>
                 <Select.Trigger>
