@@ -3,8 +3,10 @@ import HeroEvent from "./components/heroEvent";
 import TicketsTable from "./components/ticketsTable";
 import SimilarEvents from "./components/similarEvents";
 import EventDescription from "./components/eventDescriptions";
-import Ticket from "../../../../../Back-end/api/entity/Ticket";
-import Event from "../../../../../Back-end/api/entity/Event";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Ticket = any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Event = any;
 import getEventById from "@/lib/events/getEventById";
 import getAllEvents from "@/lib/events/getAllEvents";
 import getTicketByEventId from "@/lib/tickets/getTicketByEventId";

@@ -3,7 +3,8 @@
 import { Center, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot, } from "@/components/ui/accordion";
 import { useState } from "react";
-import Event from "../../../../../../Back-end/api/entity/Event";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Event = any;
 
 
 export default function EventDescription({event}: {event: Event}) {

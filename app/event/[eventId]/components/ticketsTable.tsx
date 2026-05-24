@@ -1,6 +1,7 @@
 import { Center, Flex, Heading, Icon, Table } from "@chakra-ui/react";
 import { ImTicket } from "react-icons/im";
-import Ticket from "../../../../../../Back-end/api/entity/Ticket";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Ticket = any;
 
 export default function TicketsTable({ tickets}: {tickets: Ticket[]}) {
     return (

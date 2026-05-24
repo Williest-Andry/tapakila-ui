@@ -1,7 +1,8 @@
 import { Container, Heading, Flex, Box, Image, Icon, Link } from "@chakra-ui/react";
 import { FaClock, FaRegCalendarAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import Event from "../../../../../../Back-end/api/entity/Event";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Event = any;
 
 
 export default function SimilarEvents({ similarEvents }: { similarEvents: Event[] }) {
