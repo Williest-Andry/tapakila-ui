@@ -19,7 +19,8 @@ import {
 import { useEffect, useState } from "react";
 import EventsList from "./components/events-list";
 
-import Event from "../../../Back-end/api/entity/Event.js"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Event = any
 import getSearchedEvent from "@/lib/events/getSearchedEvents";
 import { useSearchParams } from 'next/navigation';
 import getAllCategories from "@/lib/events/getAllCategories";

@@ -1,6 +1,7 @@
 import getSearchedEvent from "@/lib/events/getSearchedEvents";
 import React, { useState } from "react";
-import Event from "../../../../Back-end/api/entity/Event";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Event = any;
 
 const EventSearch = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");

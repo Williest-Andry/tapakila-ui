@@ -5,7 +5,8 @@ import { CiCalendarDate } from "react-icons/ci";
 import { FaPhoneAlt } from "react-icons/fa";
 import { LuUser } from "react-icons/lu";
 import { MdEmail, MdPlace } from "react-icons/md";
-import User from "../../../../../Back-end/api/entity/User";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type User = any;
 import { useEffect, useState } from "react";
 import { emailSchema } from "@/schema/emailSchema";
 import { isValidPhone } from "@/schema/phoneNumberValidation";
