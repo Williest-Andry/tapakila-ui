@@ -1,0 +1,4303 @@
+openapi: 3.0.0
+info:
+  title: Tapakila API
+  version: 1.0.0
+  description: REST API for Tapakila — an event ticketing platform
+servers:
+  - url: http://localhost:3000
+    description: Development
+  - url: ""
+    description: Production
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas: {}
+  parameters: {}
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 1
+              required:
+                - email
+                - password
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                  refreshToken:
+                    type: string
+                required:
+                  - accessToken
+                  - refreshToken
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+              required:
+                - refreshToken
+      responses:
+        "200":
+          description: Logout successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                firstName:
+                  type: string
+                  minLength: 1
+                lastName:
+                  type: string
+                  minLength: 1
+                password:
+                  type: string
+                  minLength: 8
+              required:
+                - email
+                - firstName
+                - lastName
+                - password
+      responses:
+        "201":
+          description: Registration successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        format: email
+                      firstName:
+                        type: string
+                      lastName:
+                        type: string
+                    required:
+                      - email
+                      - firstName
+                      - lastName
+                  tokens:
+                    type: object
+                    properties:
+                      accessToken:
+                        type: string
+                      refreshToken:
+                        type: string
+                    required:
+                      - accessToken
+                      - refreshToken
+                required:
+                  - data
+                  - tokens
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /auth/me:
+    get:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Current user profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  email:
+                    type: string
+                    format: email
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  role:
+                    type: string
+                    enum:
+                      - USER
+                      - ORGANIZER
+                      - ADMIN
+                required:
+                  - id
+                  - email
+                  - firstName
+                  - lastName
+                  - createdAt
+                  - role
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /auth/refresh-tokens:
+    post:
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+              required:
+                - refreshToken
+      responses:
+        "200":
+          description: Token refreshed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                  refreshToken:
+                    type: string
+                required:
+                  - accessToken
+                  - refreshToken
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /users:
+    get:
+      tags:
+        - Users
+      description: Requires ADMIN role.
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+          required: false
+          name: firstName
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: lastName
+          in: query
+        - schema:
+            type: string
+            enum:
+              - USER
+              - ORGANIZER
+              - ADMIN
+          required: false
+          name: role
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: isActive
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+          required: false
+          name: limit
+          in: query
+      responses:
+        "200":
+          description: Users retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        email:
+                          type: string
+                          format: email
+                        firstName:
+                          type: string
+                        lastName:
+                          type: string
+                        createdAt:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                        role:
+                          type: string
+                          enum:
+                            - USER
+                            - ORGANIZER
+                            - ADMIN
+                      required:
+                        - id
+                        - email
+                        - firstName
+                        - lastName
+                        - createdAt
+                        - role
+                  meta:
+                    type: object
+                    properties:
+                      page:
+                        type: number
+                      limit:
+                        type: number
+                      total:
+                        type: number
+                required:
+                  - data
+                  - meta
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+    post:
+      tags:
+        - Users
+      description: Requires ADMIN role.
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                firstName:
+                  type: string
+                  minLength: 1
+                lastName:
+                  type: string
+                  minLength: 1
+                password:
+                  type: string
+                  minLength: 8
+                role:
+                  type: string
+                  enum:
+                    - USER
+                    - ORGANIZER
+                    - ADMIN
+                  default: USER
+              required:
+                - email
+                - firstName
+                - lastName
+                - password
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  email:
+                    type: string
+                    format: email
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  role:
+                    type: string
+                    enum:
+                      - USER
+                      - ORGANIZER
+                      - ADMIN
+                required:
+                  - id
+                  - email
+                  - firstName
+                  - lastName
+                  - createdAt
+                  - role
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /users/me:
+    patch:
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                firstName:
+                  type: string
+                  minLength: 1
+                lastName:
+                  type: string
+                  minLength: 1
+      responses:
+        "200":
+          description: User profile updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  email:
+                    type: string
+                    format: email
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  role:
+                    type: string
+                    enum:
+                      - USER
+                      - ORGANIZER
+                      - ADMIN
+                required:
+                  - id
+                  - email
+                  - firstName
+                  - lastName
+                  - createdAt
+                  - role
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /users/me/to-organizer:
+    patch:
+      tags:
+        - Users
+      description: Requires USER role.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Role changed to ORGANIZER
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  organizer:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      email:
+                        type: string
+                        format: email
+                      firstName:
+                        type: string
+                      lastName:
+                        type: string
+                      createdAt:
+                        anyOf:
+                          - type: string
+                            format: date-time
+                          - type: string
+                            format: date-time
+                      role:
+                        type: string
+                        enum:
+                          - USER
+                          - ORGANIZER
+                          - ADMIN
+                    required:
+                      - id
+                      - email
+                      - firstName
+                      - lastName
+                      - createdAt
+                      - role
+                  message:
+                    type: string
+                required:
+                  - organizer
+                  - message
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      description: Requires ADMIN role.
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: id
+          in: path
+      responses:
+        "200":
+          description: User found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  email:
+                    type: string
+                    format: email
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  role:
+                    type: string
+                    enum:
+                      - USER
+                      - ORGANIZER
+                      - ADMIN
+                required:
+                  - id
+                  - email
+                  - firstName
+                  - lastName
+                  - createdAt
+                  - role
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+    patch:
+      tags:
+        - Users
+      description: Requires ADMIN role.
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                firstName:
+                  type: string
+                  minLength: 1
+                lastName:
+                  type: string
+                  minLength: 1
+                role:
+                  type: string
+                  enum:
+                    - USER
+                    - ORGANIZER
+                    - ADMIN
+      responses:
+        "200":
+          description: User updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  email:
+                    type: string
+                    format: email
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  role:
+                    type: string
+                    enum:
+                      - USER
+                      - ORGANIZER
+                      - ADMIN
+                required:
+                  - id
+                  - email
+                  - firstName
+                  - lastName
+                  - createdAt
+                  - role
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /users/{id}/deactivate:
+    patch:
+      tags:
+        - Users
+      description: Requires ADMIN role.
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: id
+          in: path
+      responses:
+        "200":
+          description: User deactivated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  email:
+                    type: string
+                    format: email
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  role:
+                    type: string
+                    enum:
+                      - USER
+                      - ORGANIZER
+                      - ADMIN
+                required:
+                  - id
+                  - email
+                  - firstName
+                  - lastName
+                  - createdAt
+                  - role
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /events:
+    get:
+      tags:
+        - Events
+      parameters:
+        - schema:
+            type: string
+          required: false
+          name: search
+          in: query
+        - schema:
+            type: string
+            format: uuid
+          required: false
+          name: categoryId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: location
+          in: query
+        - schema:
+            type: string
+            format: uuid
+          required: false
+          name: organizerId
+          in: query
+        - schema:
+            type: string
+            enum:
+              - DRAFT
+              - PUBLISHED
+              - CANCELLED
+          required: false
+          name: status
+          in: query
+        - schema:
+            type: string
+            nullable: true
+            format: date-time
+          required: false
+          name: dateFrom
+          in: query
+        - schema:
+            type: string
+            nullable: true
+            format: date-time
+          required: false
+          name: dateTo
+          in: query
+        - schema:
+            type: number
+            nullable: true
+            minimum: 0
+          required: false
+          name: priceMin
+          in: query
+        - schema:
+            type: number
+            minimum: 0
+            exclusiveMinimum: true
+          required: false
+          name: priceMax
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+            enum:
+              - eventDate
+              - createdAt
+              - title
+            default: eventDate
+          required: false
+          name: sortBy
+          in: query
+        - schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          required: false
+          name: sortOrder
+          in: query
+      responses:
+        "200":
+          description: Events retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        title:
+                          type: string
+                        description:
+                          type: string
+                          nullable: true
+                        location:
+                          type: string
+                        eventDate:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                        imageUrl:
+                          type: string
+                          nullable: true
+                        status:
+                          type: string
+                          enum:
+                            - DRAFT
+                            - PUBLISHED
+                            - CANCELLED
+                        createdAt:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                        updatedAt:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                        category:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            name:
+                              type: string
+                            slug:
+                              type: string
+                          required:
+                            - id
+                            - name
+                            - slug
+                        organizer:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            email:
+                              type: string
+                              format: email
+                            firstName:
+                              type: string
+                            lastName:
+                              type: string
+                          required:
+                            - id
+                            - email
+                            - firstName
+                            - lastName
+                        ticketTypes:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                              name:
+                                type: string
+                              price:
+                                type: number
+                              totalSeats:
+                                type: integer
+                              availableSeats:
+                                type: integer
+                              maxPerUser:
+                                type: integer
+                              isActive:
+                                type: boolean
+                              eventId:
+                                type: string
+                                format: uuid
+                              createdAt:
+                                anyOf:
+                                  - type: string
+                                    format: date-time
+                                  - type: string
+                                    format: date-time
+                              updatedAt:
+                                anyOf:
+                                  - type: string
+                                    format: date-time
+                                  - type: string
+                                    format: date-time
+                            required:
+                              - id
+                              - name
+                              - price
+                              - totalSeats
+                              - availableSeats
+                              - maxPerUser
+                              - isActive
+                              - eventId
+                              - createdAt
+                              - updatedAt
+                      required:
+                        - id
+                        - title
+                        - description
+                        - location
+                        - eventDate
+                        - imageUrl
+                        - status
+                        - createdAt
+                        - updatedAt
+                        - category
+                        - organizer
+                        - ticketTypes
+                  meta:
+                    type: object
+                    properties:
+                      page:
+                        type: number
+                      limit:
+                        type: number
+                      total:
+                        type: number
+                required:
+                  - data
+                  - meta
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+    post:
+      tags:
+        - Events
+      description: Requires ADMIN or ORGANIZER role.
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  minLength: 1
+                  maxLength: 50
+                description:
+                  type: string
+                  minLength: 1
+                location:
+                  type: string
+                  minLength: 1
+                eventDate:
+                  type: string
+                  nullable: true
+                  format: date-time
+                imageUrl:
+                  type: string
+                category:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                  required:
+                    - id
+              required:
+                - title
+                - location
+                - eventDate
+                - category
+      responses:
+        "201":
+          description: Event created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  title:
+                    type: string
+                  description:
+                    type: string
+                    nullable: true
+                  location:
+                    type: string
+                  eventDate:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  imageUrl:
+                    type: string
+                    nullable: true
+                  status:
+                    type: string
+                    enum:
+                      - DRAFT
+                      - PUBLISHED
+                      - CANCELLED
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  updatedAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  category:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                      slug:
+                        type: string
+                    required:
+                      - id
+                      - name
+                      - slug
+                  organizer:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      email:
+                        type: string
+                        format: email
+                      firstName:
+                        type: string
+                      lastName:
+                        type: string
+                    required:
+                      - id
+                      - email
+                      - firstName
+                      - lastName
+                  ticketTypes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        name:
+                          type: string
+                        price:
+                          type: number
+                        totalSeats:
+                          type: integer
+                        availableSeats:
+                          type: integer
+                        maxPerUser:
+                          type: integer
+                        isActive:
+                          type: boolean
+                        eventId:
+                          type: string
+                          format: uuid
+                        createdAt:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                        updatedAt:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                      required:
+                        - id
+                        - name
+                        - price
+                        - totalSeats
+                        - availableSeats
+                        - maxPerUser
+                        - isActive
+                        - eventId
+                        - createdAt
+                        - updatedAt
+                required:
+                  - id
+                  - title
+                  - description
+                  - location
+                  - eventDate
+                  - imageUrl
+                  - status
+                  - createdAt
+                  - updatedAt
+                  - category
+                  - organizer
+                  - ticketTypes
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /events/{id}/status:
+    patch:
+      tags:
+        - Events
+      description: Requires ADMIN or ORGANIZER role.
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                    - DRAFT
+                    - PUBLISHED
+                    - CANCELLED
+              required:
+                - status
+      responses:
+        "200":
+          description: Event status updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  title:
+                    type: string
+                  description:
+                    type: string
+                    nullable: true
+                  location:
+                    type: string
+                  eventDate:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  imageUrl:
+                    type: string
+                    nullable: true
+                  status:
+                    type: string
+                    enum:
+                      - DRAFT
+                      - PUBLISHED
+                      - CANCELLED
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  updatedAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  category:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                      slug:
+                        type: string
+                    required:
+                      - id
+                      - name
+                      - slug
+                  organizer:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      email:
+                        type: string
+                        format: email
+                      firstName:
+                        type: string
+                      lastName:
+                        type: string
+                    required:
+                      - id
+                      - email
+                      - firstName
+                      - lastName
+                  ticketTypes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        name:
+                          type: string
+                        price:
+                          type: number
+                        totalSeats:
+                          type: integer
+                        availableSeats:
+                          type: integer
+                        maxPerUser:
+                          type: integer
+                        isActive:
+                          type: boolean
+                        eventId:
+                          type: string
+                          format: uuid
+                        createdAt:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                        updatedAt:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                      required:
+                        - id
+                        - name
+                        - price
+                        - totalSeats
+                        - availableSeats
+                        - maxPerUser
+                        - isActive
+                        - eventId
+                        - createdAt
+                        - updatedAt
+                required:
+                  - id
+                  - title
+                  - description
+                  - location
+                  - eventDate
+                  - imageUrl
+                  - status
+                  - createdAt
+                  - updatedAt
+                  - category
+                  - organizer
+                  - ticketTypes
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /events/{eventId}/ticket-types:
+    get:
+      tags:
+        - TicketTypes
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: eventId
+          in: path
+      responses:
+        "200":
+          description: Ticket types retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    name:
+                      type: string
+                    price:
+                      type: number
+                    totalSeats:
+                      type: integer
+                    availableSeats:
+                      type: integer
+                    maxPerUser:
+                      type: integer
+                    isActive:
+                      type: boolean
+                    eventId:
+                      type: string
+                      format: uuid
+                    createdAt:
+                      anyOf:
+                        - type: string
+                          format: date-time
+                        - type: string
+                          format: date-time
+                    updatedAt:
+                      anyOf:
+                        - type: string
+                          format: date-time
+                        - type: string
+                          format: date-time
+                  required:
+                    - id
+                    - name
+                    - price
+                    - totalSeats
+                    - availableSeats
+                    - maxPerUser
+                    - isActive
+                    - eventId
+                    - createdAt
+                    - updatedAt
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+    post:
+      tags:
+        - TicketTypes
+      description: Requires ADMIN or ORGANIZER role.
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: eventId
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                price:
+                  type: number
+                  minimum: 0
+                  exclusiveMinimum: true
+                totalSeats:
+                  type: integer
+                  minimum: 0
+                  exclusiveMinimum: true
+                maxPerUser:
+                  type: integer
+                  minimum: 0
+                  exclusiveMinimum: true
+                  default: 5
+              required:
+                - name
+                - price
+                - totalSeats
+      responses:
+        "201":
+          description: Ticket type created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  price:
+                    type: number
+                  totalSeats:
+                    type: integer
+                  availableSeats:
+                    type: integer
+                  maxPerUser:
+                    type: integer
+                  isActive:
+                    type: boolean
+                  eventId:
+                    type: string
+                    format: uuid
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  updatedAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                required:
+                  - id
+                  - name
+                  - price
+                  - totalSeats
+                  - availableSeats
+                  - maxPerUser
+                  - isActive
+                  - eventId
+                  - createdAt
+                  - updatedAt
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /events/{eventId}/ticket-types/{id}:
+    patch:
+      tags:
+        - TicketTypes
+      description: Requires ADMIN or ORGANIZER role.
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: eventId
+          in: path
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                price:
+                  type: number
+                  minimum: 0
+                  exclusiveMinimum: true
+                totalSeats:
+                  type: integer
+                  minimum: 0
+                  exclusiveMinimum: true
+                maxPerUser:
+                  type: integer
+                  minimum: 0
+                  exclusiveMinimum: true
+      responses:
+        "200":
+          description: Ticket type updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  price:
+                    type: number
+                  totalSeats:
+                    type: integer
+                  availableSeats:
+                    type: integer
+                  maxPerUser:
+                    type: integer
+                  isActive:
+                    type: boolean
+                  eventId:
+                    type: string
+                    format: uuid
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  updatedAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                required:
+                  - id
+                  - name
+                  - price
+                  - totalSeats
+                  - availableSeats
+                  - maxPerUser
+                  - isActive
+                  - eventId
+                  - createdAt
+                  - updatedAt
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /events/{eventId}/ticket-types/{id}/deactivate:
+    patch:
+      tags:
+        - TicketTypes
+      description: Requires ADMIN or ORGANIZER role.
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: eventId
+          in: path
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: id
+          in: path
+      responses:
+        "200":
+          description: Ticket type deactivated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  price:
+                    type: number
+                  totalSeats:
+                    type: integer
+                  availableSeats:
+                    type: integer
+                  maxPerUser:
+                    type: integer
+                  isActive:
+                    type: boolean
+                  eventId:
+                    type: string
+                    format: uuid
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  updatedAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                required:
+                  - id
+                  - name
+                  - price
+                  - totalSeats
+                  - availableSeats
+                  - maxPerUser
+                  - isActive
+                  - eventId
+                  - createdAt
+                  - updatedAt
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /event-categories:
+    get:
+      tags:
+        - Categories
+      responses:
+        "200":
+          description: Categories retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        name:
+                          type: string
+                        slug:
+                          type: string
+                      required:
+                        - id
+                        - name
+                        - slug
+                  meta:
+                    type: object
+                    properties:
+                      page:
+                        type: number
+                      limit:
+                        type: number
+                      total:
+                        type: number
+                required:
+                  - data
+                  - meta
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+    post:
+      tags:
+        - Categories
+      description: Requires ADMIN role.
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 20
+              required:
+                - name
+      responses:
+        "201":
+          description: Category created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  slug:
+                    type: string
+                required:
+                  - id
+                  - name
+                  - slug
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /event-categories/{id}:
+    get:
+      tags:
+        - Categories
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: id
+          in: path
+      responses:
+        "200":
+          description: Category found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  slug:
+                    type: string
+                required:
+                  - id
+                  - name
+                  - slug
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /bookings:
+    get:
+      tags:
+        - Bookings
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          required: false
+          name: eventId
+          in: query
+        - schema:
+            type: string
+            enum:
+              - CONFIRMED
+              - CANCELLED
+          required: false
+          name: status
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+      responses:
+        "200":
+          description: Bookings retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        status:
+                          type: string
+                        createdAt:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                        updatedAt:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                        eventId:
+                          type: string
+                          format: uuid
+                        eventTitle:
+                          type: string
+                        eventDate:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                        userId:
+                          type: string
+                          format: uuid
+                        items:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                              quantity:
+                                type: integer
+                              unitPrice:
+                                type: number
+                              ticketTypeId:
+                                type: string
+                                format: uuid
+                              ticketTypeName:
+                                type: string
+                            required:
+                              - id
+                              - quantity
+                              - unitPrice
+                              - ticketTypeId
+                              - ticketTypeName
+                        totalPrice:
+                          type: number
+                      required:
+                        - id
+                        - status
+                        - createdAt
+                        - updatedAt
+                        - eventId
+                        - eventTitle
+                        - eventDate
+                        - userId
+                        - items
+                        - totalPrice
+                  meta:
+                    type: object
+                    properties:
+                      page:
+                        type: number
+                      limit:
+                        type: number
+                      total:
+                        type: number
+                required:
+                  - data
+                  - meta
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+    post:
+      tags:
+        - Bookings
+      description: Requires USER or ORGANIZER role.
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventId:
+                  type: string
+                  format: uuid
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      ticketTypeId:
+                        type: string
+                        format: uuid
+                      quantity:
+                        type: integer
+                        minimum: 0
+                        exclusiveMinimum: true
+                    required:
+                      - ticketTypeId
+                      - quantity
+                  minItems: 1
+              required:
+                - eventId
+                - items
+      responses:
+        "201":
+          description: Booking created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  status:
+                    type: string
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  updatedAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  eventId:
+                    type: string
+                    format: uuid
+                  eventTitle:
+                    type: string
+                  eventDate:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  userId:
+                    type: string
+                    format: uuid
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        quantity:
+                          type: integer
+                        unitPrice:
+                          type: number
+                        ticketTypeId:
+                          type: string
+                          format: uuid
+                        ticketTypeName:
+                          type: string
+                      required:
+                        - id
+                        - quantity
+                        - unitPrice
+                        - ticketTypeId
+                        - ticketTypeName
+                  totalPrice:
+                    type: number
+                required:
+                  - id
+                  - status
+                  - createdAt
+                  - updatedAt
+                  - eventId
+                  - eventTitle
+                  - eventDate
+                  - userId
+                  - items
+                  - totalPrice
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /bookings/{id}:
+    get:
+      tags:
+        - Bookings
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: id
+          in: path
+      responses:
+        "200":
+          description: Booking found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  status:
+                    type: string
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  updatedAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  eventId:
+                    type: string
+                    format: uuid
+                  eventTitle:
+                    type: string
+                  eventDate:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  userId:
+                    type: string
+                    format: uuid
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        quantity:
+                          type: integer
+                        unitPrice:
+                          type: number
+                        ticketTypeId:
+                          type: string
+                          format: uuid
+                        ticketTypeName:
+                          type: string
+                      required:
+                        - id
+                        - quantity
+                        - unitPrice
+                        - ticketTypeId
+                        - ticketTypeName
+                  totalPrice:
+                    type: number
+                required:
+                  - id
+                  - status
+                  - createdAt
+                  - updatedAt
+                  - eventId
+                  - eventTitle
+                  - eventDate
+                  - userId
+                  - items
+                  - totalPrice
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+    patch:
+      tags:
+        - Bookings
+      description: Requires USER or ORGANIZER role.
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ticketTypeId:
+                  type: string
+                  format: uuid
+                quantity:
+                  type: integer
+                  minimum: 0
+                  exclusiveMinimum: true
+              required:
+                - ticketTypeId
+                - quantity
+      responses:
+        "200":
+          description: Booking item updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  status:
+                    type: string
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  updatedAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  eventId:
+                    type: string
+                    format: uuid
+                  eventTitle:
+                    type: string
+                  eventDate:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  userId:
+                    type: string
+                    format: uuid
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        quantity:
+                          type: integer
+                        unitPrice:
+                          type: number
+                        ticketTypeId:
+                          type: string
+                          format: uuid
+                        ticketTypeName:
+                          type: string
+                      required:
+                        - id
+                        - quantity
+                        - unitPrice
+                        - ticketTypeId
+                        - ticketTypeName
+                  totalPrice:
+                    type: number
+                required:
+                  - id
+                  - status
+                  - createdAt
+                  - updatedAt
+                  - eventId
+                  - eventTitle
+                  - eventDate
+                  - userId
+                  - items
+                  - totalPrice
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /bookings/{id}/cancel:
+    patch:
+      tags:
+        - Bookings
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          required: true
+          name: id
+          in: path
+      responses:
+        "200":
+          description: Booking cancelled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  status:
+                    type: string
+                  createdAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  updatedAt:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  eventId:
+                    type: string
+                    format: uuid
+                  eventTitle:
+                    type: string
+                  eventDate:
+                    anyOf:
+                      - type: string
+                        format: date-time
+                      - type: string
+                        format: date-time
+                  userId:
+                    type: string
+                    format: uuid
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        quantity:
+                          type: integer
+                        unitPrice:
+                          type: number
+                        ticketTypeId:
+                          type: string
+                          format: uuid
+                        ticketTypeName:
+                          type: string
+                      required:
+                        - id
+                        - quantity
+                        - unitPrice
+                        - ticketTypeId
+                        - ticketTypeName
+                  totalPrice:
+                    type: number
+                required:
+                  - id
+                  - status
+                  - createdAt
+                  - updatedAt
+                  - eventId
+                  - eventTitle
+                  - eventDate
+                  - userId
+                  - items
+                  - totalPrice
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
