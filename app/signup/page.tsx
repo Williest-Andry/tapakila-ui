@@ -42,14 +42,16 @@ export default function SignUp() {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData((prevForm) => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setFormData((prevForm: any) => ({
             ...prevForm,
             [name]: value
         } as User));
     }
 
     const handleCountryChange = (selectedCountry: { label: string; value: string }) => {
-        setFormData((prevForm) => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setFormData((prevForm: any) => ({
             ...prevForm,
             country: selectedCountry.label
         }));
