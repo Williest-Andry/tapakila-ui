@@ -35,49 +35,84 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            accessToken: string;
+                            refreshToken: string;
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -116,49 +151,83 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -201,49 +270,92 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: email */
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                            };
+                            tokens: {
+                                accessToken: string;
+                                refreshToken: string;
+                            };
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -274,49 +386,91 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: email */
+                            email: string;
+                            firstName: string;
+                            lastName: string;
+                            createdAt: string;
+                            /** @enum {string} */
+                            role: "USER" | "ORGANIZER" | "ADMIN";
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -357,49 +511,84 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            accessToken: string;
+                            refreshToken: string;
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -438,49 +627,98 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: email */
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                createdAt: string;
+                                /** @enum {string} */
+                                role: "USER" | "ORGANIZER" | "ADMIN";
+                            }[];
+                            meta: {
+                                page?: number;
+                                limit?: number;
+                                total?: number;
+                            };
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -515,49 +753,91 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: email */
+                            email: string;
+                            firstName: string;
+                            lastName: string;
+                            createdAt: string;
+                            /** @enum {string} */
+                            role: "USER" | "ORGANIZER" | "ADMIN";
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -603,49 +883,91 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: email */
+                            email: string;
+                            firstName: string;
+                            lastName: string;
+                            createdAt: string;
+                            /** @enum {string} */
+                            role: "USER" | "ORGANIZER" | "ADMIN";
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -679,49 +1001,94 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            organizer: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: email */
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                createdAt: string;
+                                /** @enum {string} */
+                                role: "USER" | "ORGANIZER" | "ADMIN";
+                            };
+                            message: string;
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -751,49 +1118,91 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: email */
+                            email: string;
+                            firstName: string;
+                            lastName: string;
+                            createdAt: string;
+                            /** @enum {string} */
+                            role: "USER" | "ORGANIZER" | "ADMIN";
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -830,49 +1239,91 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: email */
+                            email: string;
+                            firstName: string;
+                            lastName: string;
+                            createdAt: string;
+                            /** @enum {string} */
+                            role: "USER" | "ORGANIZER" | "ADMIN";
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -908,49 +1359,91 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: email */
+                            email: string;
+                            firstName: string;
+                            lastName: string;
+                            createdAt: string;
+                            /** @enum {string} */
+                            role: "USER" | "ORGANIZER" | "ADMIN";
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -991,49 +1484,128 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                title: string;
+                                description: string | null;
+                                location: string;
+                                eventDate: string;
+                                imageUrl: string | null;
+                                /** @enum {string} */
+                                status: "DRAFT" | "PUBLISHED" | "CANCELLED";
+                                createdAt: string;
+                                updatedAt: string;
+                                category: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    slug: string;
+                                };
+                                organizer: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: email */
+                                    email: string;
+                                    firstName: string;
+                                    lastName: string;
+                                };
+                                ticketTypes: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    price: number;
+                                    totalSeats: number;
+                                    availableSeats: number;
+                                    maxPerUser: number;
+                                    isActive: boolean;
+                                    /** Format: uuid */
+                                    eventId: string;
+                                    createdAt: string;
+                                    updatedAt: string;
+                                }[];
+                            }[];
+                            meta: {
+                                page?: number;
+                                limit?: number;
+                                total?: number;
+                            };
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -1068,49 +1640,121 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            title: string;
+                            description: string | null;
+                            location: string;
+                            eventDate: string;
+                            imageUrl: string | null;
+                            /** @enum {string} */
+                            status: "DRAFT" | "PUBLISHED" | "CANCELLED";
+                            createdAt: string;
+                            updatedAt: string;
+                            category: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                slug: string;
+                            };
+                            organizer: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: email */
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                            };
+                            ticketTypes: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                price: number;
+                                totalSeats: number;
+                                availableSeats: number;
+                                maxPerUser: number;
+                                isActive: boolean;
+                                /** Format: uuid */
+                                eventId: string;
+                                createdAt: string;
+                                updatedAt: string;
+                            }[];
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -1157,49 +1801,121 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            title: string;
+                            description: string | null;
+                            location: string;
+                            eventDate: string;
+                            imageUrl: string | null;
+                            /** @enum {string} */
+                            status: "DRAFT" | "PUBLISHED" | "CANCELLED";
+                            createdAt: string;
+                            updatedAt: string;
+                            category: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                slug: string;
+                            };
+                            organizer: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: email */
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                            };
+                            ticketTypes: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                price: number;
+                                totalSeats: number;
+                                availableSeats: number;
+                                maxPerUser: number;
+                                isActive: boolean;
+                                /** Format: uuid */
+                                eventId: string;
+                                createdAt: string;
+                                updatedAt: string;
+                            }[];
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -1228,49 +1944,94 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            price: number;
+                            totalSeats: number;
+                            availableSeats: number;
+                            maxPerUser: number;
+                            isActive: boolean;
+                            /** Format: uuid */
+                            eventId: string;
+                            createdAt: string;
+                            updatedAt: string;
+                        }[];
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -1302,49 +2063,94 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            price: number;
+                            totalSeats: number;
+                            availableSeats: number;
+                            maxPerUser: number;
+                            isActive: boolean;
+                            /** Format: uuid */
+                            eventId: string;
+                            createdAt: string;
+                            updatedAt: string;
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -1394,49 +2200,94 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            price: number;
+                            totalSeats: number;
+                            availableSeats: number;
+                            maxPerUser: number;
+                            isActive: boolean;
+                            /** Format: uuid */
+                            eventId: string;
+                            createdAt: string;
+                            updatedAt: string;
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -1473,49 +2324,94 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            price: number;
+                            totalSeats: number;
+                            availableSeats: number;
+                            maxPerUser: number;
+                            isActive: boolean;
+                            /** Format: uuid */
+                            eventId: string;
+                            createdAt: string;
+                            updatedAt: string;
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -1542,49 +2438,93 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                slug: string;
+                            }[];
+                            meta: {
+                                page?: number;
+                                limit?: number;
+                                total?: number;
+                            };
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -1610,49 +2550,86 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            slug: string;
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -1685,49 +2662,86 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            slug: string;
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -1765,49 +2779,110 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                status: string;
+                                createdAt: string;
+                                updatedAt: string;
+                                /** Format: uuid */
+                                eventId: string;
+                                eventTitle: string;
+                                eventDate: string;
+                                /** Format: uuid */
+                                userId: string;
+                                items: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    quantity: number;
+                                    unitPrice: number;
+                                    /** Format: uuid */
+                                    ticketTypeId: string;
+                                    ticketTypeName: string;
+                                }[];
+                                totalPrice: number;
+                            }[];
+                            meta: {
+                                page?: number;
+                                limit?: number;
+                                total?: number;
+                            };
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -1839,49 +2914,103 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            status: string;
+                            createdAt: string;
+                            updatedAt: string;
+                            /** Format: uuid */
+                            eventId: string;
+                            eventTitle: string;
+                            eventDate: string;
+                            /** Format: uuid */
+                            userId: string;
+                            items: {
+                                /** Format: uuid */
+                                id: string;
+                                quantity: number;
+                                unitPrice: number;
+                                /** Format: uuid */
+                                ticketTypeId: string;
+                                ticketTypeName: string;
+                            }[];
+                            totalPrice: number;
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -1914,49 +3043,103 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            status: string;
+                            createdAt: string;
+                            updatedAt: string;
+                            /** Format: uuid */
+                            eventId: string;
+                            eventTitle: string;
+                            eventDate: string;
+                            /** Format: uuid */
+                            userId: string;
+                            items: {
+                                /** Format: uuid */
+                                id: string;
+                                quantity: number;
+                                unitPrice: number;
+                                /** Format: uuid */
+                                ticketTypeId: string;
+                                ticketTypeName: string;
+                            }[];
+                            totalPrice: number;
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -1990,49 +3173,103 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            status: string;
+                            createdAt: string;
+                            updatedAt: string;
+                            /** Format: uuid */
+                            eventId: string;
+                            eventTitle: string;
+                            eventDate: string;
+                            /** Format: uuid */
+                            userId: string;
+                            items: {
+                                /** Format: uuid */
+                                id: string;
+                                quantity: number;
+                                unitPrice: number;
+                                /** Format: uuid */
+                                ticketTypeId: string;
+                                ticketTypeName: string;
+                            }[];
+                            totalPrice: number;
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
@@ -2067,49 +3304,103 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            status: string;
+                            createdAt: string;
+                            updatedAt: string;
+                            /** Format: uuid */
+                            eventId: string;
+                            eventTitle: string;
+                            eventDate: string;
+                            /** Format: uuid */
+                            userId: string;
+                            items: {
+                                /** Format: uuid */
+                                id: string;
+                                quantity: number;
+                                unitPrice: number;
+                                /** Format: uuid */
+                                ticketTypeId: string;
+                                ticketTypeName: string;
+                            }[];
+                            totalPrice: number;
+                        };
+                    };
                 };
                 /** @description Validation error */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Authentication required */
                 401: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Forbidden */
                 403: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Resource not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Conflict */
                 409: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
                 /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
                 };
             };
         };
