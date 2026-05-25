@@ -1,14 +1,30 @@
-"use client"
+"use client";
 
-import { ChakraProvider, defaultSystem } from "@chakra-ui/react"
-import { ThemeProvider } from "next-themes"
+import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider } from "next-themes";
+import { useState } from "react";
 
-export default function RootLayout(props: { children: React.ReactNode }) {
+export default function Provider({ children }: { children: React.ReactNode }) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000,
+            retry: 1,
+          },
+        },
+      }),
+  );
+
   return (
-    <ChakraProvider value={defaultSystem}>
-      <ThemeProvider attribute="class" disableTransitionOnChange>
-        {props.children}
-      </ThemeProvider>
-    </ChakraProvider>
-  )
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider value={defaultSystem}>
+        <ThemeProvider attribute="class" disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
+      </ChakraProvider>
+    </QueryClientProvider>
+  );
 }
