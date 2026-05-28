@@ -91,8 +91,6 @@ export default function Navbar() {
             <FaSearch />
           </IconButton>
 
-          <ColorModeToggle />
-
           {isAuthenticated() && user ? (
             <HStack gap={2}>
               <IconButton
