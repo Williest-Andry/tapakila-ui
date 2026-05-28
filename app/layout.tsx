@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Provider from "./components/provider";
-import Navbar from "./components/navbar/navbar";
-import Footer from "./components/footer";
-import { Toaster } from "@/components/ui/toaster";
+import Navbar from "@/app/components/layout/navbar/navbar";
+import Footer from "@/app/components/layout/footer";
+import { Box } from "@chakra-ui/react";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-});
+const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Tapakila",
-  description: "Plateforme de billetterie en ligne",
+  title: { default: "Tapakila", template: "%s | Tapakila" },
+  description: "Discover and book tickets for the best events.",
 };
 
 export default function RootLayout({
@@ -21,14 +18,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className={inter.className} suppressHydrationWarning>
+    <html lang="fr" className={inter.className} suppressHydrationWarning>
       <head />
-      <body>
+      <body
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+      >
         <Provider>
           <Navbar />
-          {children}
+          <Box as="main" flex={1}>
+            {children}
+          </Box>
           <Footer />
-          <Toaster />
         </Provider>
       </body>
     </html>
