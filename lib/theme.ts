@@ -24,14 +24,13 @@ const config = defineConfig({
     },
     semanticTokens: {
       colors: {
-        brand: {
-          solid: { value: "{colors.brand.600}" },
-          subtle: { value: "{colors.brand.100}" },
-          muted: { value: "{colors.brand.200}" },
-          emphasized: { value: "{colors.brand.300}" },
-          fg: { value: "{colors.brand.700}" },
-          focusRing: { value: "{colors.brand.600}" },
-        },
+        primary: { value: "{colors.brand.700}" },
+        background: { value: "{colors.brand.50}" },
+        cardBackground: { value: "{colors.brand.200}" },
+        border: { value: "{colors.brand.400}" },
+        text: { value: "#000000" },
+        success: { value: "#2e9533" },
+        danger: { value: "#c33333" },
       },
     },
   },
