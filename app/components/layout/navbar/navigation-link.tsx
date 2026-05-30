@@ -1,4 +1,4 @@
-import { Flex, HStack, Link as ChakraLink } from "@chakra-ui/react";
+import { HStack, Link as ChakraLink } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default function NavigationLink() {
