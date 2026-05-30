@@ -3,6 +3,8 @@ import type { paths } from "@/lib/api/schema.d";
 export type Event =
   paths["/events"]["get"]["responses"][200]["content"]["application/json"]["data"][number];
 
+export type EventsFilters = paths["/events"]["get"]["parameters"]["query"];
+
 export type User =
   paths["/auth/me"]["get"]["responses"][200]["content"]["application/json"];
 

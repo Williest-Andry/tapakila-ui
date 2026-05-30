@@ -1,12 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "../client";
+import { EventsFilters } from "@/types/api.types";
 
-export function useEvents(params?: {
-  search?: string;
-  categoryId?: string;
-  page?: number;
-  limit?: number;
-}) {
+export function useEvents(params?: EventsFilters) {
   return useQuery({
     queryKey: ["events", params],
     queryFn: async () => {
@@ -16,7 +12,6 @@ export function useEvents(params?: {
       if (error) throw error;
       return data;
     },
-    staleTime: 2 * 60 * 1000,
   });
 }
 
