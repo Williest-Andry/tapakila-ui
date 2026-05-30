@@ -2,7 +2,6 @@
 
 import { Avatar, Box, HStack, IconButton, Input, Text } from "@chakra-ui/react";
 import { InputGroup } from "@/components/ui/input-group";
-import { ColorModeToggle } from "@/components/color-mode-toggle";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
