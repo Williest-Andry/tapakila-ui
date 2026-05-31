@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Provider from "./components/provider";
-import Navbar from "@/app/components/layout/navbar/navbar";
-import Footer from "@/app/components/layout/footer";
+import Navbar from "@/components/layout/navbar/navbar";
+import Footer from "@/components/layout/footer";
 import { Box } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
