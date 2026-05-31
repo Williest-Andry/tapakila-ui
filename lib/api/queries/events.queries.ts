@@ -1,8 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "../client";
 import { EventsFilters } from "@/types/api.types";
-import { ClientPathsWithMethod } from "openapi-fetch";
-import { paths } from "../schema";
 
 export function useEvents(params?: EventsFilters) {
   return useQuery({
