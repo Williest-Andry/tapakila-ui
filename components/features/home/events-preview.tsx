@@ -10,7 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import EventCard from "@/app/components/events/event-card";
+import EventCard from "@/components/features/event/event-card";
 import { EventsGridSkeleton } from "@/components/ui/skeletons";
 import { useEvents } from "@/lib/api/queries/events.queries";
 

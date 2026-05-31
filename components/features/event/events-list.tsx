@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Center, Grid, Text, Accordion } from "@chakra-ui/react";
-import EventCard from "@/app/components/events/event-card";
+import EventCard from "@/components/features/event/event-card";
 import EventsFilters from "./events-filters";
 import { EventsGridSkeleton } from "@/components/ui/skeletons";
 import { useEvents } from "@/lib/api/queries/events.queries";
