@@ -43,7 +43,7 @@ export default function EventsPreview() {
             Upcoming events
           </Heading>
           <Text color="text" fontSize="sm">
-            Don't miss our upcoming events
+            {"Don't miss our upcoming events"}
           </Text>
         </Box>
 
