@@ -37,8 +37,20 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            accessToken: string;
-                            refreshToken: string;
+                            tokens: {
+                                accessToken: string;
+                                refreshToken: string;
+                            };
+                            user: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: email */
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                /** @enum {string} */
+                                role: "USER" | "ORGANIZER" | "ADMIN";
+                            };
                         };
                     };
                 };
@@ -272,15 +284,19 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            data: {
+                            tokens: {
+                                accessToken: string;
+                                refreshToken: string;
+                            };
+                            user: {
+                                /** Format: uuid */
+                                id: string;
                                 /** Format: email */
                                 email: string;
                                 firstName: string;
                                 lastName: string;
-                            };
-                            tokens: {
-                                accessToken: string;
-                                refreshToken: string;
+                                /** @enum {string} */
+                                role: "USER" | "ORGANIZER" | "ADMIN";
                             };
                         };
                     };
