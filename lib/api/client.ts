@@ -1,10 +1,10 @@
 import createClient, { type Middleware } from "openapi-fetch";
 import type { paths } from "./schema.d";
-import "dotenv/config";
+import Cookies from "js-cookie";
 
 const authMiddleware: Middleware = {
   async onRequest({ request }) {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = Cookies.get("accessToken");
 
     if (accessToken) {
       request.headers.set("Authorization", `Bearer ${accessToken}`);
@@ -15,7 +15,7 @@ const authMiddleware: Middleware = {
 
   async onResponse({ response, request }) {
     if (response.status === 401) {
-      const refreshToken = localStorage.getItem("refreshToken");
+      const refreshToken = Cookies.get("refreshToken");
       if (!refreshToken) return response;
 
       const refreshRes = await fetch(
@@ -31,8 +31,16 @@ const authMiddleware: Middleware = {
         const { accessToken: newAccess, refreshToken: newRefresh } =
           await refreshRes.json();
 
-        localStorage.setItem("accessToken", newAccess);
-        localStorage.setItem("refreshToken", newRefresh);
+        Cookies.set("accessToken", newAccess, {
+          expires: 7,
+          secure: true,
+          sameSite: "strict",
+        });
+        Cookies.set("refreshToken", newRefresh, {
+          expires: 7,
+          secure: true,
+          sameSite: "strict",
+        });
 
         const newRequest = new Request(request, {
           headers: new Headers(request.headers),
@@ -40,8 +48,8 @@ const authMiddleware: Middleware = {
         newRequest.headers.set("Authorization", `Bearer ${newAccess}`);
         return fetch(newRequest);
       } else {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
+        Cookies.remove("accessToken");
+        Cookies.remove("refreshToken");
         window.location.href = "/login";
       }
     }

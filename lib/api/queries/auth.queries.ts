@@ -2,9 +2,34 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { apiClient } from "../client";
 import { useAuthStore } from "@/store/auth.store";
+import { RegisterUser } from "@/types/api.types";
+
+export function useRegister() {
+  const { setTokens, setUser } = useAuthStore();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: async (body: RegisterUser) => {
+      const { data, error } = await apiClient.POST("/auth/register", { body });
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: (data) => {
+      setTokens(data.tokens.accessToken, data.tokens.refreshToken);
+      setUser({
+        id: data.user.id,
+        email: data.user.email,
+        firstName: data.user.firstName,
+        lastName: data.user.lastName,
+        role: "USER",
+      });
+      router.push("/events");
+    },
+  });
+}
 
 export function useLogin() {
-  const { setTokens } = useAuthStore();
+  const { setTokens, setUser } = useAuthStore();
   const router = useRouter();
 
   return useMutation({
@@ -16,27 +41,16 @@ export function useLogin() {
       return data;
     },
     onSuccess: (data) => {
-      setTokens(data.accessToken, data.refreshToken);
-      router.push("/dashboard");
+      setTokens(data.tokens.accessToken, data.tokens.refreshToken);
+      setUser({
+        id: data.user.id,
+        email: data.user.email,
+        firstName: data.user.firstName,
+        lastName: data.user.lastName,
+        role: "USER",
+      });
+      router.push("/events");
     },
-  });
-}
-
-export function useRegister() {
-  const router = useRouter();
-
-  return useMutation({
-    mutationFn: async (body: {
-      email: string;
-      firstName: string;
-      lastName: string;
-      password: string;
-    }) => {
-      const { data, error } = await apiClient.POST("/auth/register", { body });
-      if (error) throw error;
-      return data;
-    },
-    onSuccess: () => router.push("/login"),
   });
 }
 

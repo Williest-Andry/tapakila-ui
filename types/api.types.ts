@@ -8,6 +8,13 @@ export type EventsFilters = paths["/events"]["get"]["parameters"]["query"];
 export type User =
   paths["/auth/me"]["get"]["responses"][200]["content"]["application/json"];
 
+export type RegisterUser = NonNullable<
+  paths["/auth/register"]["post"]["requestBody"]
+>["content"]["application/json"];
+
+export type AuthUser =
+  paths["/auth/login"]["post"]["responses"][200]["content"]["application/json"]["user"];
+
 export type TicketType =
   paths["/events/{eventId}/ticket-types"]["get"]["responses"][200]["content"]["application/json"][number];
 
