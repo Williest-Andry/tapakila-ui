@@ -1,42 +1,39 @@
 import { create } from "zustand";
+import Cookies from "js-cookie";
+import { AuthUser } from "@/types/api.types";
 
-interface User {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  role: "USER" | "ORGANIZER" | "ADMIN";
-}
+const COOKIE_OPTIONS = {
+  expires: 7,
+  secure: true,
+  sameSite: "strict" as const,
+};
 
 interface AuthStore {
-  user: User | null;
+  user: AuthUser | null;
   accessToken: string | null;
   refreshToken: string | null;
-
   setTokens: (accessToken: string, refreshToken: string) => void;
-  setUser: (user: User) => void;
+  setUser: (user: AuthUser) => void;
   logout: () => void;
   isAuthenticated: () => boolean;
 }
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
   user: null,
-  accessToken:
-    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null,
-  refreshToken:
-    typeof window !== "undefined" ? localStorage.getItem("refreshToken") : null,
+  accessToken: Cookies.get("accessToken") ?? null,
+  refreshToken: Cookies.get("refreshToken") ?? null,
 
   setTokens: (accessToken, refreshToken) => {
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
+    Cookies.set("accessToken", accessToken, COOKIE_OPTIONS);
+    Cookies.set("refreshToken", refreshToken, COOKIE_OPTIONS);
     set({ accessToken, refreshToken });
   },
 
   setUser: (user) => set({ user }),
 
   logout: () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    Cookies.remove("accessToken");
+    Cookies.remove("refreshToken");
     set({ user: null, accessToken: null, refreshToken: null });
   },
 
