@@ -49,7 +49,11 @@ export function useLogin() {
         lastName: data.user.lastName,
         role: "USER",
       });
-      router.push("/events");
+      const redirectTo =
+        typeof window !== "undefined"
+          ? new URLSearchParams(window.location.search).get("redirect")
+          : null;
+      router.push(redirectTo?.startsWith("/") ? redirectTo : "/events");
     },
   });
 }

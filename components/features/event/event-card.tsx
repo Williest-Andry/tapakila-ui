@@ -10,7 +10,7 @@ interface EventCardProps {
 
 export default function EventCard({ event }: EventCardProps) {
   return (
-    <Link href={`/events/${event.id}`} style={{ display: "block" }}>
+    <Link href={`/event/${event.id}`} style={{ display: "block" }}>
       <Box
         borderRadius="xl"
         overflow="hidden"

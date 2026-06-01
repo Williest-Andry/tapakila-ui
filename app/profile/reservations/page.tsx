@@ -1,136 +1,154 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { toaster } from "@/components/ui/toaster";
+import { getApiErrorMessage } from "@/lib/api/errors";
+import { useBookings, useCancelBooking } from "@/lib/api/queries/bookings.queries";
+import { formatDate } from "@/lib/format-date";
+import { Booking } from "@/types/api.types";
 import {
-  Box,
-  Heading,
-  VStack,
-  Text,
   Badge,
+  Box,
   Button,
+  Center,
+  Heading,
   HStack,
   Icon,
   Link,
+  Spinner,
+  Stack,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { toaster } from "@/components/ui/toaster"
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Reservation = any;
-import getUserReservations from "@/lib/reservations/getUserReservations";
-import deleteReservation from "@/lib/reservations/deleteReservation";
-import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 
+function canCancelReservation(reservation: Booking) {
+  return reservation.status === "CONFIRMED" && new Date(reservation.eventDate) > new Date();
+}
+
 export default function ReservationsPage() {
-  const [reservations, setReservations] = useState<Reservation[]>([]);
-  const router = useRouter();
+  const { data, isPending, error } = useBookings({ limit: 100, page: 1 });
+  const cancelBooking = useCancelBooking();
+  const reservations = [...(data?.data ?? [])].sort(
+    (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime(),
+  );
 
-  useEffect(() => {
-    async function fetchData() {
-        try {
-            const fetchReservations: Reservation[] = await getUserReservations(localStorage.getItem("userId") || "");
-            if (!fetchReservations) {
-                throw new Error("No reservations found.");
-            }
-            if (fetchReservations.length > 0) {
-                fetchReservations.sort((a, b) => new Date(b.eventDateTime).getTime() - new Date(a.eventDateTime).getTime());
-            }
-            setReservations(fetchReservations);
-        } catch (error) {
-            console.error("Error fetching reservations:", error);
-        }
-    }
-
-    fetchData();
-  }, [router]);
-
-  const cancelReservation = (id: number) => {
+  const cancelReservation = async (reservation: Booking) => {
     try {
-      const timeOutId = setTimeout(() => {
-        deleteReservation(id);
-      }, 3000);
-      setReservations((prev) => prev.filter((reservation) => reservation.id !== id));
-
+      await cancelBooking.mutateAsync(reservation.id);
       toaster.success({
         title: "Reservation cancelled",
         description: "Your reservation has been successfully cancelled.",
-        action: {
-          label: "Undo",
-          onClick: () => { clearTimeout(timeOutId);
-                            setReservations((prev) => {
-                              const foundReservation = reservations.find(res => res.id === id);
-                              return foundReservation ? [...prev, foundReservation] : prev;
-                            });
-                          },
-        },
-        duration: 3000,
       });
-    } catch (error) {
-      console.error("Error cancelling reservation:", error);
+    } catch (cancelError) {
       toaster.error({
         title: "Error",
-        description: "An error occurred while cancelling the reservation.",
+        description: getApiErrorMessage(
+          cancelError,
+          "An error occurred while cancelling the reservation.",
+        ),
       });
     }
   };
 
   return (
     <>
-      <Link href="/profile" mt={5} mb={5}>
-        <Button ><Icon><FaArrowLeft /></Icon></Button>
+      <Link href="/profile" mt={5} mb={5} display="inline-flex">
+        <Button>
+          <Icon>
+            <FaArrowLeft />
+          </Icon>
+        </Button>
       </Link>
       <Box maxW="90dvw" mx="auto" mt={5} p={5} borderWidth="1px" borderRadius="md">
-      <Heading as="h2" size="2xl" textAlign="center" mb={4}>
-        My reservations
-      </Heading>
+        <Heading as="h2" size="2xl" textAlign="center" mb={4}>
+          My reservations
+        </Heading>
 
-      <VStack gap={4}>
-        {reservations.map((reservation) => (
-          <motion.div
-            key={reservation.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            whileHover={{ scale: 1.02 }}
-            style={{ width: "100%" }}
-          >
-            <Box
-              p={4}
-              borderWidth="1px"
-              borderRadius="lg"
-              shadow="md"
-              w="full"
-              bg={"white"}
-              _dark={{ bg: "gray.900" }}
-            >
-              <HStack justify="space-between">
-                <VStack align="start">
-                  <Text fontSize="xl" fontWeight="bold">
-                    {reservation.eventTitle}
-                  </Text>
-                  <Text fontSize="sm" fontWeight="bold">
-                    {reservation.eventDateTime}
-                  </Text>
-                  <Text fontSize="sm" fontWeight="bold">
-                    {reservation.eventLocation}
-                  </Text>
-                  <Badge colorScheme={reservation.ticketType === "vip" ? "purple" : reservation.ticketType === "standard" ? "orange" : "blue"}>
-                    {reservation.ticketType}
-                  </Badge>
-                  <Text fontSize="sm">Quantity : <strong>{reservation.quantity}</strong></Text>
-                </VStack>
-                <VStack>
-                <Button size="lg" colorScheme="red" onClick={() => cancelReservation(reservation.id)} _hover={{ bg: "red" }} disabled={new Date(`${reservation.eventDateTime.split(" ")[0]}T${reservation.eventDateTime.split(" ")[1]}Z`).toISOString() < new Date().toISOString()}>
-                    Cancel
-                </Button>
-                </VStack>
-              </HStack>
-            </Box>
-          </motion.div>
-        ))}
-      </VStack>
-    </Box>
+        {isPending ? (
+          <Center py={16} flexDirection="column" gap={4}>
+            <Spinner size="xl" />
+            <Text>Loading reservations...</Text>
+          </Center>
+        ) : error ? (
+          <Center py={16}>
+            <Text color="red.500">Unable to load reservations.</Text>
+          </Center>
+        ) : reservations.length === 0 ? (
+          <Center py={16}>
+            <Text color="gray.500">No reservations yet.</Text>
+          </Center>
+        ) : (
+          <VStack gap={4}>
+            {reservations.map((reservation) => {
+              const cancellable = canCancelReservation(reservation);
+
+              return (
+                <motion.div
+                  key={reservation.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  whileHover={{ scale: 1.02 }}
+                  style={{ width: "100%" }}
+                >
+                  <Box
+                    p={4}
+                    borderWidth="1px"
+                    borderRadius="lg"
+                    shadow="md"
+                    w="full"
+                    bg="white"
+                    _dark={{ bg: "gray.900" }}
+                  >
+                    <HStack justify="space-between" align="start" gap={6}>
+                      <VStack align="start" gap={2}>
+                        <HStack gap={3} wrap="wrap">
+                          <Text fontSize="xl" fontWeight="bold">
+                            {reservation.eventTitle}
+                          </Text>
+                          <Badge colorPalette={reservation.status === "CONFIRMED" ? "green" : "red"}>
+                            {reservation.status}
+                          </Badge>
+                        </HStack>
+                        <Text fontSize="sm" fontWeight="bold">
+                          {formatDate(reservation.eventDate)}
+                        </Text>
+                        <Stack gap={1}>
+                          {reservation.items.map((item) => (
+                            <Text fontSize="sm" key={item.id}>
+                              {item.ticketTypeName}: <strong>{item.quantity}</strong> × $ {item.unitPrice}
+                            </Text>
+                          ))}
+                        </Stack>
+                        <Text fontSize="sm">
+                          Total: <strong>$ {reservation.totalPrice.toFixed(2)}</strong>
+                        </Text>
+                      </VStack>
+                      <VStack>
+                        <Button
+                          size="lg"
+                          colorPalette="red"
+                          onClick={() => cancelReservation(reservation)}
+                          disabled={!cancellable || cancelBooking.isPending}
+                          loading={cancelBooking.isPending}
+                        >
+                          Cancel
+                        </Button>
+                        {!cancellable && reservation.status === "CONFIRMED" && (
+                          <Text color="gray.500" fontSize="xs" textAlign="center">
+                            Past events cannot be cancelled.
+                          </Text>
+                        )}
+                      </VStack>
+                    </HStack>
+                  </Box>
+                </motion.div>
+              );
+            })}
+          </VStack>
+        )}
+      </Box>
     </>
-    
   );
 }
