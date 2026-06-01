@@ -156,7 +156,7 @@ export default function LoginPage() {
         </form>
 
         <Text textAlign="center" fontSize="sm" color="text" mt={6}>
-          Don't have an account yet?{" "}
+          {"Don't have an account yet? "}
           <Link href="/register">
             <Text
               as="span"

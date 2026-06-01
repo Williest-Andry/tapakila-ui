@@ -56,7 +56,7 @@ export default function RegisterPage() {
       return;
     }
 
-    const { confirmPassword: _, ...body } = result.data;
+    const { confirmPassword, ...body } = result.data;
     register(body);
   };
 
