@@ -56,6 +56,7 @@ export function useLogin() {
 
 export function useMe() {
   const { isAuthenticated, setUser } = useAuthStore();
+  const authenticated = isAuthenticated();
 
   return useQuery({
     queryKey: ["auth", "me"],
@@ -65,8 +66,9 @@ export function useMe() {
       setUser(data);
       return data;
     },
-    enabled: isAuthenticated(),
+    enabled: authenticated,
     staleTime: 5 * 60 * 1000,
+    retry: false,
   });
 }
 

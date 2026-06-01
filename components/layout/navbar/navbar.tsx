@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useAuthStore } from "@/store/auth.store";
-import { useLogout } from "@/lib/api/queries/auth.queries";
+import { useLogout, useMe } from "@/lib/api/queries/auth.queries";
 import NavigationLink from "./navigation-link";
 
 export default function Navbar() {
@@ -16,6 +16,8 @@ export default function Navbar() {
   const router = useRouter();
   const { user, isAuthenticated } = useAuthStore();
   const { mutate: logout } = useLogout();
+
+  useMe();
 
   const handleSearch = () => {
     const q = searchQuery.trim();
