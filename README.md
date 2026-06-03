@@ -118,4 +118,4 @@ L'application est disponible sur `http://localhost:3001`
 ## Auteur
 
 **Williest ANDRY NY AINA**
-[GitHub](https://github.com/Williest-Andry) · [LinkedIn](https://www.linkedin.com/in/williest-andry-ny-aina-2798a5337/)
+[GitHub](https://github.com/Williest-Andry) · [LinkedIn](https://www.linkedin.com/in/williest-andry)
