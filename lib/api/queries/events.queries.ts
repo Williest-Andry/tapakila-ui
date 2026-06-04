@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client";
-import { EventsFilters } from "@/types/api.types";
+import type { CreateBooking, EventsFilters } from "@/types/api.types";
 
 export function useEvents(params?: EventsFilters) {
   return useQuery({
@@ -19,12 +19,18 @@ export function useEvent(id: string) {
   return useQuery({
     queryKey: ["events", id],
     queryFn: async () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { data, error } = await apiClient.GET("/events/{id}" as any, {
-        params: { path: { id } },
+      const { data, error } = await apiClient.GET("/events", {
+        params: {
+          query: {
+            status: "PUBLISHED",
+            limit: 100,
+          },
+        },
       });
       if (error) throw error;
-      return data;
+
+      const events = Array.isArray(data) ? data : (data?.data ?? []);
+      return events.find((event) => event.id === id) ?? null;
     },
     enabled: !!id,
   });
@@ -42,5 +48,24 @@ export function useTicketTypes(eventId: string) {
       return data;
     },
     enabled: !!eventId,
+  });
+}
+
+export function useCreateBooking(eventId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (body: CreateBooking) => {
+      const { data, error } = await apiClient.POST("/bookings", { body });
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: ["events", eventId, "ticket-types"],
+      });
+      void queryClient.invalidateQueries({ queryKey: ["events", eventId] });
+      void queryClient.invalidateQueries({ queryKey: ["bookings"] });
+    },
   });
 }
