@@ -34,3 +34,7 @@ export type PaginatedResponse<T> = {
   data: T[];
   meta: PaginatedMeta;
 };
+
+export type CreateBooking = NonNullable<
+  paths["/bookings"]["post"]["requestBody"]
+>["content"]["application/json"];

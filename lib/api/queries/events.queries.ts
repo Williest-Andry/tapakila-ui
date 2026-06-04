@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client";
-import { EventsFilters } from "@/types/api.types";
+import type { CreateBooking, EventsFilters } from "@/types/api.types";
 
 export function useEvents(params?: EventsFilters) {
   return useQuery({
@@ -24,6 +24,7 @@ export function useEvent(id: string) {
         params: { path: { id } },
       });
       if (error) throw error;
+
       return data;
     },
     enabled: !!id,
