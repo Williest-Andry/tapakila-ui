@@ -37,20 +37,8 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            tokens: {
-                                accessToken: string;
-                                refreshToken: string;
-                            };
-                            user: {
-                                /** Format: uuid */
-                                id: string;
-                                /** Format: email */
-                                email: string;
-                                firstName: string;
-                                lastName: string;
-                                /** @enum {string} */
-                                role: "USER" | "ORGANIZER" | "ADMIN";
-                            };
+                            accessToken: string;
+                            refreshToken: string;
                         };
                     };
                 };
@@ -284,19 +272,15 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            tokens: {
-                                accessToken: string;
-                                refreshToken: string;
-                            };
-                            user: {
-                                /** Format: uuid */
-                                id: string;
+                            data: {
                                 /** Format: email */
                                 email: string;
                                 firstName: string;
                                 lastName: string;
-                                /** @enum {string} */
-                                role: "USER" | "ORGANIZER" | "ADMIN";
+                            };
+                            tokens: {
+                                accessToken: string;
+                                refreshToken: string;
                             };
                         };
                     };
@@ -1774,6 +1758,155 @@ export interface paths {
                 };
             };
         };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/events/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Event retrieved */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            title: string;
+                            description: string | null;
+                            location: string;
+                            eventDate: string;
+                            imageUrl: string | null;
+                            /** @enum {string} */
+                            status: "DRAFT" | "PUBLISHED" | "CANCELLED";
+                            createdAt: string;
+                            updatedAt: string;
+                            category: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                slug: string;
+                            };
+                            organizer: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: email */
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                            };
+                            ticketTypes: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                price: number;
+                                totalSeats: number;
+                                availableSeats: number;
+                                maxPerUser: number;
+                                isActive: boolean;
+                                /** Format: uuid */
+                                eventId: string;
+                                createdAt: string;
+                                updatedAt: string;
+                            }[];
+                        };
+                    };
+                };
+                /** @description Validation error */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
+                };
+                /** @description Authentication required */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
+                };
+                /** @description Forbidden */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
+                };
+                /** @description Resource not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
+                };
+                /** @description Conflict */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                            errors?: unknown;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;

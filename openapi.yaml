@@ -6,7 +6,7 @@ info:
 servers:
   - url: http://localhost:3000
     description: Development
-  - url: "https://tapakila-api-production.up.railway.app"
+  - url: https://tapakila-api-production.up.railway.app
     description: Production
 components:
   securitySchemes:
