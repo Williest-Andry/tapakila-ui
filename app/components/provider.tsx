@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import { useState } from "react";
 import { system } from "@/lib/theme";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function Provider({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -21,6 +22,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
       <ChakraProvider value={system}>
         <ThemeProvider attribute="class" disableTransitionOnChange>
           {children}
+          <Toaster />
         </ThemeProvider>
       </ChakraProvider>
     </QueryClientProvider>
