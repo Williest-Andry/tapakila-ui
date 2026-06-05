@@ -4,17 +4,11 @@ import Link from "next/link";
 export default function NavigationLink() {
   return (
     <HStack>
-      <ChakraLink asChild>
+      <ChakraLink asChild focusRing="none">
         <Link href={"/"}>Home</Link>
       </ChakraLink>
-      <ChakraLink asChild>
+      <ChakraLink asChild focusRing="none">
         <Link href={"/events"}>Events</Link>
-      </ChakraLink>
-      <ChakraLink asChild>
-        <Link href={"/about"}>about</Link>
-      </ChakraLink>
-      <ChakraLink asChild>
-        <Link href={"/contact"}>Contact</Link>
       </ChakraLink>
     </HStack>
   );
