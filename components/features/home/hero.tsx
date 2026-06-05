@@ -1,7 +1,22 @@
+"use client";
+
+import { useAuthStore } from "@/store/auth.store";
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
+  const { isAuthenticated } = useAuthStore();
+  const [linkHref, setLinkHref] = useState("/register");
+  const [linkText, setLinkText] = useState("Create an account");
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      setLinkHref("/dashboard");
+      setLinkText("My profile");
+    }
+  }, []);
+
   return (
     <Box
       position="relative"
@@ -100,7 +115,7 @@ export default function Hero() {
             </Button>
           </Link>
 
-          <Link href="/register">
+          <Link href={linkHref}>
             <Button
               size="lg"
               variant="outline"
@@ -112,7 +127,7 @@ export default function Hero() {
               transition="all 0.2s"
               w={{ base: "full", sm: "auto" }}
             >
-              Create an account
+              {linkText}
             </Button>
           </Link>
         </Flex>
