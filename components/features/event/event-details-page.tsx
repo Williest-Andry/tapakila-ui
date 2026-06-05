@@ -118,7 +118,8 @@ export default function EventDetailsPage({ eventId }: EventDetailsPageProps) {
     0,
   );
 
-  const isUserAllowedToBook = isAuthenticated() && currentUser?.role !== "USER";
+  const isUserAllowedToBook =
+    isAuthenticated() && currentUser?.role !== "ADMIN";
 
   const handleQuantityChange = (ticket: TicketType, value: string) => {
     const numericValue = value === "" ? 0 : Number(value);
@@ -441,7 +442,7 @@ export default function EventDetailsPage({ eventId }: EventDetailsPageProps) {
               disabled={
                 ticketTypes.length === 0 ||
                 createBooking.isPending ||
-                (!isAuthenticated() ? false : !isUserAllowedToBook)
+                !isUserAllowedToBook
               }
               loading={createBooking.isPending}
             >

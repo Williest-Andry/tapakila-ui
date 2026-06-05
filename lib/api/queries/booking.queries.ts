@@ -1,5 +1,5 @@
-import { CreateBooking } from "@/types/api.types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { BookingParams, CreateBooking } from "@/types/api.types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/lib/api/client";
 
 export function useCreateBooking(eventId: string) {
@@ -16,6 +16,37 @@ export function useCreateBooking(eventId: string) {
         queryKey: ["events", eventId, "ticket-types"],
       });
       queryClient.invalidateQueries({ queryKey: ["events", eventId] });
+      queryClient.invalidateQueries({ queryKey: ["bookings"] });
+    },
+  });
+}
+
+export function useBookings(params?: BookingParams) {
+  return useQuery({
+    queryKey: ["bookings", params],
+    queryFn: async () => {
+      const { data, error } = await apiClient.GET("/bookings", {
+        params: { query: params },
+      });
+      if (error) throw error;
+      return data;
+    },
+    staleTime: 2 * 60 * 1000,
+  });
+}
+
+export function useCancelBooking() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (bookingId: string) => {
+      const { data, error } = await apiClient.PATCH("/bookings/{id}/cancel", {
+        params: { path: { id: bookingId } },
+      });
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bookings"] });
     },
   });
