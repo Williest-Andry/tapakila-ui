@@ -46,7 +46,7 @@ export default function BookingsList() {
           flexDirection="column"
           gap={3}
         >
-          <Text color="text">You don't have a booking yet.</Text>
+          <Text color="text">{"You don't have a booking yet."}</Text>
           <Link href="/events">
             <Button size="sm" colorPalette="purple" variant="outline">
               Explore events
