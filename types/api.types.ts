@@ -38,3 +38,9 @@ export type PaginatedResponse<T> = {
 export type CreateBooking = NonNullable<
   paths["/bookings"]["post"]["requestBody"]
 >["content"]["application/json"];
+
+export type BookingParams = paths["/bookings"]["get"]["parameters"]["query"];
+
+export type UpdateMe = NonNullable<
+  paths["/users/me"]["patch"]["requestBody"]
+>["content"]["application/json"];

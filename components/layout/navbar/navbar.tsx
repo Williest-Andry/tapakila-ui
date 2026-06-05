@@ -98,7 +98,7 @@ export default function Navbar() {
                 variant="ghost"
                 rounded="full"
                 aria-label="My profile"
-                onClick={() => router.push("/dashboard/profile")}
+                onClick={() => router.push("/dashboard")}
               >
                 <Avatar.Root size="sm" variant="subtle" colorPalette="purple">
                   <Avatar.Fallback>
