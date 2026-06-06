@@ -1,13 +1,13 @@
 "use client";
 
-import { useBookings } from "@/lib/api/queries/booking.queries";
+import { useMyBookings } from "@/lib/api/queries/booking.queries";
 import type { Booking } from "@/types/api.types";
 import { Box, Button, Center, Heading, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import BookingCard from "@/components/features/dashboard/booking-card";
 
 export default function BookingsList() {
-  const { data, isPending, error } = useBookings({ limit: 50 });
+  const { data, isPending, error } = useMyBookings();
 
   const bookings: Booking[] = Array.isArray(data) ? data : (data?.data ?? []);
 

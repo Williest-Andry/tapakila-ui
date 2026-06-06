@@ -1,6 +1,6 @@
+import { apiClient } from "@/lib/api/client";
 import { BookingParams, CreateBooking } from "@/types/api.types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { apiClient } from "@/lib/api/client";
 
 export function useCreateBooking(eventId: string) {
   const queryClient = useQueryClient();
@@ -49,5 +49,17 @@ export function useCancelBooking() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bookings"] });
     },
+  });
+}
+
+export function useMyBookings() {
+  return useQuery({
+    queryKey: ["bookings", "me"],
+    queryFn: async () => {
+      const { data, error } = await apiClient.GET("/bookings/me");
+      if (error) throw error;
+      return data;
+    },
+    staleTime: 2 * 60 * 1000,
   });
 }
