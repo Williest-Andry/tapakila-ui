@@ -1,11 +1,12 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { apiClient } from "../client";
 import { useAuthStore } from "@/store/auth.store";
 import { RegisterUser } from "@/types/api.types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { apiClient } from "../client";
 
 export function useRegister() {
   const { setTokens, setUser } = useAuthStore();
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   return useMutation({
@@ -15,6 +16,7 @@ export function useRegister() {
       return data;
     },
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
       setTokens(data.tokens.accessToken, data.tokens.refreshToken);
       setUser({
         id: data.user.id,
@@ -30,6 +32,7 @@ export function useRegister() {
 
 export function useLogin() {
   const { setTokens, setUser } = useAuthStore();
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   return useMutation({
@@ -41,6 +44,7 @@ export function useLogin() {
       return data;
     },
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
       setTokens(data.tokens.accessToken, data.tokens.refreshToken);
       setUser({
         id: data.user.id,
@@ -74,6 +78,7 @@ export function useMe() {
 
 export function useLogout() {
   const { logout, refreshToken } = useAuthStore();
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   return useMutation({
@@ -82,6 +87,7 @@ export function useLogout() {
       await apiClient.POST("/auth/logout", { body: { refreshToken } });
     },
     onSettled: () => {
+      queryClient.clear();
       logout();
       router.push("/login");
     },
