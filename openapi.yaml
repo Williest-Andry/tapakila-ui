@@ -6,7 +6,7 @@ info:
 servers:
   - url: http://localhost:3000
     description: Development
-  - url: https://tapakila-api-production.up.railway.app
+  - url: "https://tapakila-api-production.up.railway.app"
     description: Production
 components:
   securitySchemes:
@@ -3751,6 +3751,182 @@ paths:
                   - userId
                   - items
                   - totalPrice
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    nullable: true
+                required:
+                  - message
+  /bookings/me:
+    get:
+      tags:
+        - Bookings
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: My Bookings retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        status:
+                          type: string
+                        createdAt:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                        updatedAt:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                        eventId:
+                          type: string
+                          format: uuid
+                        eventTitle:
+                          type: string
+                        eventDate:
+                          anyOf:
+                            - type: string
+                              format: date-time
+                            - type: string
+                              format: date-time
+                        userId:
+                          type: string
+                          format: uuid
+                        items:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                              quantity:
+                                type: integer
+                              unitPrice:
+                                type: number
+                              ticketTypeId:
+                                type: string
+                                format: uuid
+                              ticketTypeName:
+                                type: string
+                            required:
+                              - id
+                              - quantity
+                              - unitPrice
+                              - ticketTypeId
+                              - ticketTypeName
+                        totalPrice:
+                          type: number
+                      required:
+                        - id
+                        - status
+                        - createdAt
+                        - updatedAt
+                        - eventId
+                        - eventTitle
+                        - eventDate
+                        - userId
+                        - items
+                        - totalPrice
+                  meta:
+                    type: object
+                    properties:
+                      page:
+                        type: number
+                      limit:
+                        type: number
+                      total:
+                        type: number
+                required:
+                  - data
+                  - meta
         "400":
           description: Validation error
           content:
