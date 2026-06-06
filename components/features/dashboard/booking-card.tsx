@@ -10,6 +10,7 @@ import {
   Separator,
   Stack,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { FaCalendarAlt, FaTicketAlt } from "react-icons/fa";
@@ -68,13 +69,18 @@ export default function BookingCard({ booking }: { booking: Booking }) {
             </Text>
           </HStack>
         </Box>
-        <Badge
-          colorPalette={isConfirmed ? "green" : "red"}
-          variant="subtle"
-          flexShrink={0}
-        >
-          {isConfirmed ? "Confirmée" : "Annulée"}
-        </Badge>
+        <VStack align={"end"}>
+          <Text fontSize="xs" color="text">
+            Reference : {booking.id}
+          </Text>
+          <Badge
+            colorPalette={isConfirmed ? "green" : "red"}
+            variant="subtle"
+            flexShrink={0}
+          >
+            {isConfirmed ? "Confirmed" : "Canceled"}
+          </Badge>
+        </VStack>
       </Flex>
 
       <Separator mb={3} />
