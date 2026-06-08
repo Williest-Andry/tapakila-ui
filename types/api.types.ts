@@ -44,3 +44,15 @@ export type BookingParams = paths["/bookings"]["get"]["parameters"]["query"];
 export type UpdateMe = NonNullable<
   paths["/users/me"]["patch"]["requestBody"]
 >["content"]["application/json"];
+
+export type CreateTicketType = NonNullable<
+  paths["/events/{eventId}/ticket-types"]["post"]["requestBody"]
+>["content"]["application/json"];
+
+export type CreateEvent = NonNullable<
+  paths["/events"]["post"]["requestBody"]
+>["content"]["application/json"];
+
+export type UpdateEventStatus = NonNullable<
+  paths["/events/{id}/status"]["patch"]["requestBody"]
+>["content"]["application/json"]["status"];

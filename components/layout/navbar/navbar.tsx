@@ -91,7 +91,6 @@ export default function Navbar() {
           >
             <FaSearch />
           </IconButton>
-
           {isAuthenticated() && user ? (
             <HStack gap={2}>
               <IconButton
@@ -127,6 +126,19 @@ export default function Navbar() {
                 _hover={{ color: "brand.700" }}
               >
                 Login
+              </Text>
+            </Link>
+          )}
+
+          {(user?.role === "ORGANIZER" || user?.role === "ADMIN") && (
+            <Link href="/dashboard/events">
+              <Text
+                fontSize="sm"
+                fontWeight="medium"
+                color="text"
+                _hover={{ color: "brand.600" }}
+              >
+                My events
               </Text>
             </Link>
           )}
