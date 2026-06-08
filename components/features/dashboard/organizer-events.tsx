@@ -204,7 +204,7 @@ export default function OrganizerEvents() {
           flexDirection="column"
           gap={3}
         >
-          <Text color="text">You haven't created any events yet.</Text>
+          <Text color="text">{"You haven't created any events yet."}</Text>
           <Link href="/dashboard">
             <Button size="sm" colorPalette="purple" variant="outline">
               Create your first event
